@@ -26,4 +26,6 @@ node app.js
 [ISC License]
 
 [Ultimate]:https://en.wikipedia.org/wiki/Ultimate_(sport)
+[Leiningen]:http://leiningen.org
+[Node.js]:http://nodejs.org
 [ISC License]:LICENSE.md
