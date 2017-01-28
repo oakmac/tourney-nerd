@@ -1,0 +1,113 @@
+===== Description
+
+Basic Swiss Progression. Round 1 is finished and Round 2 should populate.
+
+===== Before
+
+{
+  "title": "Test Tournament",
+  "tiesAllowed": true,
+  "teams": {
+    "team1": "Team 1",
+    "team2": "Team 2",
+    "team3": "Team 3",
+    "team4": "Team 4"
+  },
+  "games": {
+    "game001": {
+      "group": "swiss-round-1",
+      "name": "Swiss Round 1, Game 1",
+      "scoreA": 9,
+      "scoreB": 4,
+      "status": "final",
+      "swiss-round": 1,
+      "teamA-id": "team1",
+      "teamB-id": "team2"
+    },
+    "game002": {
+      "group": "swiss-round-1",
+      "name": "Swiss Round 1, Game 2",
+      "scoreA": 6,
+      "scoreB": 4,
+      "status": "final",
+      "swiss-round": 1,
+      "teamA-id": "team3",
+      "teamB-id": "team4"
+    },
+    "game003": {
+      "group": "swiss-round-2",
+      "name": "Swiss Round 2, Game 1",
+      "scoreA": 0,
+      "scoreB": 0,
+      "status": "scheduled",
+      "swiss-round": 2,
+      "teamA-id": null,
+      "teamB-id": null
+    },
+    "game004": {
+      "group": "swiss-round-2",
+      "name": "Swiss Round 2, Game 2",
+      "scoreA": 0,
+      "scoreB": 0,
+      "status": "scheduled",
+      "swiss-round": 2,
+      "teamA-id": null,
+      "teamB-id": null
+    }
+  }
+}
+
+===== After
+
+{
+  "title": "Test Tournament",
+  "tiesAllowed": true,
+  "teams": {
+    "team1": "Team 1",
+    "team2": "Team 2",
+    "team3": "Team 3",
+    "team4": "Team 4"
+  },
+  "games": {
+    "game001": {
+      "group": "swiss-round-1",
+      "name": "Swiss Round 1, Game 1",
+      "scoreA": 9,
+      "scoreB": 4,
+      "status": "final",
+      "swiss-round": 1,
+      "teamA-id": "team1",
+      "teamB-id": "team2"
+    },
+    "game002": {
+      "group": "swiss-round-1",
+      "name": "Swiss Round 1, Game 2",
+      "scoreA": 6,
+      "scoreB": 4,
+      "status": "final",
+      "swiss-round": 1,
+      "teamA-id": "team3",
+      "teamB-id": "team4"
+    },
+    "game003": {
+      "group": "swiss-round-2",
+      "name": "Swiss Round 2, Game 1",
+      "scoreA": 0,
+      "scoreB": 0,
+      "status": "scheduled",
+      "swiss-round": 2,
+      "teamA-id": "team1",
+      "teamB-id": "team3"
+    },
+    "game004": {
+      "group": "swiss-round-2",
+      "name": "Swiss Round 2, Game 2",
+      "scoreA": 0,
+      "scoreB": 0,
+      "status": "scheduled",
+      "swiss-round": 2,
+      "teamA-id": "team4",
+      "teamB-id": "team2"
+    }
+  }
+}

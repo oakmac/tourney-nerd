@@ -14,7 +14,7 @@ Install [Leiningen] and [Node.js]
 # install node_modules (one-time)
 npm install
 
-# builds the app.js file
+# builds the tourney-nerd.js file
 lein clean && lein cljsbuild once
 
 # run the test cases

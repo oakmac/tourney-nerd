@@ -1,5 +1,6 @@
 (ns tourney-nerd.core
   (:require
+    [clojure.walk :refer [keywordize-keys]]
     [tourney-nerd.util :refer [js-log log half]]))
 
 ;;------------------------------------------------------------------------------
@@ -177,6 +178,14 @@
         sorted-results (sort compare-victory-points results)]
     (map-indexed #(assoc %2 :place (inc %1)) sorted-results)))
 
+(defn- js-games->results
+  "JavaScript wrapper around games->results"
+  [js-teams js-games]
+  ;; TODO: write me
+  nil)
+
+(js/goog.exportSymbol "calculateResults" js-games->results)
+
 ;;------------------------------------------------------------------------------
 ;; Determine Next Swiss Round Matchups
 ;;------------------------------------------------------------------------------
@@ -234,23 +243,61 @@
 ;; Tournament Advancer
 ;;------------------------------------------------------------------------------
 
+(defn- advance-swiss-round
+  "Advance a single Swiss Round if possible."
+  [all-games round-to-advance]
+  (let [games-in-this-round nil
+        games-in-the-next-round nil]
+    ;; TODO: write me
+    all-games))
+
+(defn- games->swiss-rounds
+  "Returns a set of the Swiss Rounds in games."
+  [games]
+  (reduce
+    (fn [rounds game]
+      (if (is-swiss-game? game)
+        (conj rounds (:swiss-round game))
+        rounds))
+    #{}
+    (vals games)))
+
+(defn- advance-swiss-games
+  "Given a tournament state, advances the Swiss games if possible."
+  [state]
+  (let [swiss-rounds-set (games->swiss-rounds (:games state))
+        swiss-rounds-list (-> swiss-rounds-set vec sort)]
+    ;; advance each round
+    (reduce
+      (fn [state round-num]
+        (let [all-games (:games state)
+              updated-games (advance-swiss-round all-games round-num)]
+          (assoc state :games updated-games)))
+      state
+      ;; the last swiss round cannot "advance"; ignore it
+      (drop-last swiss-rounds-list))))
+
+(defn- advance-bracket-games
+  "Given a tournament state, advances the Bracket games if possible."
+  [state]
+  ;; TODO: write me :)
+  state)
+
 (defn advance-tournament
   "Given a tournament state, tries to advance it.
    ie: calculates Swiss Round matchups, fills brackets, scores pools, etc"
   [state]
-  ;; TODO: write me :)
-  state)
+  (-> state
+      advance-swiss-games
+      advance-bracket-games))
 
 (defn- js-advance-tournament
   "JavaScript wrapper around advance-tournament"
   [js-state]
   (-> js-state
       js->clj
+      keywordize-keys
       advance-tournament
       clj->js))
-
-;;------------------------------------------------------------------------------
-;; JavaScript API
-;;------------------------------------------------------------------------------
 
 (js/goog.exportSymbol "advanceTournament" js-advance-tournament)
