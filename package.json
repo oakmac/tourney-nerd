@@ -1,0 +1,23 @@
+{
+  "author": "Chris Oakman <chris@oakmac.com> (http://chrisoakman.com/)",
+  "name": "tourney-nerd",
+  "description": "A library for handling rules for Ultimate tournaments.",
+  "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/oakmac/tourney-nerd.git"
+  },
+  "main": "tourney-nerd.js",
+  "engines": {
+    "node": "*"
+  },
+  "devDependencies": {
+    "assert": "1.4.1",
+    "kidif": "1.1.0",
+    "mocha": "3.2.0"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "license": "ISC"
+}

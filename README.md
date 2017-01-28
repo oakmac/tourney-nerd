@@ -1,6 +1,6 @@
 # Tourney Nerd
 
-A library for handling tournament logic for [Ultimate] tournaments.
+A library for handling rules for [Ultimate] tournaments.
 
 ## About
 
@@ -18,7 +18,7 @@ npm install
 lein clean && lein cljsbuild once
 
 # run the test cases
-node app.js
+npm test
 ```
 
 ## License

@@ -3,7 +3,7 @@ node_modules/
 
 # ignore CLJS-generated files
 target/
-app.js
+tourney-nerd.js
 
 # ignore diff files
 *.diff
