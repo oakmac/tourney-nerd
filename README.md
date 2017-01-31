@@ -1,6 +1,6 @@
 # Tourney Nerd
 
-A library for handling rules for [Ultimate] tournaments.
+A library for handling [Ultimate] tournament logic.
 
 ## About
 

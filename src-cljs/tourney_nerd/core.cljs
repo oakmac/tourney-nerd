@@ -37,8 +37,10 @@
 (defn is-swiss-game? [g]
   (integer? (:swiss-round g)))
 
+;; TODO: replace all instances of "finished" with "final"
 (defn game-finished? [game]
-  (= finished-status (:status game)))
+  (or (= finished-status (:status game))
+      (= "final" (:status game))))
 
 (defn valid-score? [score]
   (and (integer? score)
@@ -171,6 +173,7 @@
       :else
       0)))
 
+;; TODO: refactor this to not need teams; should extract team-ids from games
 (defn games->results
   "Creates a results list for all the teams."
   [teams games]
@@ -190,9 +193,11 @@
 ;; Determine Next Swiss Round Matchups
 ;;------------------------------------------------------------------------------
 
+;; TODO: pretty sure the loops in this function could be done cleaner as a reduce
 (defn create-matchups
   "Calculates the next Swiss round matchups.
-   Returns a set of sets, with the inner set being #{teamA-id teamB-id}"
+   Returns a vector of matchups. Each matchup is a vector of [teamA-id teamB-id]
+   The vectors are in-order. ie: the top team is at (ffirst) position"
   [teams games swiss-round]
   (let [;; find games below the target swiss round
         games-to-look-at (filter #(and (is-swiss-game? (second %))
@@ -210,8 +215,8 @@
         ;; list to pull team-ids from
         sorted-team-ids (atom (vec (map :team-id results)))
         num-matchups-to-create (half (count @sorted-team-ids))
-        ;; we will fill the new-matchups set until the sorted-team-ids list is empty
-        new-matchups (atom #{})]
+        ;; we will fill the new-matchups vector until the sorted-team-ids list is empty
+        new-matchups (atom [])]
     ;; create the matchups for this swiss round
     (dotimes [i num-matchups-to-create]
       (let [;; take the first team in the list
@@ -224,14 +229,15 @@
             _ (while (and (not @match-found?)
                           (< @j (count @sorted-team-ids)))
                 (let [team-id (nth @sorted-team-ids @j)
-                      possible-matchup #{teamA-id team-id}
-                      teams-already-played? (contains? prior-matchups possible-matchup)]
+                      possible-matchup [teamA-id team-id]
+                      possible-matchup-set (set possible-matchup)
+                      teams-already-played? (contains? prior-matchups possible-matchup-set)]
                   (if teams-already-played?
                     (swap! j inc) ;; try the next team in the list
                     (do
                       ;; we found a match; exit this loop
                       (reset! match-found? true)
-                      ;; add this matchup to the set
+                      ;; add this matchup to the new-matchups vector
                       (swap! new-matchups conj possible-matchup)
                       ;; remove this team-id from the possible teams
                       ;; NOTE: this would faster using subvec
@@ -246,10 +252,20 @@
 (defn- advance-swiss-round
   "Advance a single Swiss Round if possible."
   [all-games round-to-advance]
-  (let [games-in-this-round nil
-        games-in-the-next-round nil]
-    ;; TODO: write me
-    all-games))
+  (let [next-round (inc round-to-advance)
+        games-list (map (fn [[game-id game]] (assoc game :game-id game-id)) all-games)
+        games-in-this-round (remove #(not= round-to-advance (:swiss-round %)) games-list)
+        games-in-next-round (remove #(not= next-round (:swiss-round %)) games-list)
+        all-games-finished? (every? game-finished? games-in-this-round)]
+    (cond
+      ;; TODO: advance games here
+      all-games-finished?
+      all-games
+
+      ;; TODO: try to advance games based on simulation here
+
+      :else
+      all-games)))
 
 (defn- games->swiss-rounds
   "Returns a set of the Swiss Rounds in games."
