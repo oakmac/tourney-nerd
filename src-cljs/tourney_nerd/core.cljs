@@ -251,19 +251,30 @@
 
 (defn- advance-swiss-round
   "Advance a single Swiss Round if possible."
-  [all-games round-to-advance]
+  [all-teams all-games round-to-advance]
   (let [next-round (inc round-to-advance)
         games-list (map (fn [[game-id game]] (assoc game :game-id game-id)) all-games)
         games-in-this-round (remove #(not= round-to-advance (:swiss-round %)) games-list)
         games-in-next-round (remove #(not= next-round (:swiss-round %)) games-list)
+        next-round-game-ids (map :game-id games-in-next-round)
         all-games-finished? (every? game-finished? games-in-this-round)]
     (cond
-      ;; TODO: advance games here
+      ;; TODO: make this less ugly
       all-games-finished?
-      all-games
+      (let [next-round-matchups (create-matchups all-teams all-games next-round)
+            new-games (atom all-games)]
+        (doall
+          (map-indexed (fn [idx [teamA-id teamB-id]]
+                         (let [game-id (nth next-round-game-ids idx)]
+                           (swap! new-games update-in [game-id] merge
+                             {:teamA-id teamA-id
+                              :teamB-id teamB-id})))
+                       next-round-matchups))
+        @new-games)
 
       ;; TODO: try to advance games based on simulation here
 
+      ;; else just return the games in their current state
       :else
       all-games)))
 
@@ -281,13 +292,14 @@
 (defn- advance-swiss-games
   "Given a tournament state, advances the Swiss games if possible."
   [state]
-  (let [swiss-rounds-set (games->swiss-rounds (:games state))
+  (let [all-teams (:teams state)
+        swiss-rounds-set (games->swiss-rounds (:games state))
         swiss-rounds-list (-> swiss-rounds-set vec sort)]
     ;; advance each round
     (reduce
       (fn [state round-num]
         (let [all-games (:games state)
-              updated-games (advance-swiss-round all-games round-num)]
+              updated-games (advance-swiss-round all-teams all-games round-num)]
           (assoc state :games updated-games)))
       state
       ;; the last swiss round cannot "advance"; ignore it
