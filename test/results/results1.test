@@ -1,0 +1,123 @@
+===== Description
+
+Simple test of result calculations.
+
+===== Tournament
+
+{
+  "title": "Test Tournament",
+  "tiesAllowed": true,
+  "teams": {
+    "team1": "Team 1",
+    "team2": "Team 2",
+    "team3": "Team 3",
+    "team4": "Team 4"
+  },
+  "games": {
+    "game001": {
+      "group": "swiss-round-1",
+      "name": "Swiss Round 1, Game 1",
+      "scoreA": 9,
+      "scoreB": 4,
+      "status": "final",
+      "swiss-round": 1,
+      "teamA-id": "team1",
+      "teamB-id": "team2"
+    },
+    "game002": {
+      "group": "swiss-round-1",
+      "name": "Swiss Round 1, Game 2",
+      "scoreA": 6,
+      "scoreB": 4,
+      "status": "final",
+      "swiss-round": 1,
+      "teamA-id": "team3",
+      "teamB-id": "team4"
+    },
+    "game003": {
+      "group": "swiss-round-2",
+      "name": "Swiss Round 2, Game 1",
+      "scoreA": 6,
+      "scoreB": 2,
+      "status": "final",
+      "swiss-round": 2,
+      "teamA-id": "team1",
+      "teamB-id": "team3"
+    },
+    "game004": {
+      "group": "swiss-round-2",
+      "name": "Swiss Round 2, Game 2",
+      "scoreA": 8,
+      "scoreB": 2,
+      "status": "final",
+      "swiss-round": 2,
+      "teamA-id": "team4",
+      "teamB-id": "team2"
+    }
+  }
+}
+
+===== Results
+
+[
+  {
+    "games-lost": 0,
+    "games-played": 2,
+    "games-tied": 0,
+    "games-won": 2,
+    "place": 1,
+    "points-diff": 9,
+    "points-lost": 6,
+    "points-played": 21,
+    "points-won": 15,
+    "team-captain": null,
+    "team-id": "team1",
+    "team-name": null,
+    "victory-points": 6009
+  },
+  {
+    "games-lost": 1,
+    "games-played": 2,
+    "games-tied": 0,
+    "games-won": 1,
+    "place": 2,
+    "points-diff": 4,
+    "points-lost": 8,
+    "points-played": 20,
+    "points-won": 12,
+    "team-captain": null,
+    "team-id": "team4",
+    "team-name": null,
+    "victory-points": 3004
+  },
+  {
+    "games-lost": 1,
+    "games-played": 2,
+    "games-tied": 0,
+    "games-won": 1,
+    "place": 3,
+    "points-diff": -2,
+    "points-lost": 10,
+    "points-played": 18,
+    "points-won": 8,
+    "team-captain": null,
+    "team-id": "team3",
+    "team-name": null,
+    "victory-points": 2998
+  },
+  {
+    "games-lost": 2,
+    "games-played": 2,
+    "games-tied": 0,
+    "games-won": 0,
+    "place": 4,
+    "points-diff": -11,
+    "points-lost": 17,
+    "points-played": 23,
+    "points-won": 6,
+    "team-captain": null,
+    "team-id": "team2",
+    "team-name": null,
+    "victory-points": -11
+  }
+]

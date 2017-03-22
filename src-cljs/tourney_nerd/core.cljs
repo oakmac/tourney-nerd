@@ -184,8 +184,9 @@
 (defn- js-games->results
   "JavaScript wrapper around games->results"
   [js-teams js-games]
-  ;; TODO: write me
-  nil)
+  (let [teams (js->clj js-teams :keywordize-keys true)
+        games (js->clj js-games :keywordize-keys true)]
+    (clj->js (games->results teams games))))
 
 (js/goog.exportSymbol "calculateResults" js-games->results)
 
