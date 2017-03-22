@@ -9,8 +9,8 @@
 
 (def scheduled-status "scheduled")
 (def in-progress-status "in_progress")
-(def finished-status "finished")
-(def game-statuses #{scheduled-status in-progress-status finished-status})
+(def final-status "final")
+(def game-statuses #{scheduled-status in-progress-status final-status})
 
 ;;------------------------------------------------------------------------------
 ;; Predicates
@@ -37,14 +37,36 @@
 (defn is-swiss-game? [g]
   (integer? (:swiss-round g)))
 
-;; TODO: replace all instances of "finished" with "final"
+;; NOTE: "finished" is legacy here
 (defn game-finished? [game]
-  (or (= finished-status (:status game))
-      (= "final" (:status game))))
+  (or (= final-status (:status game))
+      (= "finished" (:status game))))
 
 (defn valid-score? [score]
   (and (integer? score)
        (>= score 0)))
+
+(defn- has-pending-team? [game]
+  (or (:pending-teamA game)
+      (:pending-teamB game)))
+
+;;------------------------------------------------------------------------------
+;; Misc
+;;------------------------------------------------------------------------------
+
+(defn- winner
+  "Returns the game-id of the winning team."
+  [game]
+  (if (> (:scoreA game) (:scoreB game))
+    (:teamA-id game)
+    (:teamB-id game)))
+
+(defn- loser
+  "Returns the game-id of the losing team."
+  [game]
+  (if (< (:scoreA game) (:scoreB game))
+    (:teamA-id game)
+    (:teamB-id game)))
 
 ;;------------------------------------------------------------------------------
 ;; Ensure Tournament Structure
@@ -308,11 +330,47 @@
       ;; the last swiss round cannot "advance"; ignore it
       (drop-last swiss-rounds-list))))
 
-(defn- advance-bracket-games
-  "Given a tournament state, advances the Bracket games if possible."
+(defn- advance-pending-game
+  [state pending-game]
+  (let [pending-game-id (:game-id pending-game)
+
+        pending-teamA (:pending-teamA pending-game)
+        teamA-target-game-id (-> pending-teamA vals first keyword)
+        teamA-target-game (get-in state [:games teamA-target-game-id])
+        teamA-target-game-finished? (game-finished? teamA-target-game)
+        teamA-target-game-winner (winner teamA-target-game)
+        teamA-target-game-loser (loser teamA-target-game)
+
+        pending-teamB (:pending-teamB pending-game)
+        teamB-target-game-id (-> pending-teamB vals first keyword)
+        teamB-target-game (get-in state [:games teamB-target-game-id])
+        teamB-target-game-finished? (game-finished? teamB-target-game)
+        teamB-target-game-winner (winner teamB-target-game)
+        teamB-target-game-loser (loser teamB-target-game)
+
+        new-state (atom state)]
+    (when teamA-target-game-finished?
+      (swap! new-state assoc-in [:games pending-game-id :teamA-id]
+        (if (= :loser-of (-> pending-teamA keys first))
+          teamA-target-game-loser
+          teamA-target-game-winner)))
+    (when teamB-target-game-finished?
+      (swap! new-state assoc-in [:games pending-game-id :teamB-id]
+        (if (= :loser-of (-> pending-teamB keys first))
+          teamB-target-game-loser
+          teamB-target-game-winner)))
+    @new-state))
+
+(defn- advance-pending-games
+  "Given a tournament state, advances pending games if possible."
   [state]
-  ;; TODO: write me :)
-  state)
+  (let [all-games (:games state)
+        games-list (map (fn [[game-id game]] (assoc game :game-id game-id)) all-games)
+        games-with-pending-teams (filter has-pending-team? games-list)]
+    (reduce
+      advance-pending-game
+      state
+      games-with-pending-teams)))
 
 (defn advance-tournament
   "Given a tournament state, tries to advance it.
@@ -320,7 +378,7 @@
   [state]
   (-> state
       advance-swiss-games
-      advance-bracket-games))
+      advance-pending-games))
 
 (defn- js-advance-tournament
   "JavaScript wrapper around advance-tournament"

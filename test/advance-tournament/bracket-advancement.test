@@ -51,7 +51,7 @@ Advance bracket games.
       "name": "Semifinals 2v3",
       "scoreA": 6,
       "scoreB": 9,
-      "status": "in_progress",
+      "status": "final",
       "teamA-id": "team102",
       "teamB-id": "team103"
     },
@@ -102,7 +102,7 @@ Advance bracket games.
       "scoreB": 0,
       "status": "scheduled",
       "teamA-id": "team101",
-      "teamB-id": null
+      "teamB-id": "team102"
     },
     "game154": {
       "group": "bracket-play",
@@ -118,7 +118,7 @@ Advance bracket games.
       "name": "Semifinals 2v3",
       "scoreA": 6,
       "scoreB": 9,
-      "status": "in_progress",
+      "status": "final",
       "teamA-id": "team102",
       "teamB-id": "team103"
     },
@@ -131,7 +131,7 @@ Advance bracket games.
       "scoreB": 0,
       "status": "scheduled",
       "teamA-id": "team100",
-      "teamB-id": null
+      "teamB-id": "team103"
     }
   }
 }
