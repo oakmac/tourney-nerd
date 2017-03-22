@@ -1,0 +1,137 @@
+===== Description
+
+Advance bracket games.
+
+===== Before
+
+{
+  "title": "Bracket Advance Test Tournament",
+  "tiesAllowed": true,
+  "teams": {
+    "team100": {
+      "name": "Rauncho's Weekend Alibi",
+      "captain": "Alston Cotton"
+    },
+    "team101": {
+      "name": "The Frog Balloons",
+      "captain": "Frankie Shaw"
+    },
+    "team102": {
+      "name": "Too Much Beer",
+      "captain": "Wynn Henson"
+    },
+    "team103": {
+      "name": "Chicken Chicken Chicken",
+      "captain": "Castro Osborn"
+    }
+  },
+  "games": {
+    "game153": {
+      "group": "bracket-play",
+      "name": "3rd Place",
+      "pending-teamA": {"loser-of": "game154"},
+      "pending-teamB": {"loser-of": "game155"},
+      "scoreA": 0,
+      "scoreB": 0,
+      "status": "scheduled",
+      "teamA-id": null,
+      "teamB-id": null
+    },
+    "game154": {
+      "group": "bracket-play",
+      "name": "Semifinals 1v4",
+      "scoreA": 8,
+      "scoreB": 5,
+      "status": "final",
+      "teamA-id": "team100",
+      "teamB-id": "team101"
+    },
+    "game155": {
+      "group": "bracket-play",
+      "name": "Semifinals 2v3",
+      "scoreA": 6,
+      "scoreB": 9,
+      "status": "in_progress",
+      "teamA-id": "team102",
+      "teamB-id": "team103"
+    },
+    "game156": {
+      "group": "bracket-play",
+      "name": "Finals",
+      "pending-teamA": {"winner-of": "game154"},
+      "pending-teamB": {"winner-of": "game155"},
+      "scoreA": 0,
+      "scoreB": 0,
+      "status": "scheduled",
+      "teamA-id": null,
+      "teamB-id": null
+    }
+  }
+}
+
+===== After
+
+{
+  "title": "Bracket Advance Test Tournament",
+  "tiesAllowed": true,
+  "teams": {
+    "team100": {
+      "name": "Rauncho's Weekend Alibi",
+      "captain": "Alston Cotton"
+    },
+    "team101": {
+      "name": "The Frog Balloons",
+      "captain": "Frankie Shaw"
+    },
+    "team102": {
+      "name": "Too Much Beer",
+      "captain": "Wynn Henson"
+    },
+    "team103": {
+      "name": "Chicken Chicken Chicken",
+      "captain": "Castro Osborn"
+    }
+  },
+  "games": {
+    "game153": {
+      "group": "bracket-play",
+      "name": "3rd Place",
+      "pending-teamA": {"loser-of": "game154"},
+      "pending-teamB": {"loser-of": "game155"},
+      "scoreA": 0,
+      "scoreB": 0,
+      "status": "scheduled",
+      "teamA-id": "team101",
+      "teamB-id": null
+    },
+    "game154": {
+      "group": "bracket-play",
+      "name": "Semifinals 1v4",
+      "scoreA": 8,
+      "scoreB": 5,
+      "status": "final",
+      "teamA-id": "team100",
+      "teamB-id": "team101"
+    },
+    "game155": {
+      "group": "bracket-play",
+      "name": "Semifinals 2v3",
+      "scoreA": 6,
+      "scoreB": 9,
+      "status": "in_progress",
+      "teamA-id": "team102",
+      "teamB-id": "team103"
+    },
+    "game156": {
+      "group": "bracket-play",
+      "name": "Finals",
+      "pending-teamA": {"winner-of": "game154"},
+      "pending-teamB": {"winner-of": "game155"},
+      "scoreA": 0,
+      "scoreB": 0,
+      "status": "scheduled",
+      "teamA-id": "team100",
+      "teamB-id": null
+    }
+  }
+}
