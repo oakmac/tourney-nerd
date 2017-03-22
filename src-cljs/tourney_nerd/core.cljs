@@ -92,15 +92,17 @@
 (def victory-points-for-a-tie 1000)
 
 (def empty-result
-  {:team-id nil
-   :games-won 0
-   :games-lost 0
-   :games-tied 0
+  {:games-lost 0
    :games-played 0
-   :points-won 0
+   :games-tied 0
+   :games-won 0
+   :points-diff 0
    :points-lost 0
    :points-played 0
-   :points-diff 0
+   :points-won 0
+   :team-id nil
+   :team-name nil
+   :team-captain nil
    :victory-points 0})
 
 (defn- add-game-to-result [result game]
@@ -124,14 +126,14 @@
         scored-for (if (= team-id teamA-id) scoreA scoreB)
         scored-against (if (= team-id teamA-id) scoreB scoreA)]
     (assoc result
-      :games-won (if won? (inc games-won) games-won)
       :games-lost (if lost? (inc games-lost) games-lost)
-      :games-tied (if tied? (inc games-tied) games-tied)
       :games-played (inc games-played)
-      :points-won (+ points-won scored-for)
+      :games-tied (if tied? (inc games-tied) games-tied)
+      :games-won (if won? (inc games-won) games-won)
+      :points-diff (+ points-diff scored-for (* -1 scored-against))
       :points-lost (+ points-lost scored-against)
       :points-played (+ points-played scoreA scoreB)
-      :points-diff (+ points-diff scored-for (* -1 scored-against))
+      :points-won (+ points-won scored-for)
       :victory-points (+ victory-points
                          (if won? victory-points-for-a-win 0)
                          (if tied? victory-points-for-a-tie 0)
@@ -147,9 +149,9 @@
                                                      (= (:teamB-id %) (name team-id))))
                                            (vals games))]
     (reduce add-game-to-result
-            (assoc empty-result :team-id (name team-id)
-                                :team-name (:name team)
-                                :team-captain (:captain team))
+            (assoc empty-result :team-captain (:captain team)
+                                :team-id (name team-id)
+                                :team-name (:name team))
             games-this-team-has-played)))
 
 (defn- compare-victory-points [a b]
