@@ -47,8 +47,8 @@ Simple test of result calculations.
     "game004": {
       "group": "swiss-round-2",
       "name": "Swiss Round 2, Game 2",
-      "scoreA": 8,
-      "scoreB": 2,
+      "scoreA": 2,
+      "scoreB": 8,
       "status": "final",
       "swiss-round": 2,
       "teamA-id": "team4",
@@ -81,14 +81,14 @@ Simple test of result calculations.
     "games-tied": 0,
     "games-won": 1,
     "place": 2,
-    "points-diff": 4,
-    "points-lost": 8,
-    "points-played": 20,
+    "points-diff": 1,
+    "points-lost": 11,
+    "points-played": 23,
     "points-won": 12,
     "team-captain": null,
-    "team-id": "team4",
+    "team-id": "team2",
     "team-name": null,
-    "victory-points": 3004
+    "victory-points": 3001
   },
   {
     "games-lost": 1,
@@ -111,13 +111,13 @@ Simple test of result calculations.
     "games-tied": 0,
     "games-won": 0,
     "place": 4,
-    "points-diff": -11,
-    "points-lost": 17,
-    "points-played": 23,
+    "points-diff": -8,
+    "points-lost": 14,
+    "points-played": 20,
     "points-won": 6,
     "team-captain": null,
-    "team-id": "team2",
+    "team-id": "team4",
     "team-name": null,
-    "victory-points": -11
+    "victory-points": -8
   }
 ]
