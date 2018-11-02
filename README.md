@@ -8,11 +8,11 @@ TODO: write more about the purpose of this project
 
 ## Development Setup
 
-Install [Leiningen] and [Node.js]
+Install [Leiningen], [Node.js], and [yarn].
 
 ```sh
 # install node_modules (one-time)
-npm install
+yarn install
 
 # builds the tourney-nerd.js file
 lein clean && lein cljsbuild once
@@ -28,4 +28,5 @@ npm test
 [Ultimate]:https://en.wikipedia.org/wiki/Ultimate_(sport)
 [Leiningen]:http://leiningen.org
 [Node.js]:http://nodejs.org
+[yarn]:https://yarnpkg.com/
 [ISC License]:LICENSE.md
