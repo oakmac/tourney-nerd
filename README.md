@@ -1,4 +1,4 @@
-# Tourney Nerd
+# Tourney Nerd [![Build Status](https://travis-ci.org/oakmac/tourney-nerd.svg?branch=master)](https://travis-ci.org/oakmac/tourney-nerd)
 
 A library for handling [Ultimate] tournament logic.
 
