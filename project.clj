@@ -8,14 +8,14 @@
             :distribution :repo}
 
   :dependencies
-    [[org.clojure/clojure "1.8.0"]
-     [org.clojure/clojurescript "1.9.456"]]
+    [[org.clojure/clojure "1.9.0"]
+     [org.clojure/clojurescript "1.10.339"]]
 
-  :plugins [[lein-cljsbuild "1.1.5"]]
+  :plugins [[lein-cljsbuild "1.1.7"]]
 
   :source-paths ["src"]
 
-  :clean-targets ["tourney-nerd.js"]
+  :clean-targets ["target" "tourney-nerd.js"]
 
   :cljsbuild
     {:builds
