@@ -4,7 +4,7 @@ A library for handling [Ultimate] tournament logic.
 
 ## About
 
-TODO: write more about the purpose of this project
+> TODO: write more about the purpose of this project
 
 ## Development Setup
 

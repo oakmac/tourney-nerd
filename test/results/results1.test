@@ -8,10 +8,22 @@ Simple test of result calculations.
   "title": "Test Tournament",
   "tiesAllowed": true,
   "teams": {
-    "team1": "Team 1",
-    "team2": "Team 2",
-    "team3": "Team 3",
-    "team4": "Team 4"
+    "team1": {
+      "name": "Team 1",
+      "captain": "Captain 1"
+    },
+    "team2": {
+      "name": "Team 2",
+      "captain": "Captain 2"
+    },
+    "team3": {
+      "name": "Team 3",
+      "captain": "Captain 3"
+    },
+    "team4": {
+      "name": "Team 4",
+      "captain": "Captain 4"
+    }
   },
   "games": {
     "game001": {
@@ -20,9 +32,9 @@ Simple test of result calculations.
       "scoreA": 9,
       "scoreB": 4,
       "status": "final",
-      "swiss-round": 1,
-      "teamA-id": "team1",
-      "teamB-id": "team2"
+      "swissRound": 1,
+      "teamAId": "team1",
+      "teamBId": "team2"
     },
     "game002": {
       "group": "swiss-round-1",
@@ -30,9 +42,9 @@ Simple test of result calculations.
       "scoreA": 6,
       "scoreB": 4,
       "status": "final",
-      "swiss-round": 1,
-      "teamA-id": "team3",
-      "teamB-id": "team4"
+      "swissRound": 1,
+      "teamAId": "team3",
+      "teamBId": "team4"
     },
     "game003": {
       "group": "swiss-round-2",
@@ -40,9 +52,9 @@ Simple test of result calculations.
       "scoreA": 6,
       "scoreB": 2,
       "status": "final",
-      "swiss-round": 2,
-      "teamA-id": "team1",
-      "teamB-id": "team3"
+      "swissRound": 2,
+      "teamAId": "team1",
+      "teamBId": "team3"
     },
     "game004": {
       "group": "swiss-round-2",
@@ -50,74 +62,70 @@ Simple test of result calculations.
       "scoreA": 2,
       "scoreB": 8,
       "status": "final",
-      "swiss-round": 2,
-      "teamA-id": "team4",
-      "teamB-id": "team2"
+      "swissRound": 2,
+      "teamAId": "team4",
+      "teamBId": "team2"
     }
   }
 }
 
 ===== Results
 
-[
-  {
-    "games-lost": 0,
-    "games-played": 2,
-    "games-tied": 0,
-    "games-won": 2,
+{
+  "team1": {
+    "gamesLost": 0,
+    "gamesPlayed": 2,
+    "gamesTied": 0,
+    "gamesWon": 2,
     "place": 1,
-    "points-diff": 9,
-    "points-lost": 6,
-    "points-played": 21,
-    "points-won": 15,
-    "team-captain": null,
-    "team-id": "team1",
-    "team-name": null,
-    "victory-points": 6009
+    "pointDiff": 9,
+    "pointsLost": 6,
+    "pointsPlayed": 21,
+    "pointsWon": 15,
+    "teamCaptain": "Captain 1",
+    "teamName": "Team 1",
+    "victoryPoints": 6009
   },
-  {
-    "games-lost": 1,
-    "games-played": 2,
-    "games-tied": 0,
-    "games-won": 1,
+  "team2": {
+    "gamesLost": 1,
+    "gamesPlayed": 2,
+    "gamesTied": 0,
+    "gamesWon": 1,
     "place": 2,
-    "points-diff": 1,
-    "points-lost": 11,
-    "points-played": 23,
-    "points-won": 12,
-    "team-captain": null,
-    "team-id": "team2",
-    "team-name": null,
-    "victory-points": 3001
+    "pointDiff": 1,
+    "pointsLost": 11,
+    "pointsPlayed": 23,
+    "pointsWon": 12,
+    "teamCaptain": "Captain 2",
+    "teamName": "Team 2",
+    "victoryPoints": 3001
   },
-  {
-    "games-lost": 1,
-    "games-played": 2,
-    "games-tied": 0,
-    "games-won": 1,
+  "team3": {
+    "gamesLost": 1,
+    "gamesPlayed": 2,
+    "gamesTied": 0,
+    "gamesWon": 1,
     "place": 3,
-    "points-diff": -2,
-    "points-lost": 10,
-    "points-played": 18,
-    "points-won": 8,
-    "team-captain": null,
-    "team-id": "team3",
-    "team-name": null,
-    "victory-points": 2998
+    "pointDiff": -2,
+    "pointsLost": 10,
+    "pointsPlayed": 18,
+    "pointsWon": 8,
+    "teamCaptain": "Captain 3",
+    "teamName": "Team 3",
+    "victoryPoints": 2998
   },
-  {
-    "games-lost": 2,
-    "games-played": 2,
-    "games-tied": 0,
-    "games-won": 0,
+  "team4": {
+    "gamesLost": 2,
+    "gamesPlayed": 2,
+    "gamesTied": 0,
+    "gamesWon": 0,
     "place": 4,
-    "points-diff": -8,
-    "points-lost": 14,
-    "points-played": 20,
-    "points-won": 6,
-    "team-captain": null,
-    "team-id": "team4",
-    "team-name": null,
-    "victory-points": -8
+    "pointDiff": -8,
+    "pointsLost": 14,
+    "pointsPlayed": 20,
+    "pointsWon": 6,
+    "teamCaptain": "Captain 4",
+    "teamName": "Team 4",
+    "victoryPoints": -8
   }
-]
+}
