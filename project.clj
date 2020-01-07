@@ -8,19 +8,19 @@
             :distribution :repo}
 
   :dependencies
-    [[org.clojure/clojure "1.9.0"]
-     [org.clojure/clojurescript "1.10.339"]]
+    [[org.clojure/clojure "1.10.1"]
+     [org.clojure/clojurescript "1.10.597"]]
 
   :plugins [[lein-cljsbuild "1.1.7"]]
 
-  :source-paths ["src"]
+  :source-paths ["src-cljc"]
 
   :clean-targets ["target" "tourney-nerd.js"]
 
   :cljsbuild
     {:builds
       [{:id "main"
-        :source-paths ["src-cljs"]
+        :source-paths ["src-cljs" "src-cljc"]
         :compiler {:language-in :ecmascript5
                    :language-out :ecmascript5
                    :output-to "tourney-nerd.js"

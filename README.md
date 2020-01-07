@@ -6,7 +6,14 @@ A library for handling [Ultimate] tournament logic.
 
 > TODO: write more about the purpose of this project
 
-## Development Setup
+## Clojure Development
+
+```sh
+# run tests
+lein test
+```
+
+## JS Development Setup
 
 Install [Leiningen], [Node.js], and [yarn].
 

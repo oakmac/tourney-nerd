@@ -1,20 +1,11 @@
 (ns tourney-nerd.core
   (:require
     [clojure.walk :refer [keywordize-keys]]
-    [tourney-nerd.util :refer [js-log log half]]))
-
-;;------------------------------------------------------------------------------
-;; Constants
-;;------------------------------------------------------------------------------
-
-(def scheduled-status "scheduled")
-(def in-progress-status "in_progress")
-(def final-status "final")
-(def game-statuses #{scheduled-status in-progress-status final-status})
+    [tourney-nerd.constants :refer :all]
+    [tourney-nerd.util :refer [half]]))
 
 ;;------------------------------------------------------------------------------
 ;; Predicates
-;;------------------------------------------------------------------------------
 
 ;; TODO: this can be replaced using a set of sets:
 ;; #{ #{teamA teamB}
@@ -52,7 +43,6 @@
 
 ;;------------------------------------------------------------------------------
 ;; Misc
-;;------------------------------------------------------------------------------
 
 (defn- winner
   "Returns the game-id of the winning team."
@@ -70,7 +60,6 @@
 
 ;;------------------------------------------------------------------------------
 ;; Ensure Tournament Structure
-;;------------------------------------------------------------------------------
 
 (defn- ensure-game-status
   "Game status must be valid."
@@ -108,7 +97,6 @@
 
 ;;------------------------------------------------------------------------------
 ;; Calculate Results
-;;------------------------------------------------------------------------------
 
 (def victory-points-for-a-win 3000)
 (def victory-points-for-a-tie 1000)
@@ -205,18 +193,8 @@
         sorted-results (sort compare-victory-points results)]
     (map-indexed #(assoc %2 :place (inc %1)) sorted-results)))
 
-(defn- js-games->results
-  "JavaScript wrapper around games->results"
-  [js-teams js-games]
-  (let [teams (js->clj js-teams :keywordize-keys true)
-        games (js->clj js-games :keywordize-keys true)]
-    (clj->js (games->results teams games))))
-
-(js/goog.exportSymbol "calculateResults" js-games->results)
-
 ;;------------------------------------------------------------------------------
 ;; Determine Next Swiss Round Matchups
-;;------------------------------------------------------------------------------
 
 ;; TODO: pretty sure the loops in this function could be done cleaner as a reduce
 (defn create-matchups
@@ -272,7 +250,6 @@
 
 ;;------------------------------------------------------------------------------
 ;; Tournament Advancer
-;;------------------------------------------------------------------------------
 
 (defn- advance-swiss-round
   "Advance a single Swiss Round if possible."
@@ -379,14 +356,27 @@
   (-> state
       advance-swiss-games
       advance-pending-games))
+      ;; TODO: advance-bracket-games
 
-(defn- js-advance-tournament
-  "JavaScript wrapper around advance-tournament"
-  [js-state]
-  (-> js-state
-      js->clj
-      keywordize-keys
-      advance-tournament
-      clj->js))
+;; -----------------------------------------------------------------------------
+;; FIXME: move all of this to a CLJS JS interop namespace
 
-(js/goog.exportSymbol "advanceTournament" js-advance-tournament)
+; (defn- js-games->results
+;   "JavaScript wrapper around games->results"
+;   [js-teams js-games]
+;   (let [teams (js->clj js-teams :keywordize-keys true)
+;         games (js->clj js-games :keywordize-keys true)]
+;     (clj->js (games->results teams games))))
+;
+; (js/goog.exportSymbol "calculateResults" js-games->results)
+;
+; (defn- js-advance-tournament
+;   "JavaScript wrapper around advance-tournament"
+;   [js-state]
+;   (-> js-state
+;       js->clj
+;       keywordize-keys
+;       advance-tournament
+;       clj->js))
+;
+; (js/goog.exportSymbol "advanceTournament" js-advance-tournament)
