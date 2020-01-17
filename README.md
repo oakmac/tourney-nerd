@@ -6,6 +6,12 @@ A library for handling [Ultimate] tournament logic.
 
 > TODO: write more about the purpose of this project
 
+## Development TODO
+
+- tie-breaker rules for round robins
+- schedule rules for number of teams
+  - ie: 5 teams total, what is the schedule?
+
 ## Clojure Development
 
 ```sh
