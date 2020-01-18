@@ -15,6 +15,8 @@
 
   :source-paths ["src-cljc"]
 
+  :repl-options {:init-ns tourney-nerd.round-robin-pool}       
+
   :clean-targets ["target" "tourney-nerd.js"]
 
   :cljsbuild
