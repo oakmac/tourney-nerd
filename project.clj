@@ -9,13 +9,14 @@
 
   :dependencies
     [[org.clojure/clojure "1.10.1"]
-     [org.clojure/clojurescript "1.10.597"]]
+     [org.clojure/clojurescript "1.10.597"]
+     [com.taoensso/timbre "4.10.0"]]
 
   :plugins [[lein-cljsbuild "1.1.7"]]
 
   :source-paths ["src-cljc"]
 
-  :repl-options {:init-ns tourney-nerd.round-robin-pool}       
+  :repl-options {:init-ns tourney-nerd.round-robin-pool}
 
   :clean-targets ["target" "tourney-nerd.js"]
 

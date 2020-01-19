@@ -1,6 +1,7 @@
 (ns tourney-nerd.round-robin-pool
   (:require
     [tourney-nerd.constructors :as constructors]
+    [tourney-nerd.teams :as teams-fns]
     [tourney-nerd.util :refer [half]]))
 
 (defn- create-cycle-rows [itms]
@@ -56,72 +57,86 @@
   {:top ["a" "h" "b" "c"]
    :bottom ["g" "f" "e" "d"]})
 
+(def before-cycle-rows2
+  {:top '("a" "b")
+   :bottom [nil "c"]})
+
+(def after-cycle-rows2
+  {:top ["a" nil]
+   :bottom ["c" "b"]})
+
 (assert (= (cycle-rows before-cycle-rows1) after-cycle-rows1))
+(assert (= (cycle-rows before-cycle-rows2) after-cycle-rows2))
 
 (def example-4-teams
   [{:id "team-1001"
     :name "Team 1"
-    :order 1}
+    :seed 1}
    {:id "team-1002"
     :name "Team 2"
-    :order 2}
+    :seed 4}
    {:id "team-1003"
     :name "Team 3"
-    :order 3}
+    :seed 6}
    {:id "team-1004"
     :name "Team 4"
-    :order 4}])
+    :seed 9}])
 
 (def example-5-teams
   [{:id "team-1001"
     :name "Team 1"
-    :order 1}
+    :seed 1}
    {:id "team-1002"
     :name "Team 2"
-    :order 2}
+    :seed 2}
    {:id "team-1005"
     :name "Team 5"
-    :order 5}
+    :seed 5}
    {:id "team-1003"
     :name "Team 3"
-    :order 3}
+    :seed 3}
    {:id "team-1004"
     :name "Team 4"
-    :order 4}])
-
-;; TODO: move this fn to a util namespace
-(defn teams->list
-  "Convert teams into a list ordered by their seed (ie :order key)"
-  [teams]
-  (let [teams (if (map? teams) (vals teams) teams)]
-    (sort-by :order teams)))
-
-(defn- dummy-team? [t]
-  (= t :dummy-team))
+    :seed 4}])
 
 ;; https://en.wikipedia.org/wiki/Round-robin_tournament#Scheduling_algorithm
-;; If n is the number of competitors, a pure round robin tournament requires (n/2)*(n-1) games
 (defn create-games
   "Returns a map of games that implement a Round-robin pool for the given teams."
-  [{:keys [teams num-rounds]}]
-  (let [teams (teams->list teams)
+  [{:keys [teams pool-name]}]
+  (let [teams (->> (teams-fns/teams->sorted-by-seed teams)
+                   (map-indexed (fn [idx team]
+                                  (assoc team :pool-seed (inc idx)))))
         num-teams (count teams)
+        ;; If n is the number of competitors, a pure round robin tournament requires (n/2)*(n-1) games
         num-expected-games (* (half num-teams) (dec num-teams))
-        optimal-num-rounds 5
-        num-rounds (if (integer? num-rounds) num-rounds optimal-num-rounds)
+        num-expected-rounds (if (even? num-teams)
+                              ;; If n is even, then in each of (n-1) rounds
+                              (dec num-teams)
+                              ;; If n is odd, there will be n rounds
+                              num-teams)
         games (atom [])
-        rows (atom (create-cycle-rows teams))]
+        rows (atom (create-cycle-rows teams))
+        round-num (atom 1)]
     (while (< (count @games) num-expected-games)
       (dotimes [row-idx (count (:top @rows))]
         (let [teamA (nth (:top @rows) row-idx)
               teamB (nth (:bottom @rows) row-idx)]
           (when (and teamA teamB)
-            (let [new-game (constructors/create-game {:teamA-id (:id teamA)
-                                                      :teamB-id (:id teamB)
-                                                      ; :name (str "Pool")})])
-                                                      :division-id (:division-id teamA)})]
+            (let [matchup (str (:pool-seed teamA) "v" (:pool-seed teamB))
+                  new-game (constructors/create-game
+                             (merge {:teamA-id (:id teamA)
+                                     :teamB-id (:id teamB)
+                                     :pool-round-num @round-num
+                                     :pool-matchup matchup}
+                                    (when (string? pool-name)
+                                      {:name (str pool-name " - " matchup)})
+                                    (when (:division-id teamA)
+                                      {:division-id (:division-id teamA)})))]
               (swap! games conj new-game)))))
-      (swap! rows cycle-rows))
-    ;; sanity-check that we produced the correct number of games
+      (swap! rows cycle-rows)
+      (swap! round-num inc))
+    ;; sanity-check that we produced the correct number of games and rounds
     (assert (= num-expected-games (count @games)) "Incorrect number of games for round-robin pool!")
-    @games))
+    (assert (= num-expected-rounds (dec @round-num)) "Incorrect number of rounds for round-robin pool!")
+    ;; return a map of the games
+    (zipmap (map :id @games) @games)))
