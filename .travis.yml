@@ -1,8 +1,4 @@
 language: clojure
 
-before_install:
-  - yarn install
-  - lein cljsbuild once
-
 script:
-  - npm test
+  - lein test
