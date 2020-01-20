@@ -38,12 +38,12 @@ flexible and work with many different tournament structures / formats.
   - Self-explanatory: the teams which will compete in the event.
   - A Team is always part of a Division (ie: one-to-one relationship between Teams and Divisions).
 - **Games**
-  - Self-explanatory: a game between two teams.
+  - Self-explanatory: a game between two teams. `teamA` and `teamB`
   - Games are always part of a Division (the two teams who play the game must be part of the same Division).
   - Games occur on a field.
   - Games can be linked to an entry on the Schedule.
   - Games are always part of a **Game Group** (see below).
-  - Games must always be one of the following statuses:
+  - Games must be one of the following statuses:
     - scheduled
     - in progress
     - final (ie: the game was played to completion)
@@ -54,27 +54,43 @@ flexible and work with many different tournament structures / formats.
   - Example: Round-robin Pool A, Winner's Bracket, Swiss Round 3, etc
   - The game groups supported by tourney-nerd are:
     - Round-robin pools
-    - Single-elimination bracket
-    - Double-elimination bracket
     - Swiss system round
+    - Brackets (single-elimination, double-elimination, etc)
 - **Results**
-  - Information about team's performance for a set of games:
+  - Information about teams performance for a set of games:
     - Win / loss
-    - Points for / against
+    - Points for / against / diff
     - Place against other teams (including any necessary tie-breaker logic)
   - Results can be calculated for any set of games. For example: you can have results
     from a single round-robin pool, or results for all of the games in a Division.
 
-## Tournament Structure
+## Tournament Format
 
-With the basic building blocks of an event as described above, an event's
-structure is controlled by information found in **Games** and **Game Groups**.
+With the basic building blocks of an event as described above, an event's format
+is controlled by information found in **Games** and **Game Groups**.
 
 - Games can be linked to the result of another game.
   - Example: `teamA` for `game-1142` can be `"winner of game-1089"`
   - Once the status of `game-1089` is `"final"`, tourney-nerd will automatically
-    populate the `teamA` value for `game-1142`
+    populate the `teamA` value for `game-1142` based on the result of `game-1089`
+  - This flexible linked list structure supports any form of bracket and "brackets linked
+    to other brackets" format (single elimination, double elimination, consolidation, etc)
 - Games can be linked to the result of a Game Group.
   - Example: `teamB` for `game-2441` can be `"3rd place Pool B"` (where `"Pool B"` is a round-robin Game Group)
   - Once all of the games in `"Pool B"` have been played (ie: status set to `"final"`), tourney-nerd will
     calculate the Results for that Pool and populate `teamB` for `game-2441`
+  - This creates the ability to use different tournament formats within the same event
+    where the result of one format seeds the next format. Commonly for Ultimate, this
+    is "pool play followed by bracket play". It also allows "swiss round to swiss round"
+    progression and "swiss round to bracket play" (as used by [Windmill Windup]).
+
+Since many events share a similar format, tourney-nerd allows for cloning an
+event game structure such that in most cases a tournament director will not need
+to set up "games linked to games" and "games linked to Game Groups" manually.
+
+Over time, tourney-nerd will grow a corpus of trusted event formats that may be
+cloned for any type of event. Including those formats detailed in [The UPA Manual
+of Championship Series Tournament Formats].
+
+[Windmill Windup]:https://fixme.com
+[The UPA Manual of Championship Series Tournament Formats]:fixme.pdf
