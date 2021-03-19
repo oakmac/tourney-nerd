@@ -28,17 +28,17 @@ flexible and work with many different tournament structures / formats.
   - Teams from different divisions do not play against each other competitively in the course of an event.
   - An event may consist of one or more Divisions (but it must have at least one Division, otherwise what is the point ;)).
 - **Fields**
-  - Self-explanatory: the fields where the games will be played. An event should have
-    one set of fields to be used for competitive play.
-  - Fields are not restricted to Divisions. ie: Field A may host a game for the Open Division,
-    and then later host a game for the Mixed Division.
+  - The fields where the games will be played.
+  - An event should have one set of fields to be used for competitive play.
+  - Fields are not restricted to Divisions.
+    - ie: Field A may host a game for the Open Division, and then later host a game for the Mixed Division.
 - **Schedule**
   - A timeline for the event. Each entry in the schedule can be linked to a Game.
 - **Teams**
-  - Self-explanatory: the teams which will compete in the event.
+  - The teams which will compete in the event.
   - A Team is always part of a Division (ie: one-to-one relationship between Teams and Divisions).
 - **Games**
-  - Self-explanatory: a game between two teams. `teamA` and `teamB`
+  - A game between two Teams. `teamA` and `teamB`
   - Games are always part of a Division (the two teams who play the game must be part of the same Division).
   - Games occur on a field.
   - Games can be linked to an entry on the Schedule.
@@ -58,11 +58,11 @@ flexible and work with many different tournament structures / formats.
     - Brackets (single-elimination, double-elimination, etc)
 - **Results**
   - Information about teams performance for a set of games:
-    - Win / loss
+    - Number of games won, number of games lost
     - Points for / against / diff
     - Place against other teams (including any necessary tie-breaker logic)
-  - Results can be calculated for any set of games. For example: you can have results
-    from a single round-robin pool, or results for all of the games in a Division.
+  - Results can be calculated for any set of games.
+    - For example: you can have results from a single round-robin pool, or results for all of the games in a Division.
 
 ## Tournament Format
 
