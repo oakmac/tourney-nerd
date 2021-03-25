@@ -1,4 +1,5 @@
-(ns tourney-nerd.upa-formats)
+(ns tourney-nerd.upa.round-robin-pools
+  "Round-robin pools from the UPA Tournament Manual")
 
 (def table-3-1
   "Table 3.1 - Three-Team Round-robin"

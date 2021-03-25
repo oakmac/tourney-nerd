@@ -2,7 +2,7 @@
   (:require
     [tourney-nerd.constructors :as constructors]
     [tourney-nerd.teams :as teams-fns]
-    [tourney-nerd.util :refer [half]]))
+    [tourney-nerd.util :refer [half str->int]]))
 
 (defn- create-cycle-rows [itms]
   (let [itms (vec itms)
@@ -140,3 +140,28 @@
     (assert (= num-expected-rounds (dec @round-num)) "Incorrect number of rounds for round-robin pool!")
     ;; return a map of the games
     (zipmap (map :id @games) @games)))
+
+;; -----------------------------------------------------------------------------
+;; Create Games from Round Robin Pools
+
+;; FIXME: this needs tests
+(defn create-games-from-pool-template
+  "creates games from a Round-robin Pool template
+  like the ones found in the tourney-nerd.upa.round-robin-pools namespace"
+  [division-id game-group-id teams fields rounds rr-pool]
+  (let [games (atom [])
+        round-idx (atom 0)]
+    (doseq [row rr-pool]
+      (let [field-idx (atom 0)]
+        (doseq [matchup-str row]
+          (let [[teamA-num teamB-num] (str/split matchup-str #"v")
+                new-game (games/create-game {:division-id division-id
+                                             :game-group-id game-group-id
+                                             :teamA-id (nth teams (dec (str->int teamA-num)))
+                                             :teamB-id (nth teams (dec (str->int teamB-num)))
+                                             :field-id (nth fields @field-idx)
+                                             :timeslot-id (nth rounds @round-idx)})]
+            (swap! games conj new-game))
+          (swap! field-idx inc)))
+      (swap! round-idx inc))
+    @games))

@@ -44,11 +44,13 @@ flexible and work with many different tournament structures / formats.
   - Games can be linked to an entry on the Schedule.
   - Games are always part of a **Game Group** (see below).
   - Games must be one of the following statuses:
-    - scheduled
-    - in progress
-    - final (ie: the game was played to completion)
-    - aborted (the game was being played, and aborted for some reason like weather or injury)
-    - canceled (the game was scheduled to be played, but canceled for some reason)
+    - `"STATUS_SCHEDULED"` - The game is scheduled to be played.
+    - `"STATUS_IN_PROGRESS"` - The game is in progress.
+    - `"STATUS_FINAL"` - The game was played to completion.
+    - `"STATUS_ABORTED"`- The game was in progress and was aborted for reasons like weather or injury.
+    - `"STATUS_CANCELED"` - The game was scheduled to be played, but canceled for some reason.
+    - `"STATUS_FORFEIT"` - The game was not played because it was forfeited by one of the teams.
+      - TODO: we need to indicate which team forfeited here somehow
 - **Game Groups**
   - A set of Games for the purpose of defining the tournament's structure.
   - Example: Round-robin Pool A, Winner's Bracket, Swiss Round 3, etc

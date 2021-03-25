@@ -9,3 +9,9 @@
 (defn create-uuid []
   #?(:clj (.toString (java.util.UUID/randomUUID))
      :cljs (random-uuid)))
+
+(defn str->int
+  "convert s to an Integer"
+  [s]
+  #?(:clj  (java.lang.Integer/parseInt s)
+     :cljs (js/parseInt s 10)))
