@@ -23,32 +23,25 @@
   [:map
    [:id [:re team-id-regex]]
    [:division-id [:re #"^division-[a-zA-Z0-9]{4,}$"]]
-   [:name [:string {:min 3, :max 100}]]])
-
-(def keys-required-to-create-a-team
-  #{:division-id :name})
-
-;; TODO: re-write this using Malli
-(defn enough-information-to-create-a-team?
-  [opts]
-  (and (map? opts)
-       (set/subset? keys-required-to-create-a-team (-> opts keys set))))
+   [:name [:string {:min 3, :max 100}]]
+   [:order [:int {:min 1}]]])
 
 (defn create-team
   "Creates a single team"
   [opts]
-  {:pre [(enough-information-to-create-a-team? opts)]
-   :post [(malli/validate team-schema %)]}
+  {:post [(malli/validate team-schema %)]}
   (let [new-id (team-id)]
     (merge
       {:id new-id}
       opts)))
 
 (defn create-n-teams
-  "Returns a Sequence of N teams."
+  "returns a map of N Teams; used for Event Creation"
   [division-id num-teams]
-  (map-indexed
-    (fn [idx n]
-      (create-team {:division-id division-id
-                    :name (str "Team " (inc idx))}))
-    (range 0 num-teams)))
+  (let [teams-list (map-indexed
+                     (fn [idx n]
+                       (create-team {:division-id division-id
+                                     :name (str "Team " (inc idx))
+                                     :order (inc idx)}))
+                     (range 0 num-teams))]
+    (zipmap (map :id teams-list) teams-list)))

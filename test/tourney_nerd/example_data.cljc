@@ -19,6 +19,24 @@
    "team-1003" {:name "Team 4"
                 :order 4
                 :id "team-1003"
+                :division-id "division-1000"}})
+
+(def eight-teams
+  {"team-1000" {:name "Team 1"
+                :order 1
+                :id "team-1000"
+                :division-id "division-1000"}
+   "team-1001" {:name "Team 2"
+                :order 2
+                :id "team-1001"
+                :division-id "division-1000"}
+   "team-1002" {:name "Team 3"
+                :order 3
+                :id "team-1002"
+                :division-id "division-1000"}
+   "team-1003" {:name "Team 4"
+                :order 4
+                :id "team-1003"
                 :division-id "division-1000"}
    "team-1004" {:name "Team 5"
                 :order 5
