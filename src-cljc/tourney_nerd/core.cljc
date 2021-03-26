@@ -5,6 +5,7 @@
     [tourney-nerd.divisions]
     [tourney-nerd.fields]
     [tourney-nerd.games]
+    [tourney-nerd.schedule]
     [tourney-nerd.teams]
     [tourney-nerd.util :refer [half]]))
 

@@ -14,9 +14,7 @@
     (assert (sequential? teams) "Non-sequential value for teams passed to teams->sorted-by-seed")
     (sort-by :seed teams)))
 
-(defn team-id
-  "returns a fresh team-id"
-  []
+(defn random-team-id []
   (str "team-" (random-base58)))
 
 (def team-schema
@@ -25,12 +23,13 @@
    [:division-id [:re #"^division-[a-zA-Z0-9]{4,}$"]]
    [:name [:string {:min 3, :max 100}]]
    [:order [:int {:min 1}]]])
+   ;; TODO: need optional captain + team members information here
 
 (defn create-team
   "Creates a single team"
   [opts]
   {:post [(malli/validate team-schema %)]}
-  (let [new-id (team-id)]
+  (let [new-id (random-team-id)]
     (merge
       {:id new-id}
       opts)))

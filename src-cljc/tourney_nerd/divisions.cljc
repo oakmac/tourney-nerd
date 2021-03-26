@@ -7,9 +7,7 @@
 (def division-id-regex
   #"^division-[a-zA-Z0-9]{4,}$")
 
-(defn division-id
-  "returns a fresh division id"
-  []
+(defn random-division-id []
   (str "division-" (random-base58)))
 
 (def division-schema
@@ -22,7 +20,7 @@
   "creates a single Division"
   [order name]
   {:post [(malli/validate division-schema %)]}
-  {:id (division-id)
+  {:id (random-division-id)
    :name name
    :order order})
 

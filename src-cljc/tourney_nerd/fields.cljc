@@ -7,22 +7,21 @@
 (def field-id-regex
   #"^field-[a-zA-Z0-9]{4,}$")
 
-(defn field-id
-  "returns a fresh field id"
-  []
+(defn random-field-id []
   (str "field-" (random-base58)))
 
 (def field-schema
   [:map
    [:id [:re field-id-regex]]
-   [:name [:string {:min 3, :max 100}]]
+   [:name [:string {:min 1, :max 100}]]
    [:order [:int {:min 1}]]])
+   ;; TODO: add optional description field here
 
 (defn create-field
   "creates a single Field"
   [order name]
   {:post [(malli/validate field-schema %)]}
-  {:id (field-id)
+  {:id (random-field-id)
    :name name
    :order order})
 
