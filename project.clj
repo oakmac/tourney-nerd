@@ -10,7 +10,8 @@
   :dependencies
   [[org.clojure/clojure "1.10.1"]
    [org.clojure/clojurescript "1.10.597"]
-   [com.taoensso/timbre "4.10.0"]]
+   [com.taoensso/timbre "4.10.0"]
+   [metosin/malli "0.3.1"]]
 
   :plugins [[lein-cljsbuild "1.1.7"]]
 

@@ -1,7 +1,15 @@
 (ns tourney-nerd.games
   (:require
     [clojure.set :as set]
+    [malli.core :as malli]
+    [tourney-nerd.divisions :refer [division-id-regex]]
+    [tourney-nerd.teams :refer [team-id-regex]]
     [tourney-nerd.util.base58 :refer [random-base58]]))
+
+;; TODO: move these to their respective namespaces
+(def group-id-regex #"^group-[a-zA-Z0-9]{4,}$")
+(def field-id-regex #"^field-[a-zA-Z0-9]{4,}$")
+(def timeslot-id-regex #"^timeslot-[a-zA-Z0-9]{4,}$")
 
 ;; -----------------------------------------------------------------------------
 ;; Statuses
@@ -23,6 +31,9 @@
 ;; -----------------------------------------------------------------------------
 ;; Game Creation
 
+(def game-id-regex
+  #"^game-[a-zA-Z0-9]{4,}$")
+
 (defn game-id
   "returns a fresh game-id"
   []
@@ -30,18 +41,24 @@
 
 ;; NOTE: division-id is downstream from team-id, but I think it's fine to require it for Games
 ;; makes many operations easier
-(def key-required-to-create-a-game
-  #{:division-id :game-group-id :teamA-id :teamB-id :field-id :timeslot-id})
-
-(defn enough-information-to-create-a-game?
-  [opts]
-  (and (map? opts)
-       (set/subset? key-required-to-create-a-game (-> opts keys set))))
+(def game-schema
+  [:and
+   [:map
+    [:id [:re game-id-regex]]
+    [:division-id [:re division-id-regex]]
+    [:group-id [:re group-id-regex]]
+    [:teamA-id [:re team-id-regex]]
+    [:teamB-id [:re team-id-regex]]
+    [:timeslot-id [:re timeslot-id-regex]]
+    [:field-id [:re field-id-regex]]
+    ; [:name [:string {:min 3, :max 100}]]
+    [:status [:enum scheduled-status in-progress-status aborted-status canceled-status forfeit-status]]]])
+   ; [:fn (fn [{:keys [status]}])]])
 
 (defn create-game
   "creates a new Game"
   [opts]
-  {:pre [(enough-information-to-create-a-game? opts)]}
+  {:post [(malli/validate game-schema %)]}
   (let [new-id (game-id)]
     (merge
       {:id new-id
@@ -52,10 +69,15 @@
        :description nil}
       opts)))
 
-(def ex-opts1
-  {:division-id "division-23823232"
-   :teamA-id "team-jdfdfdfdf"
-   :teamB-id "team-sdfasdf23434"
-   :field-id "field-34343"
-   :schedule-id "time-2823232"
-   :game-group-id "group-23238873"})
+(defn create-games-from-template
+  "creates games from a Games Template"
+  [division-id group-id teams fields rounds games-template]
+  (map
+    (fn [{:keys [teamA-idx teamB-idx field-idx timeslot-idx]}]
+      (create-game {:division-id division-id
+                    :group-id group-id
+                    :teamA-id (nth teams teamA-idx)
+                    :teamB-id (nth teams teamB-idx)
+                    :field-id (nth fields field-idx)
+                    :timeslot-id (nth rounds timeslot-idx)}))
+    games-template))

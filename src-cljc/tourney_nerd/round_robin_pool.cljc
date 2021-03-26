@@ -1,6 +1,8 @@
 (ns tourney-nerd.round-robin-pool
   (:require
+    [clojure.string :as str]
     [tourney-nerd.constructors :as constructors]
+    [tourney-nerd.games :as games]
     [tourney-nerd.teams :as teams-fns]
     [tourney-nerd.util :refer [half str->int]]))
 
@@ -144,23 +146,19 @@
 ;; -----------------------------------------------------------------------------
 ;; Create Games from Round Robin Pools
 
-;; FIXME: this needs tests
-(defn create-games-from-pool-template
-  "creates games from a Round-robin Pool template
-  like the ones found in the tourney-nerd.upa.round-robin-pools namespace"
-  [division-id game-group-id teams fields rounds rr-pool]
+(defn rr-template->games-template
+  "convert a shorthand round-robin vector template to a Games template"
+  [rr-template]
   (let [games (atom [])
         round-idx (atom 0)]
-    (doseq [row rr-pool]
+    (doseq [row rr-template]
       (let [field-idx (atom 0)]
         (doseq [matchup-str row]
           (let [[teamA-num teamB-num] (str/split matchup-str #"v")
-                new-game (games/create-game {:division-id division-id
-                                             :game-group-id game-group-id
-                                             :teamA-id (nth teams (dec (str->int teamA-num)))
-                                             :teamB-id (nth teams (dec (str->int teamB-num)))
-                                             :field-id (nth fields @field-idx)
-                                             :timeslot-id (nth rounds @round-idx)})]
+                new-game {:teamA-idx (dec (str->int teamA-num))
+                          :teamB-idx (dec (str->int teamB-num))
+                          :field-idx @field-idx
+                          :timeslot-idx @round-idx}]
             (swap! games conj new-game))
           (swap! field-idx inc)))
       (swap! round-idx inc))
