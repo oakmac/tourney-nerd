@@ -54,7 +54,8 @@
                                      :name (str "Team " (inc idx))
                                      :seed (inc idx)}))
                      (range 0 num-teams))]
-    (zipmap (map :id teams-list) teams-list)))
+    (zipmap (map #(-> % :id keyword) teams-list)
+            teams-list)))
 
 (defn reset-team
   "Resets the values of a Team for a new Event."
