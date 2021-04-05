@@ -3,8 +3,10 @@
     [clojure.walk :refer [keywordize-keys]]
     [tourney-nerd.constants :refer :all]
     [tourney-nerd.divisions]
+    [tourney-nerd.events]
     [tourney-nerd.fields]
     [tourney-nerd.games]
+    [tourney-nerd.groups]
     [tourney-nerd.schedule]
     [tourney-nerd.teams]
     [tourney-nerd.util :refer [half]]))

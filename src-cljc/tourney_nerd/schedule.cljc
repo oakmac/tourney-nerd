@@ -1,6 +1,7 @@
 (ns tourney-nerd.schedule
   (:require
     [clojure.set :as set]
+    [clojure.string :as str]
     [malli.core :as malli]
     [tourney-nerd.util.base58 :refer [random-base58]]))
 
@@ -39,19 +40,43 @@
     :time "{{date}} 11:30"
     :name "Pool Play Round 2"}
    {:day-idx 0
-    :time "{{date}} 11:30"
+    :time "{{date}} 13:30"
     :name "Pool Play Round 3"}
+   {:day-idx 0
+    :time "{{date}} 15:30"
+    :name "Pool Play Round 4"}
+   {:day-idx 0
+    :time "{{date}} 19:00"
+    :name "Tournament Party!"}
+
    {:day-idx 1
     :time "{{date}} 09:00"
-    :name "Bagels & Bananas"}])
+    :name "Bagels & Bananas"}
+   {:day-idx 1
+    :time "{{date}} 09:30"
+    :name "Pool Play Round 5"}
+   {:day-idx 1
+    :time "{{date}} 11:30"
+    :name "Quarter-finals"}
+   {:day-idx 1
+    :time "{{date}} 13:30"
+    :name "Semi-finals"}
+   {:day-idx 1
+    :time "{{date}} 15:30"
+    :name "Finals"}])
 
 (defn create-timeslots-from-template
   "creates a Schedule from a template; used for Event Creation"
-  [template-timeslots starting-time])
-  ; (let [new-timeslots (map
-  ;                       (fn [{:keys [day-idx time name]}])
-  ;                       template-timeslots)]))
-  ;; TODO: write me :)
+  [template-timeslots days]
+  ;; TODO: sanity-check that the days Vector is long enough here for the day-idx being used
+  (reduce
+    (fn [new-schedule {:keys [day-idx name time]}]
+      (let [date (nth days day-idx (first days))
+            new-time (str/replace time "{{date}}" date)
+            new-ts (create-timeslot new-time name)]
+        (assoc new-schedule (:id new-ts) new-ts)))
+    {}
+    template-timeslots))
 
 (defn ts->date
   "returns the date part from an ISO 8601 string"

@@ -2,6 +2,7 @@
   (:require
     [clojure.set :as set]
     [malli.core :as malli]
+    [tourney-nerd.divisions :as divisions]
     [tourney-nerd.util.base58 :refer [random-base58]]))
 
 (def team-id-regex
@@ -20,10 +21,20 @@
 (def team-schema
   [:map
    [:id [:re team-id-regex]]
-   [:division-id [:re #"^division-[a-zA-Z0-9]{4,}$"]]
+   [:division-id [:re divisions/division-id-regex]]
    [:name [:string {:min 3, :max 100}]]
-   [:order [:int {:min 1}]]])
+   [:seed [:int {:min 1}]]])
    ;; TODO: need optional captain + team members information here
+
+(defn team?
+  "Is t a Team?"
+  [t]
+  (and (map? t)
+       (string? (:id t))
+       (re-matches team-id-regex (:id t))))
+
+;; TODO: we should be able to use Malli for this
+; (def team? (malli/validator team-schema))
 
 (defn create-team
   "Creates a single team"
@@ -41,6 +52,12 @@
                      (fn [idx n]
                        (create-team {:division-id division-id
                                      :name (str "Team " (inc idx))
-                                     :order (inc idx)}))
+                                     :seed (inc idx)}))
                      (range 0 num-teams))]
     (zipmap (map :id teams-list) teams-list)))
+
+(defn reset-team
+  "Resets the values of a Team for a new Event."
+  [{:keys [seed] :as team}]
+  (assoc team :name (str "Team " seed)))
+  ;; TODO: clear out captain information here
