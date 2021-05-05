@@ -11,6 +11,13 @@
     [tourney-nerd.schedule :as schedule]
     [tourney-nerd.teams :as teams]))
 
+;; TODO: we need an "event integrity" function
+;; - all games timeslots are on the schedule
+;; - all game team IDs are valid
+;; - all games divisions match the teams playing
+;; - all fields + timeslots are unique (no double-booked fields)
+;; - scheduled games cannot have scores
+
 (defn new-random-id [id]
   (let [[head _tail] (str/split id #"-")]
     (case head
