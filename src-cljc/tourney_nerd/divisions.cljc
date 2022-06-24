@@ -1,6 +1,5 @@
 (ns tourney-nerd.divisions
   (:require
-    [clojure.set :as set]
     [malli.core :as malli]
     [tourney-nerd.util.base58 :refer [random-base58]]))
 

@@ -1,6 +1,4 @@
-(ns tourney-nerd.util.base58
-  (:require
-    [clojure.string :as str]))
+(ns tourney-nerd.util.base58)
 
 (def base58-chars
   "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz")

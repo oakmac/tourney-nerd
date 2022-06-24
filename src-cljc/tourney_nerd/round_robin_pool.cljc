@@ -2,7 +2,6 @@
   (:require
     [clojure.string :as str]
     [tourney-nerd.constructors :as constructors]
-    [tourney-nerd.games :as games]
     [tourney-nerd.teams :as teams-fns]
     [tourney-nerd.util :refer [half str->int]]))
 

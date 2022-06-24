@@ -1,6 +1,5 @@
 (ns tourney-nerd.schedule
   (:require
-    [clojure.set :as set]
     [clojure.string :as str]
     [malli.core :as malli]
     [tourney-nerd.util.base58 :refer [random-base58]]))

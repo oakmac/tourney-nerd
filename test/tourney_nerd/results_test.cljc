@@ -1,8 +1,7 @@
-(ns tourney-nerd.tiebreaker-test
+(ns tourney-nerd.results-test
   (:require
     [clojure.test :refer [deftest is testing]]
-    [tourney-nerd.tiebreaker :refer [sort-results-by-upa-rules]]
-    [tourney-nerd.results :refer [games->results]]))
+    [tourney-nerd.results :refer [games->results games->sorted-results]]))
 
 (def six-team-rr-teams
   {"team-1"
@@ -162,11 +161,11 @@
     :scoreB 6
     :status "STATUS_FINAL"}})
 
-(defn fooooooooo
-  []
-  (let [xxx (games->results six-team-rr-teams six-team-rr-games)]
-    (zipmap (map :team-name xxx)
-            (map :record xxx))))
+; (defn fooooooooo
+;   []
+;   (let [xxx (games->results six-team-rr-teams six-team-rr-games)]
+;     (zipmap (map :team-name xxx)
+;             (map :result-against-tied-teams xxx))))
 
 (deftest sort-results-by-upa-rules-test
 ;; TODO:
@@ -178,8 +177,19 @@
 six team round-robin. A has beaten both B and C, while B has beaten C. The records
 among the three teams only are: A is 2-0, B is 1-1, and C is 0-2. A finishes first,
 B finishes second, and C finishes third."
-    (is (= (->> (games->results six-team-rr-teams six-team-rr-games)
-             (take 3)
-             (map :team-name)
-             vec)
+    (is (= (let [results (games->results six-team-rr-teams six-team-rr-games)]
+             (-> (zipmap (map :team-name results)
+                         (map :record results))
+                 (select-keys ["A" "B" "C"])))
+           {"A" "3-2-0"
+            "B" "3-2-0"
+            "C" "3-2-0"}))
+    (is (= (->> (games->sorted-results six-team-rr-teams six-team-rr-games)
+                (take 3)
+                (map :team-name)
+                vec)
            ["A" "B" "C"]))))
+
+;; TODO: add test for results->duplicate-records
+; (deftest results-duplicate-records-test
+;   (is (= (results->duplicate-records))))

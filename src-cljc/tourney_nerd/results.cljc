@@ -1,5 +1,6 @@
 (ns tourney-nerd.results
   (:require
+    [taoensso.timbre :as timbre]
     [tourney-nerd.games :refer [game-finished?]]))
 
 ;;------------------------------------------------------------------------------
@@ -22,8 +23,8 @@
 ;;------------------------------------------------------------------------------
 ;; Calculate Results
 
-(def victory-points-for-a-win 3000)
-(def victory-points-for-a-tie 1000)
+(def victory-points-for-a-win 30000)
+(def victory-points-for-a-tie 10000)
 
 (def empty-result
   {:games-lost 0
@@ -75,15 +76,15 @@
                          scored-for
                          (* -1 scored-against)))))
 
-(defn- team->results
+(defn- team->result
   "Creates a result map for a single team."
-  [teams games team-id]
+  [teams games-vec team-id]
   (let [team (or (get teams team-id)
                  (get teams (keyword team-id)))
         games-this-team-has-played (filter #(and (game-finished? %)
                                                  (or (= (:teamA-id %) (name team-id))
                                                      (= (:teamB-id %) (name team-id))))
-                                           (vals games))]
+                                           games-vec)]
     (reduce add-game-to-result
             (assoc empty-result :team-captain (:captain team)
                                 :team-id (name team-id)
@@ -117,11 +118,113 @@
   [{:keys [games-won games-lost games-tied] :as result}]
   (assoc result :record (str games-won "-" games-lost "-" games-tied)))
 
-;; TODO: refactor this to not need teams; should extract team-ids from games
+(defn compare-upa-tiebreaker-rules
+  [resultA resultB]
+  (let [a-games-played? (not (zero? (:games-played resultA)))
+        b-games-played? (not (zero? (:games-played resultB)))
+        a-record (:record resultA)
+        b-record (:record resultB)
+        same-record? (= a-record b-record)
+        a-victory-points (:victory-points resultA)
+        b-victory-points (:victory-points resultB)
+        ;; NOTE: this will need to change when we adopt Rule 3
+        a-tiebreaker-points (get-in resultA [:result-against-tied-teams :victory-points])
+        b-tiebreaker-points (get-in resultB [:result-against-tied-teams :victory-points])]
+
+    ;; defensive / sanity-check:
+    (when (and same-record?
+               (or (not (:result-against-tied-teams resultA)))
+               (or (not (:result-against-tied-teams resultB))))
+      (timbre/error "Two teams with the same record do NOT have result-against-tied-teams!"
+                    "teamA-id:" (:team-id resultA)
+                    "teamB-id:" (:team-id resultB)))
+
+    (cond
+      ;; teams that have played any games sort higher than teams that have played none
+      (and a-games-played? (not b-games-played?)) -1
+      (and b-games-played? (not a-games-played?)) 1
+
+      ;; sort by record + point diff (ie: victory points) if teams have different records
+      (and (not same-record?) (> a-victory-points b-victory-points)) -1
+      (and (not same-record?) (> b-victory-points a-victory-points)) 1
+
+      ;; sort by tiebreaker rules
+      (and same-record? (> a-tiebreaker-points b-tiebreaker-points)) -1
+      (and same-record? (> b-tiebreaker-points a-tiebreaker-points)) 1
+
+      :else
+      0)))
+
+(defn results->duplicate-records
+  "Returns a Set of the duplicate records in a collection of results.
+  ie: which records need tiebreaking logic applied"
+  [results]
+  (->> results
+    (map :record)
+    frequencies
+    (filter (fn [[_record cnt]]
+              (> cnt 1)))
+    (map first)
+    set))
+
+;; TODO: this could probably have better performance, calculate once instead of
+;; for every result / team
+(defn add-result-against-teams-with-same-record
+  "Adds a Result map against teams that have the same record. This is UPA tiebreaking rule 2:
+  Won-loss records, counting only games between the teams that are tied."
+  [result all-results all-teams all-games]
+  (let [team-id (:team-id result)
+        record (:record result)
+        teams-with-same-record (->> all-results
+                                 (filter
+                                   #(= record (:record %)))
+                                 (map :team-id)
+                                 set)
+        games-between-tied-teams (filter
+                                   (fn [{:keys [teamA-id teamB-id]}]
+                                     (and (contains? teams-with-same-record teamA-id)
+                                          (contains? teams-with-same-record teamB-id)))
+                                   (vals all-games))
+        result-against-tied-teams (-> (team->result all-teams games-between-tied-teams team-id)
+                                      add-record-to-result)]
+    (assoc result :result-against-tied-teams result-against-tied-teams)))
+
+;; TODO: could make this variadic and extract the teams from the games
 (defn games->results
-  "Creates a results list for all the teams."
+  "Returns a list of Results for the given teams + games."
   [teams games]
-  (let [results (map (partial team->results teams games) (keys teams))
+  (let [results (map (partial team->result teams (vals games)) (keys teams))
         results-with-records (map add-record-to-result results)
-        sorted-results (sort compare-victory-points results-with-records)]
-    (map-indexed #(assoc %2 :place (inc %1)) sorted-results)))
+        records-that-need-tiebreaking (results->duplicate-records results-with-records)
+        results3 (map
+                   (fn [result]
+                     (if (contains? records-that-need-tiebreaking (:record result))
+                       (add-result-against-teams-with-same-record result results-with-records teams games)
+                       result))
+                   results-with-records)]
+    results3))
+
+(def default-tiebreak-method "TIEBREAK_UPA_RULES")
+
+(defn sort-results
+  "Sort a Result list using various tiebreaking methods."
+  ([results]
+   (sort-results results default-tiebreak-method))
+  ([results sort-method]
+   (case sort-method
+     "TIEBREAK_VICTORY_POINTS" (sort compare-victory-points results)
+     "TIEBREAK_UPA_RULES" (sort compare-upa-tiebreaker-rules results)
+     (do (timbre/error "Unrecognized sort-method:" sort-method)
+         (sort compare-victory-points results)))))
+
+(defn games->sorted-results
+  "Returns a sorted list of Results for the given teams + games."
+  ([teams games]
+   (games->sorted-results teams games default-tiebreak-method))
+  ([teams games tiebreak-method]
+   (let [results (games->results teams games)
+         sorted-results (sort-results results tiebreak-method)]
+     (map-indexed
+       (fn [idx result]
+         (assoc result :place (inc idx)))
+       sorted-results))))

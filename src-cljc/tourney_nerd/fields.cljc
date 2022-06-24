@@ -1,6 +1,5 @@
 (ns tourney-nerd.fields
   (:require
-    [clojure.set :as set]
     [malli.core :as malli]
     [tourney-nerd.util.base58 :refer [random-base58]]))
 
@@ -29,7 +28,7 @@
   "returns a map of N Fields; used for Event creation"
   [num-fields]
   (let [fields-list (map-indexed
-                      (fn [idx n]
+                      (fn [idx _n]
                         (create-field (inc idx) (str "Field " (inc idx))))
                       (range 0 num-fields))]
     (zipmap (map :id fields-list) fields-list)))

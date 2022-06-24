@@ -1,7 +1,6 @@
 (ns tourney-nerd.core
   (:require
-    [clojure.walk :refer [keywordize-keys]]
-    [tourney-nerd.constants :refer [aborted-status canceled-status final-status game-statuses in-progress-status scheduled-status]]
+    [tourney-nerd.constants :refer [game-statuses scheduled-status]]
     [tourney-nerd.divisions]
     [tourney-nerd.events]
     [tourney-nerd.fields]
@@ -10,7 +9,6 @@
     [tourney-nerd.results :as results]
     [tourney-nerd.schedule]
     [tourney-nerd.teams]
-    [tourney-nerd.tiebreaker]
     [tourney-nerd.util :refer [half]]))
 
 ;;------------------------------------------------------------------------------

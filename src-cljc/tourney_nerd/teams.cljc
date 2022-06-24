@@ -1,6 +1,5 @@
 (ns tourney-nerd.teams
   (:require
-    [clojure.set :as set]
     [malli.core :as malli]
     [tourney-nerd.divisions :as divisions]
     [tourney-nerd.util.base58 :refer [random-base58]]))
@@ -49,7 +48,7 @@
   "returns a map of N Teams; used for Event Creation"
   [division-id num-teams]
   (let [teams-list (map-indexed
-                     (fn [idx n]
+                     (fn [idx _n]
                        (create-team {:division-id division-id
                                      :name (str "Team " (inc idx))
                                      :seed (inc idx)}))

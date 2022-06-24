@@ -1,6 +1,5 @@
 (ns tourney-nerd.games
   (:require
-    [clojure.set :as set]
     [malli.core :as malli]
     [tourney-nerd.divisions :refer [division-id-regex]]
     [tourney-nerd.fields :refer [field-id-regex]]
