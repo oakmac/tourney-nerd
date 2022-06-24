@@ -145,12 +145,10 @@
       (and b-games-played? (not a-games-played?)) 1
 
       ;; sort by record + point diff (ie: victory points) if teams have different records
-      (and (not same-record?) (> a-victory-points b-victory-points)) -1
-      (and (not same-record?) (> b-victory-points a-victory-points)) 1
+      (not same-record?) (compare b-victory-points a-victory-points)
 
       ;; sort by tiebreaker rules
-      (and same-record? (> a-tiebreaker-points b-tiebreaker-points)) -1
-      (and same-record? (> b-tiebreaker-points a-tiebreaker-points)) 1
+      same-record? (compare b-tiebreaker-points a-tiebreaker-points)
 
       :else
       0)))
