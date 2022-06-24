@@ -8,9 +8,9 @@
             :distribution :repo}
 
   :dependencies
-  [[org.clojure/clojure "1.10.1"]
-   [org.clojure/clojurescript "1.10.597"]
-   [com.taoensso/timbre "4.10.0"]
+  [[org.clojure/clojure "1.11.1"]
+   [org.clojure/clojurescript "1.11.60"]
+   [com.taoensso/timbre "5.2.1"]
    [metosin/malli "0.3.1"]]
 
   :plugins [[lein-cljsbuild "1.1.7"]]
@@ -18,8 +18,9 @@
   :source-paths ["src-cljc"]
 
   :repl-options {:init-ns tourney-nerd.core}
+  :test-paths ["test/"]
 
-  :clean-targets ["target" "tourney-nerd.js"]
+  :clean-targets ["target/" "tourney-nerd.js"]
 
   :cljsbuild
   {:builds

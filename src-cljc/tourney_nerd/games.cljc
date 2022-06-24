@@ -96,3 +96,8 @@
   (assoc g :scoreA 0
            :scoreB 0
            :status scheduled-status))
+
+;; NOTE: "finished" is legacy here
+(defn game-finished? [game]
+  (or (= final-status (:status game))
+      (= "finished" (:status game))))

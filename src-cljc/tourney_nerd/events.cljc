@@ -23,7 +23,7 @@
       (timbre/warn "Unrecognized id type:" id))))
 
 ;; TODO: What else to reset here?
-(defn clone
+(defn clone-event
   "Clones an existing event format. Returns a new Event based on the input event.
   All ids will be unique and values reset to defaults appropriate for a new Event."
   [event]

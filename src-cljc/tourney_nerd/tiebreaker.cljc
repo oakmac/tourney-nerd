@@ -2,10 +2,7 @@
   "Tie breakers for round-robins
    Page 6 of the UPA tournament manual")
 
-(defn hello []
-  "tiebreaker!!")
-
-(defn rule2-win-loss
-  "Rule 2. Won-loss records, counting only games between the teams that are tied."
-  [games]
+(defn sort-results-by-upa-rules
+  "Sort results based on the tiebreaker rules specified in the UPA Tournament Manual"
+  [results games]
   nil)
