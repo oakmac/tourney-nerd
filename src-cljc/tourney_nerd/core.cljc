@@ -4,7 +4,7 @@
     [tourney-nerd.divisions]
     [tourney-nerd.events]
     [tourney-nerd.fields]
-    [tourney-nerd.games :refer [game-finished?]]
+    [tourney-nerd.games]
     [tourney-nerd.groups]
     [tourney-nerd.results :as results]
     [tourney-nerd.schedule]

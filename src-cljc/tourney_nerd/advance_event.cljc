@@ -1,38 +1,9 @@
 (ns tourney-nerd.advance-event
   "Advance an event based on games played."
   (:require
-    [clojure.set :as set]
-    [clojure.string :as str]
-    [clojure.walk :as walk]
-    [taoensso.timbre :as timbre]
-    [tourney-nerd.divisions :as divisions]
-    [tourney-nerd.fields :as fields]
     [tourney-nerd.games :as games]
-    [tourney-nerd.groups :as groups]
     [tourney-nerd.results :as results]
-    [tourney-nerd.schedule :as schedule]
-    [tourney-nerd.teams :as teams]
     [tourney-nerd.util :refer [half]]))
-
-;;------------------------------------------------------------------------------
-;; Misc
-
-;; TODO: move these to the games ns
-(defn- winner
-  "Returns the game-id of the winning team. nil if the game is not finished"
-  [game]
-  (when (games/game-finished? game)
-    (if (> (:scoreA game) (:scoreB game))
-      (:teamA-id game)
-      (:teamB-id game))))
-
-(defn- loser
-  "Returns the game-id of the losing team. nil if the game is not finished"
-  [game]
-  (when (games/game-finished? game)
-    (if (< (:scoreA game) (:scoreB game))
-      (:teamA-id game)
-      (:teamB-id game))))
 
 ;;------------------------------------------------------------------------------
 ;; Predicates
@@ -87,7 +58,7 @@
         ;; we will fill the new-matchups vector until the sorted-team-ids list is empty
         new-matchups (atom [])]
     ;; create the matchups for this swiss round
-    (dotimes [i num-matchups-to-create]
+    (dotimes [_i num-matchups-to-create]
       (let [;; take the first team in the list
             teamA-id (first @sorted-team-ids)
             ;; remove that team from the teams list
@@ -182,15 +153,15 @@
         teamA-target-game-id (:game-id pending-teamA)
         teamA-target-game (get-in event [:games teamA-target-game-id])
         teamA-target-game-finished? (games/game-finished? teamA-target-game)
-        teamA-target-game-winner (winner teamA-target-game)
-        teamA-target-game-loser (loser teamA-target-game)
+        teamA-target-game-winner (results/winner teamA-target-game)
+        teamA-target-game-loser (results/loser teamA-target-game)
 
         pending-teamB (:pending-teamB pending-game)
         teamB-target-game-id (:game-id pending-teamB)
         teamB-target-game (get-in event [:games teamB-target-game-id])
         teamB-target-game-finished? (games/game-finished? teamB-target-game)
-        teamB-target-game-winner (winner teamB-target-game)
-        teamB-target-game-loser (loser teamB-target-game)
+        teamB-target-game-winner (results/winner teamB-target-game)
+        teamB-target-game-loser (results/loser teamB-target-game)
 
         new-event (atom event)]
 
@@ -201,7 +172,7 @@
                teamA-target-game-winner
                teamA-target-game-loser)))
 
-    (when (and (= (:type pending-teamB "PENDING_GAME_RESULT"))
+    (when (and (= (:type pending-teamB) "PENDING_GAME_RESULT")
                teamB-target-game-finished?)
       (swap! new-event assoc-in [:games pending-game-id :teamB-id]
              (if (= (:result pending-teamB) "winner-of")
@@ -228,4 +199,3 @@
   (-> event
       advance-swiss-games
       advance-pending-games))
-      ;; TODO: advance-bracket-games

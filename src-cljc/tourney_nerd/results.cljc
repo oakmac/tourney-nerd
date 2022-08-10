@@ -9,16 +9,18 @@
 (defn winner
   "Returns the game-id of the winning team."
   [game]
-  (if (> (:scoreA game) (:scoreB game))
-    (:teamA-id game)
-    (:teamB-id game)))
+  (when (game-finished? game)
+    (if (> (:scoreA game) (:scoreB game))
+      (:teamA-id game)
+      (:teamB-id game))))
 
 (defn loser
   "Returns the game-id of the losing team."
   [game]
-  (if (< (:scoreA game) (:scoreB game))
-    (:teamA-id game)
-    (:teamB-id game)))
+  (when (game-finished? game)
+    (if (< (:scoreA game) (:scoreB game))
+      (:teamA-id game)
+      (:teamB-id game))))
 
 ;;------------------------------------------------------------------------------
 ;; Calculate Results
@@ -133,8 +135,8 @@
 
     ;; defensive / sanity-check:
     (when (and same-record?
-               (or (not (:result-against-tied-teams resultA)))
-               (or (not (:result-against-tied-teams resultB))))
+               (not (:result-against-tied-teams resultA))
+               (not (:result-against-tied-teams resultB)))
       (timbre/error "Two teams with the same record do NOT have result-against-tied-teams!"
                     "teamA-id:" (:team-id resultA)
                     "teamB-id:" (:team-id resultB)))

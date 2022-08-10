@@ -62,4 +62,6 @@
 (deftest advance-brackets-test
   (testing "Advance Pending Game Result"
     (is (= (tn.advance-event/advance-event {:games games1-before})
+           {:games games1-after}))
+    (is (= (tn.advance-event/advance-event {:games games1-after})
            {:games games1-after}))))

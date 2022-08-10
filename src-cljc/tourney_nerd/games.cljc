@@ -98,5 +98,6 @@
 
 ;; NOTE: "finished" is legacy here
 (defn game-finished? [game]
-  (or (= final-status (:status game))
-      (= "finished" (:status game))))
+  (boolean
+    (or (= final-status (:status game))
+        (= "finished" (:status game)))))
