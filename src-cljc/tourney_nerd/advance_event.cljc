@@ -151,20 +151,24 @@
 
         pending-teamA (:pending-teamA pending-game)
         teamA-target-game-id (:game-id pending-teamA)
-        teamA-target-game (get-in event [:games teamA-target-game-id])
+        teamA-target-game (when teamA-target-game-id
+                            (or (get-in event [:games (keyword teamA-target-game-id)])
+                                (get-in event [:games (name teamA-target-game-id)])))
+
         teamA-target-game-finished? (games/game-finished? teamA-target-game)
         teamA-target-game-winner (results/winner teamA-target-game)
         teamA-target-game-loser (results/loser teamA-target-game)
 
         pending-teamB (:pending-teamB pending-game)
         teamB-target-game-id (:game-id pending-teamB)
-        teamB-target-game (get-in event [:games teamB-target-game-id])
+        teamB-target-game (when teamB-target-game-id
+                            (or (get-in event [:games (keyword teamB-target-game-id)])
+                                (get-in event [:games (name teamB-target-game-id)])))
         teamB-target-game-finished? (games/game-finished? teamB-target-game)
         teamB-target-game-winner (results/winner teamB-target-game)
         teamB-target-game-loser (results/loser teamB-target-game)
 
         new-event (atom event)]
-
     (when (and (= (:type pending-teamA) "PENDING_GAME_RESULT")
                teamA-target-game-finished?)
       (swap! new-event assoc-in [:games pending-game-id :teamA-id]
