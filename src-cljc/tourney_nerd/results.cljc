@@ -129,9 +129,13 @@
         same-record? (= a-record b-record)
         a-victory-points (:victory-points resultA)
         b-victory-points (:victory-points resultB)
-        ;; NOTE: this will need to change when we adopt Rule 3
         a-tiebreaker-points (get-in resultA [:result-against-tied-teams :victory-points])
-        b-tiebreaker-points (get-in resultB [:result-against-tied-teams :victory-points])]
+        b-tiebreaker-points (get-in resultB [:result-against-tied-teams :victory-points])
+        same-tiebreaker-victory-points? (= a-tiebreaker-points b-tiebreaker-points)
+        same-record-and-same-tiebreaker-points? (and same-record? same-tiebreaker-victory-points?)]
+
+    (when same-record-and-same-tiebreaker-points?
+      (timbre/warn "WE HAVE A CASE THAT IS NOT HANDLED" (:team-name resultA) (:team-name resultB)))
 
     ;; defensive / sanity-check:
     (when (and same-record?
@@ -146,11 +150,16 @@
       (and a-games-played? (not b-games-played?)) -1
       (and b-games-played? (not a-games-played?)) 1
 
-      ;; sort by record + point diff (ie: victory points) if teams have different records
+      ;; teams have different records: sort by record + point diff (ie: victory points)
       (not same-record?) (compare b-victory-points a-victory-points)
 
-      ;; sort by tiebreaker rules
-      same-record? (compare b-tiebreaker-points a-tiebreaker-points)
+      ;; teams have the same record, but different tiebreaker victory points
+      ;; this is UPA Rule 2 and the first part of Rule 3
+      (and same-record? (not same-tiebreaker-victory-points?)) (compare b-tiebreaker-points a-tiebreaker-points)
+
+      ;; teams have the same record and same tiebreaker victory points: go back to 'head to head'
+      ;; this is the second half of Rule 3
+      ;; FIXME : write this
 
       :else
       0)))
@@ -170,7 +179,7 @@
 ;; TODO: this could probably have better performance, calculate once instead of
 ;; for every result / team
 (defn add-result-against-teams-with-same-record
-  "Adds a Result map against teams that have the same record. This is UPA tiebreaking rule 2:
+  "Adds a Result map against teams that have the same record. This is UPA tiebreaking Rule 2 and 3:
   Won-loss records, counting only games between the teams that are tied."
   [result all-results all-teams all-games]
   (let [team-id (:team-id result)
@@ -202,6 +211,9 @@
                        (add-result-against-teams-with-same-record result results-with-records teams games)
                        result))
                    results-with-records)]
+        ;; FIXME: we need to check here for the following condition:
+        ;; you have teams with the same record and the same "result against same teams" victory points
+        ;; add another :result-against-tied-teams2 key with sub-results against only those teams
     results3))
 
 (def default-tiebreak-method "TIEBREAK_UPA_RULES")
