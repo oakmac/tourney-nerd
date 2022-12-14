@@ -2,6 +2,7 @@
   "Advance an event based on games played."
   (:require
     [tourney-nerd.games :as games]
+    [tourney-nerd.groups :as groups]
     [tourney-nerd.results :as results]
     [tourney-nerd.util :refer [half]]))
 
@@ -29,9 +30,17 @@
 (defn is-swiss-game? [g]
   (integer? (:swiss-round g)))
 
-(defn- has-pending-team? [game]
-  (or (:pending-teamA game)
-      (:pending-teamB game)))
+(defn- has-pending-game-result?
+  "Does this game have a pending-team that is pending a single game result?"
+  [game]
+  (or (= "PENDING_GAME_RESULT" (get-in game [:pending-teamA :type]))
+      (= "PENDING_GAME_RESULT" (get-in game [:pending-teamB :type]))))
+
+(defn- has-pending-group-result?
+  "Does this game have a pending-team that is pending a group result?"
+  [game]
+  (or (= "PENDING_GROUP_RESULT" (get-in game [:pending-teamA :type]))
+      (= "PENDING_GROUP_RESULT" (get-in game [:pending-teamB :type]))))
 
 ;; TODO: pretty sure the loops in this function could be done cleaner as a reduce
 (defn create-matchups
@@ -145,7 +154,8 @@
       (drop-last swiss-rounds-list))))
 
 ;; TODO: re-write this function to be safer and more functional
-(defn- advance-pending-game
+(defn- advance-pending-game-result
+  "Advances a game that is pending a direct game result. ie: PENDING_GAME_RESULT"
   [event pending-game]
   (let [pending-game-id (:game-id pending-game)
 
@@ -185,14 +195,58 @@
 
     @new-event))
 
+;; TODO:
+;; advance-pending-games and advance-pending-group-games functions could probably
+;; be combined
 (defn- advance-pending-games
-  "Advances any pending games"
+  "Advances games that are pending single game results"
   [event]
   (let [all-games (:games event)
         games-list (map (fn [[game-id game]] (assoc game :game-id game-id)) all-games)
-        games-with-pending-teams (filter has-pending-team? games-list)]
+        games-with-pending-teams (filter has-pending-game-result? games-list)]
     (reduce
-      advance-pending-game
+      advance-pending-game-result
+      event
+      games-with-pending-teams)))
+
+;; TODO:
+;; - this function is very ugly; needs a re-write
+;; - also inefficient: should calculate group results once, then check games for advancement
+(defn advance-pending-group-result
+  "TODO: write docstring"
+  [event pending-game]
+  (let [pending-game-id (:game-id pending-game)
+        group1-id (get-in pending-game [:pending-teamA :group-id])
+        group2-id (get-in pending-game [:pending-teamB :group-id])
+        group1-place (get-in pending-game [:pending-teamA :place])
+        group2-place (get-in pending-game [:pending-teamB :place])
+        group1-games (when group1-id (groups/get-all-games-for-group event group1-id))
+        group2-games (when group2-id (groups/get-all-games-for-group event group2-id))
+        group1-finished? (and (not (empty? group1-games)) (every? games/game-finished? (vals group1-games)))
+        group2-finished? (and (not (empty? group2-games)) (every? games/game-finished? (vals group2-games)))
+        group1-teams (when group1-finished? (groups/get-teams-for-group event group1-id))
+        group2-teams (when group2-finished? (groups/get-teams-for-group event group2-id))
+        group1-results (when group1-finished? (results/games->sorted-results group1-teams group1-games))
+        group2-results (when group2-finished? (results/games->sorted-results group2-teams group2-games))
+        group1-team-id (when (and group1-id group1-finished? group1-results (number? group1-place))
+                         (:team-id (nth group1-results (dec group1-place) nil)))
+        group2-team-id (when (and group2-id group2-finished? group2-results (number? group2-place))
+                         (:team-id (nth group2-results (dec group2-place) nil)))]
+    (cond-> event
+      group1-team-id
+      (assoc-in [:games pending-game-id :teamA-id] group1-team-id)
+
+      group2-team-id
+      (assoc-in [:games pending-game-id :teamB-id] group2-team-id))))
+
+(defn- advance-pending-group-games
+  "Advances games that are pending group results"
+  [event]
+  (let [all-games (:games event)
+        games-list (map (fn [[game-id game]] (assoc game :game-id game-id)) all-games)
+        games-with-pending-teams (filter has-pending-group-result? games-list)]
+    (reduce
+      advance-pending-group-result
       event
       games-with-pending-teams)))
 
@@ -202,4 +256,5 @@
   [event]
   (-> event
       advance-swiss-games
-      advance-pending-games))
+      advance-pending-games
+      advance-pending-group-games))
