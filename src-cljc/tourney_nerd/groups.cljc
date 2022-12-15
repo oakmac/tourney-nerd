@@ -26,5 +26,8 @@
                    (fn [ids {:keys [teamA-id teamB-id] :as _game}]
                      (conj ids teamA-id teamB-id))
                    #{}
-                   (vals games))]
-    (select-keys (:teams event) team-ids)))
+                   (vals games))
+        ;; ensure that the teams map has string keys
+        teams (zipmap (map name (keys (:teams event)))
+                      (vals (:teams event)))]
+    (select-keys teams team-ids)))
