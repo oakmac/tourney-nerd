@@ -17,10 +17,13 @@
 
   :source-paths ["src-cljc"]
 
-  :repl-options {:init-ns tourney-nerd.core}
   :test-paths ["test/"]
 
   :clean-targets ["target/" "tourney-nerd.js"]
+
+  :profiles
+  {:repl {:dependencies [[metosin/jsonista "0.2.6"]]
+          :source-paths ["dev" "src-cljc"]}}
 
   :cljsbuild
   {:builds
