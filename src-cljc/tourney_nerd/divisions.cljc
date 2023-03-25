@@ -32,3 +32,14 @@
                           (create-division (inc idx) name))
                         names)]
     (zipmap (map :id new-divisions) new-divisions)))
+
+;; TODO: good candidate for unit tests
+(defn get-first-division-id
+  "returns the first division-id from an event"
+  [event]
+  (->> event
+       :divisions
+       vals
+       (sort-by :order)
+       first
+       :id))
