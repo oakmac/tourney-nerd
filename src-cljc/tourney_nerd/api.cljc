@@ -1,16 +1,28 @@
 (ns tourney-nerd.api
   (:require
-    ; [tourney-nerd.event :as tn.event]
     [tourney-nerd.divisions :as tn.divisions]
+    [tourney-nerd.event :as tn.event]
     [tourney-nerd.fields :as tn.fields]
     [tourney-nerd.games :as tn.games]
-    [tourney-nerd.schedule :as tn.schedule]
-    [tourney-nerd.results :as tn.results]))
+    [tourney-nerd.results :as tn.results]
+    [tourney-nerd.schedule :as tn.schedule]))
 
 (defn create-event
-  [arg1])
+  "Creates an Event.
+  Returns the new Event."
+  ([]
+   (tn.event/create-event {}))
+  [arg1]
+  (if (string? arg1)
+    (tn.event/create-event {:name arg1})
+    (tn.event/create-event arg1)))
 
-;; TODO: create-division
+(defn create-division
+  "Creates and adds a new Division to an Event.
+  Returns the updated Event"
+  [evt division-name]
+  (tn.divisions/create-division evt division-name))
+
 ;; TODO: update-divisions
 ;; TODO: get-divisions
 ;; TODO: get-sorted-divisions
