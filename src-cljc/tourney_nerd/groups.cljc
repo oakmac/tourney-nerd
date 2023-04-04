@@ -2,6 +2,12 @@
   (:require
     [tourney-nerd.util.base58 :refer [random-base58]]))
 
+(def group-types
+  #{"GROUP_ROUND_ROBIN_POOL"
+    "GROUP_SINGLE_ELIM_BRACKET"
+    "GROUP_DOUBLE_ELIM_BRACKET"
+    "GROUP_SWISS_ROUND"})
+
 (def group-id-regex #"^group-[a-zA-Z0-9]{4,}$")
 
 (defn random-group-id []
