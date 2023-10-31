@@ -22,7 +22,8 @@
   :clean-targets ["target/" "tourney-nerd.js"]
 
   :profiles
-  {:repl {:dependencies [[metosin/jsonista "0.2.6"]]
+  {:dev {:dependencies [[metosin/jsonista "0.2.6"]]
+          :resource-paths ["test-resources/"]
           :source-paths ["dev" "src-cljc"]}}
 
   :cljsbuild

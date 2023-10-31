@@ -1,6 +1,9 @@
 (ns tourney-nerd.advance-event-test
   (:require
-    [clojure.test :refer :all]
+    [clojure.java.io :as io]
+    [clojure.test :refer [deftest is testing]]
+    [clojure.walk :refer [keywordize-keys]]
+    [jsonista.core :as jsonista]
     [tourney-nerd.advance-event :as tn.advance-event]))
 
 (def games1-before
@@ -230,9 +233,23 @@
      :status "STATUS_SCHEDULED"
      :group-id "group-3"}}})
 
+(defn load-test-resource-json-file
+  [f]
+  (-> f
+    io/resource
+    slurp
+    jsonista/read-value
+    keywordize-keys))
+
 (deftest advance-groups-test
   (testing "Advance Pending games based on group result"
     (is (= (tn.advance-event/advance-event event-group-advance-before)
            event-group-advance-after))
     (is (= (tn.advance-event/advance-event event-group-advance-after)
-           event-group-advance-after))))
+           event-group-advance-after)))
+  (testing "real-world league advancement example"
+    (let [before (load-test-resource-json-file "woodlands-fall-league.before.json")
+          after (load-test-resource-json-file "woodlands-fall-league.after.json")]
+      (is (= (tn.advance-event/advance-event before)
+             after)))))
+
