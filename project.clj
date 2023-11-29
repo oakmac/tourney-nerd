@@ -1,4 +1,4 @@
-(defproject com.oakmac/tourney-nerd "0.1.0"
+(defproject com.oakmac/tourney-nerd "0.10.0"
 
   :description "Handle logic for Ultimate tournaments."
   :url "https://github.com/oakmac/tourney-nerd"
@@ -9,8 +9,8 @@
 
   :dependencies
   [[org.clojure/clojure "1.11.1"]
-   [com.taoensso/timbre "5.2.1"]
-   [metosin/malli "0.3.1"]]
+   [com.taoensso/timbre "6.3.1"]
+   [metosin/malli "0.13.0"]]
 
   :source-paths ["src-cljc"]
 
@@ -19,6 +19,6 @@
   :clean-targets ["target/"]
 
   :profiles
-  {:dev {:dependencies [[metosin/jsonista "0.2.6"]]
+  {:dev {:dependencies [[metosin/jsonista "0.3.8"]]
           :resource-paths ["test-resources/"]
           :source-paths ["dev" "src-cljc"]}})
