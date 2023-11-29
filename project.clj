@@ -13,25 +13,13 @@
    [com.taoensso/timbre "5.2.1"]
    [metosin/malli "0.3.1"]]
 
-  :plugins [[lein-cljsbuild "1.1.7"]]
-
   :source-paths ["src-cljc"]
 
   :test-paths ["test/"]
 
-  :clean-targets ["target/" "tourney-nerd.js"]
+  :clean-targets ["target/"]
 
   :profiles
   {:dev {:dependencies [[metosin/jsonista "0.2.6"]]
           :resource-paths ["test-resources/"]
-          :source-paths ["dev" "src-cljc"]}}
-
-  :cljsbuild
-  {:builds
-    [{:id "main"
-      :source-paths ["src-cljs" "src-cljc"]
-      :compiler {:language-in :ecmascript5
-                 :language-out :ecmascript5
-                 :output-to "tourney-nerd.js"
-                 :optimizations :simple
-                 :target :nodejs}}]})
+          :source-paths ["dev" "src-cljc"]}})
