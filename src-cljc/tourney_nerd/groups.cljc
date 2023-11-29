@@ -1,5 +1,6 @@
 (ns tourney-nerd.groups
   (:require
+    [tourney-nerd.order :refer [ensure-items-order]]
     [tourney-nerd.util.base58 :refer [random-base58]]))
 
 (def group-id-regex #"^group-[a-zA-Z0-9]{4,}$")
@@ -31,3 +32,15 @@
         teams (zipmap (map name (keys (:teams event)))
                       (vals (:teams event)))]
     (select-keys teams team-ids)))
+
+(defn ensure-groups-order
+  "Ensures that all groups have a sequential :order field per division"
+  [groups]
+  (let [groups-by-division (group-by :division-id (vals groups))
+        groups-with-order (map
+                            (fn [[_division-id groups]]
+                              (ensure-items-order groups))
+                            groups-by-division)
+        groups-coll (flatten groups-with-order)]
+    (zipmap (map #(-> % :id keyword) groups-coll)
+            groups-coll)))

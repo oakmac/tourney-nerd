@@ -1,0 +1,63 @@
+{
+  :divisions
+  {:division-bpXiPA6qseYA
+   {:name "Open"
+    :order 2}
+
+   :division-VHQZPcQWKyA2
+   {:name "Mixed"}
+
+   :division-azLwr5PQfXwJ
+   {:name "Women"
+    :order 4}}
+
+  :fields
+  {:field-59jz9dBEzV1y
+   {:name "Field 1"}
+
+   :field-NSKebq3htuoy
+   {:name "Field 2"}
+
+   :field-5zHn1AqrBEaK
+   {:name "Field 3"}
+
+   :field-k7Cbk96w46QD
+   {:name "Field 4"}
+
+   :field-rogU8tK7kAcV
+   {:name "Field 5"}}
+
+  :groups
+  {:group-wMweybjBYgky
+   {:division-id "division-bpXiPA6qseYA"
+    :id "group-wMweybjBYgky"
+    :name "Open Pool A"
+    :order 2}
+
+   :group-1sfuqx5ERUBe
+   {:division-id "division-bpXiPA6qseYA"
+    :id "group-1sfuqx5ERUBe"
+    :name "Open Pool B"
+    :order 3}
+
+   :group-TN7nZaDNJak2
+   {:division-id "division-bpXiPA6qseYA"
+    :id "group-TN7nZaDNJak2"
+    :name "Open Bracket"}
+
+   :group-wK1gxjNy2HSN
+   {:division-id "division-VHQZPcQWKyA2"
+    :id "group-wK1gxjNy2HSN"
+    :name "Mixed Pool Play"
+    :order 1}
+
+   :group-dM1qAzHvhArC
+   {:division-id "division-VHQZPcQWKyA2"
+    :id "group-dM1qAzHvhArC"
+    :name "Mixed Bracket"
+    :order 3}
+
+   :group-j5FvsDkHjU1s
+   {:division-id "division-azLwr5PQfXwJ"
+    :id "group-j5FvsDkHjU1s"
+    :name "Women Pool Play"}}}

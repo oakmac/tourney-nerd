@@ -8,6 +8,7 @@
     [tourney-nerd.fields :as fields]
     [tourney-nerd.games :as games]
     [tourney-nerd.groups :as groups]
+    [tourney-nerd.order :refer [ensure-items-order]]
     [tourney-nerd.schedule :as schedule]
     [tourney-nerd.teams :as teams]))
 
@@ -69,3 +70,11 @@
 
           :else itm))
       event)))
+
+(defn ensure-order
+  "Ensures that all items with :order fields are sequential."
+  [event]
+  (-> event
+    (update-in [:divisions] ensure-items-order)
+    (update-in [:fields] ensure-items-order)
+    (update-in [:groups] groups/ensure-groups-order)))
