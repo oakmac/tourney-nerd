@@ -6,4 +6,5 @@ target/
 .lein-repl-history
 .nrepl-port
 *.diff
-tourney-nerd.js
+pom.xml
+pom.xml.asc
