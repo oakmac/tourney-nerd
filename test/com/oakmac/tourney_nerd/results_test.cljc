@@ -427,15 +427,6 @@
     :scoreB 6
     :status "STATUS_FINAL"}})
 
-(defn fooooooooo
-  []
-  (let [xxx (games->results six-teams example31-games)]
-    (zipmap (map :team-name xxx)
-            ; (map #(get-in % [:result-against-tied-teams :victory-points]) xxx))))
-            (map :victory-points xxx))))
-            ; (map :result-against-tied-teams xxx))))
-            ; (map :record xxx))))
-
 ;; TODO: add test for results->duplicate-records
 ; (deftest results-duplicate-records-test
 ;   (is (= (results->duplicate-records))))
@@ -506,14 +497,13 @@ B finishes second, and C finishes third."
       (testing "the records of A, B, C must be the same"
         (is (= 1 (-> abc-records vals set count))))
       (testing "results against tied teams point diff must sum to zero"
-        (= 0 (apply + (->> abc-tied-results vals (map :points-diff)))))
+        (is (= 0 (apply + (->> abc-tied-results vals (map :points-diff))))))
       (testing "sorted place must be correct"
         (is (= (->> results
                     (take 3)
                     (map :team-name)
                     vec)
                ["A" "C" "B"]))))))
-
 
   ; (testing "Example 3.2. A, B, C are in a three-way tie for first place. A has beaten B
   ; 15-11, B has beaten C 15-12, and C has beaten A, 15-13. A's point differential,

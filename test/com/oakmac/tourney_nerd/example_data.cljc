@@ -3,7 +3,7 @@
 (def ex-division-id "division-1000")
 (def ex-game-group-id "group-1000")
 
-(def eight-teams
+(def four-teams
   {"team-1000" {:name "Team 1"
                 :order 1
                 :id "team-1000"

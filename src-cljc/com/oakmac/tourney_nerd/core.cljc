@@ -1,6 +1,5 @@
 (ns com.oakmac.tourney-nerd.core
   (:require
-    [com.oakmac.tourney-nerd.constants :refer [game-statuses scheduled-status]]
     [com.oakmac.tourney-nerd.divisions]
     [com.oakmac.tourney-nerd.events]
     [com.oakmac.tourney-nerd.fields]
@@ -9,46 +8,46 @@
     [com.oakmac.tourney-nerd.schedule]
     [com.oakmac.tourney-nerd.teams]))
 
-(defn valid-score? [score]
-  (and (integer? score)
-       (>= score 0)))
+; (defn valid-score? [score]
+;   (and (integer? score)
+;        (>= score 0)))
 
 ;;------------------------------------------------------------------------------
 ;; Misc
 
-(defn- winner
-  "Returns the game-id of the winning team."
-  [game]
-  (if (> (:scoreA game) (:scoreB game))
-    (:teamA-id game)
-    (:teamB-id game)))
+; (defn- winner
+;   "Returns the game-id of the winning team."
+;   [game]
+;   (if (> (:scoreA game) (:scoreB game))
+;     (:teamA-id game)
+;     (:teamB-id game)))
 
-(defn- loser
-  "Returns the game-id of the losing team."
-  [game]
-  (if (< (:scoreA game) (:scoreB game))
-    (:teamA-id game)
-    (:teamB-id game)))
+; (defn- loser
+;   "Returns the game-id of the losing team."
+;   [game]
+;   (if (< (:scoreA game) (:scoreB game))
+;     (:teamA-id game)
+;     (:teamB-id game)))
 
 ;;------------------------------------------------------------------------------
 ;; Ensure Tournament Structure
 
-(defn- ensure-game-status
-  "Game status must be valid."
-  [game]
-  (if-not (contains? game-statuses (:status game))
-    (assoc game :status scheduled-status)
-    game))
+; (defn- ensure-game-status
+;   "Game status must be valid."
+;   [game]
+;   (if-not (contains? game-statuses (:status game))
+;     (assoc game :status scheduled-status)
+;     game))
 
-(defn- ensure-scores
-  "Game scores must be integers."
-  [game]
-  (let [game2 (if-not (valid-score? (:scoreA game))
-                (assoc game :scoreA 0)
-                game)]
-    (if-not (valid-score? (:scoreB game2))
-      (assoc game2 :scoreB 0)
-      game2)))
+; (defn- ensure-scores
+;   "Game scores must be integers."
+;   [game]
+;   (let [game2 (if-not (valid-score? (:scoreA game))
+;                 (assoc game :scoreA 0)
+;                 game)]
+;     (if-not (valid-score? (:scoreB game2))
+;       (assoc game2 :scoreB 0)
+;       game2)))
 
 (defn- ensure-games
   "Games must have scores, status, and ids"
@@ -66,8 +65,6 @@
   (-> state
       ensure-teams
       ensure-games))
-
-
 
 ;; -----------------------------------------------------------------------------
 ;; FIXME: move all of this to a CLJS JS interop namespace
