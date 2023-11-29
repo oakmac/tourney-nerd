@@ -1,4 +1,4 @@
-# Tourney Nerd
+# Tourney Nerd 🤓 🥏 [![CI Status](https://github.com/oakmac/tourney-nerd/actions/workflows/ci.yaml/badge.svg)](https://github.com/oakmac/tourney-nerd/actions/workflows/ci.yaml) [![Clojars Project](https://img.shields.io/clojars/v/com.oakmac/tourney-nerd.svg)](https://clojars.org/com.oakmac/tourney-nerd)
 
 A library for handling [Ultimate] tournament logic.
 
