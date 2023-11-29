@@ -1,4 +1,4 @@
-(ns tourney-nerd.example-data)
+(ns com.oakmac.tourney-nerd.example-data)
 
 (def ex-division-id "division-1000")
 (def ex-game-group-id "group-1000")

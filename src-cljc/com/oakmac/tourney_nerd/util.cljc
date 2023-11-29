@@ -1,4 +1,4 @@
-(ns tourney-nerd.util)
+(ns com.oakmac.tourney-nerd.util)
 
 (defn one? [x]
   (= x 1))

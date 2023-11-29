@@ -1,7 +1,7 @@
-(ns tourney-nerd.fields
+(ns com.oakmac.tourney-nerd.fields
   (:require
-    [malli.core :as malli]
-    [tourney-nerd.util.base58 :refer [random-base58]]))
+    [com.oakmac.tourney-nerd.util.base58 :refer [random-base58]]
+    [malli.core :as malli]))
 
 (def field-id-regex
   #"^field-[a-zA-Z0-9]{4,}$")

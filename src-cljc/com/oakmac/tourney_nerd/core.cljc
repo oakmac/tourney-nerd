@@ -1,15 +1,13 @@
-(ns tourney-nerd.core
+(ns com.oakmac.tourney-nerd.core
   (:require
-    [tourney-nerd.constants :refer [game-statuses scheduled-status]]
-    [tourney-nerd.divisions]
-    [tourney-nerd.events]
-    [tourney-nerd.fields]
-    [tourney-nerd.games]
-    [tourney-nerd.groups]
-    [tourney-nerd.results :as results]
-    [tourney-nerd.schedule]
-    [tourney-nerd.teams]
-    [tourney-nerd.util :refer [half]]))
+    [com.oakmac.tourney-nerd.constants :refer [game-statuses scheduled-status]]
+    [com.oakmac.tourney-nerd.divisions]
+    [com.oakmac.tourney-nerd.events]
+    [com.oakmac.tourney-nerd.fields]
+    [com.oakmac.tourney-nerd.games]
+    [com.oakmac.tourney-nerd.groups]
+    [com.oakmac.tourney-nerd.schedule]
+    [com.oakmac.tourney-nerd.teams]))
 
 (defn valid-score? [score]
   (and (integer? score)

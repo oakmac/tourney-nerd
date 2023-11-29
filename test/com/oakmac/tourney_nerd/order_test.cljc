@@ -1,7 +1,7 @@
-(ns tourney-nerd.order-test
+(ns com.oakmac.tourney-nerd.order-test
   (:require
     [clojure.test :refer [deftest is]]
-    [tourney-nerd.order :refer [ensure-items-order]]))
+    [com.oakmac.tourney-nerd.order :refer [ensure-items-order]]))
 
 (deftest ensure-order-test
   (is (= (ensure-items-order

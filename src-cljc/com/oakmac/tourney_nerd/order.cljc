@@ -1,4 +1,4 @@
-(ns tourney-nerd.order)
+(ns com.oakmac.tourney-nerd.order)
 
 ;; TODO: allow the caller to pass in a custom sort-fn for maps that do not have an order keyword
 (defn ensure-items-order

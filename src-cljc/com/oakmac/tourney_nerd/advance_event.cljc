@@ -1,10 +1,10 @@
-(ns tourney-nerd.advance-event
+(ns com.oakmac.tourney-nerd.advance-event
   "Advance an event based on games played."
   (:require
-    [tourney-nerd.games :as games]
-    [tourney-nerd.groups :as groups]
-    [tourney-nerd.results :as results]
-    [tourney-nerd.util :refer [half]]))
+    [com.oakmac.tourney-nerd.games :as games]
+    [com.oakmac.tourney-nerd.groups :as groups]
+    [com.oakmac.tourney-nerd.results :as results]
+    [com.oakmac.tourney-nerd.util :refer [half]]))
 
 ;;------------------------------------------------------------------------------
 ;; Predicates

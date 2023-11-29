@@ -1,8 +1,8 @@
-(ns tourney-nerd.schedule
+(ns com.oakmac.tourney-nerd.schedule
   (:require
     [clojure.string :as str]
-    [malli.core :as malli]
-    [tourney-nerd.util.base58 :refer [random-base58]]))
+    [com.oakmac.tourney-nerd.util.base58 :refer [random-base58]]
+    [malli.core :as malli]))
 
 (def timeslot-id-regex
   #"^timeslot-[a-zA-Z0-9]{4,}$")

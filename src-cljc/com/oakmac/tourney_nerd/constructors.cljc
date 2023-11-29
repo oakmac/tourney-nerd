@@ -1,7 +1,7 @@
-(ns tourney-nerd.constructors
+(ns com.oakmac.tourney-nerd.constructors
   "Functions for creating the basic building blocks of an event."
   (:require
-   [tourney-nerd.util :refer [create-uuid]]))
+   [com.oakmac.tourney-nerd.util :refer [create-uuid]]))
 
 (defn- division-id []
   (str "division-" (create-uuid)))

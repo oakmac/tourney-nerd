@@ -1,12 +1,12 @@
-(ns tourney-nerd.games
+(ns com.oakmac.tourney-nerd.games
   (:require
-    [malli.core :as malli]
-    [tourney-nerd.divisions :refer [division-id-regex]]
-    [tourney-nerd.fields :refer [field-id-regex]]
-    [tourney-nerd.groups :refer [group-id-regex]]
-    [tourney-nerd.schedule :refer [timeslot-id-regex]]
-    [tourney-nerd.teams :refer [team-id-regex]]
-    [tourney-nerd.util.base58 :refer [random-base58]]))
+    [com.oakmac.tourney-nerd.divisions :refer [division-id-regex]]
+    [com.oakmac.tourney-nerd.fields :refer [field-id-regex]]
+    [com.oakmac.tourney-nerd.groups :refer [group-id-regex]]
+    [com.oakmac.tourney-nerd.schedule :refer [timeslot-id-regex]]
+    [com.oakmac.tourney-nerd.teams :refer [team-id-regex]]
+    [com.oakmac.tourney-nerd.util.base58 :refer [random-base58]]
+    [malli.core :as malli]))
 
 ;; -----------------------------------------------------------------------------
 ;; Statuses

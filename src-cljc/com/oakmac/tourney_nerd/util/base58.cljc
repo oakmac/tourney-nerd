@@ -1,4 +1,4 @@
-(ns tourney-nerd.util.base58)
+(ns com.oakmac.tourney-nerd.util.base58)
 
 (def base58-chars
   "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz")

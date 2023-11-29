@@ -1,8 +1,8 @@
-(ns tourney-nerd.advance-event-test
+(ns com.oakmac.tourney-nerd.advance-event-test
   (:require
     [clojure.test :refer [deftest is testing]]
-    [tourney-nerd.advance-event :as tn.advance-event]
-    [tourney-nerd.test-util :refer [load-test-resource-json-file]]))
+    [com.oakmac.tourney-nerd.advance-event :as tn.advance-event]
+    [com.oakmac.tourney-nerd.test-util :refer [load-test-resource-json-file]]))
 
 (def games1-before
   {"game-400"

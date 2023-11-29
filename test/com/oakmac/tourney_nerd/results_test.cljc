@@ -1,7 +1,7 @@
-(ns tourney-nerd.results-test
+(ns com.oakmac.tourney-nerd.results-test
   (:require
     [clojure.test :refer [deftest is testing]]
-    [tourney-nerd.results :refer [games->results games->sorted-results]]))
+    [com.oakmac.tourney-nerd.results :refer [games->results games->sorted-results]]))
 
 ;; TODO: move all this data to .json or .edn files?
 

@@ -1,7 +1,7 @@
-(ns tourney-nerd.results
+(ns com.oakmac.tourney-nerd.results
   (:require
-    [taoensso.timbre :as timbre]
-    [tourney-nerd.games :refer [game-finished?]]))
+    [com.oakmac.tourney-nerd.games :refer [game-finished?]]
+    [taoensso.timbre :as timbre]))
 
 ;;------------------------------------------------------------------------------
 ;; Misc

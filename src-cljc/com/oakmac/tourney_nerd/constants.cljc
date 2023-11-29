@@ -1,4 +1,4 @@
-(ns tourney-nerd.constants
+(ns com.oakmac.tourney-nerd.constants
   "Things that do not change.")
 
 ;; -----------------------------------------------------------------------------

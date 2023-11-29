@@ -1,7 +1,7 @@
-(ns tourney-nerd.groups
+(ns com.oakmac.tourney-nerd.groups
   (:require
-    [tourney-nerd.order :refer [ensure-items-order]]
-    [tourney-nerd.util.base58 :refer [random-base58]]))
+    [com.oakmac.tourney-nerd.order :refer [ensure-items-order]]
+    [com.oakmac.tourney-nerd.util.base58 :refer [random-base58]]))
 
 (def group-id-regex #"^group-[a-zA-Z0-9]{4,}$")
 

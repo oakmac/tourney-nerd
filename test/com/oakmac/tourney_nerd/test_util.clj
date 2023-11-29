@@ -1,4 +1,4 @@
-(ns tourney-nerd.test-util
+(ns com.oakmac.tourney-nerd.test-util
   "Utility functions for testing"
   (:require
     [clojure.edn :as edn]

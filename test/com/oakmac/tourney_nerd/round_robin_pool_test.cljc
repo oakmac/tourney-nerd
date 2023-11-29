@@ -1,8 +1,8 @@
-(ns tourney-nerd.round-robin-pool-test
+(ns com.oakmac.tourney-nerd.round-robin-pool-test
   (:require
-    [clojure.test :refer :all]
-    [tourney-nerd.round-robin-pool :refer [rr-template->games-template]]
-    [tourney-nerd.upa.round-robin-pools :as upa-pools]))
+    [clojure.test :refer [deftest is]]
+    [com.oakmac.tourney-nerd.round-robin-pool :refer [rr-template->games-template]]
+    [com.oakmac.tourney-nerd.upa.round-robin-pools :as upa-pools]))
 
 (def table-3-1-games-template
   [{:teamA-idx 0, :teamB-idx 2, :field-idx 0, :timeslot-idx 0}

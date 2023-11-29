@@ -1,7 +1,7 @@
-(ns tourney-nerd.divisions
+(ns com.oakmac.tourney-nerd.divisions
   (:require
     [malli.core :as malli]
-    [tourney-nerd.util.base58 :refer [random-base58]]))
+    [com.oakmac.tourney-nerd.util.base58 :refer [random-base58]]))
 
 (def division-id-regex
   #"^division-[a-zA-Z0-9]{4,}$")

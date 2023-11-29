@@ -1,16 +1,16 @@
-(ns tourney-nerd.events
+(ns com.oakmac.tourney-nerd.events
   (:require
     [clojure.set :as set]
     [clojure.string :as str]
     [clojure.walk :as walk]
-    [taoensso.timbre :as timbre]
-    [tourney-nerd.divisions :as divisions]
-    [tourney-nerd.fields :as fields]
-    [tourney-nerd.games :as games]
-    [tourney-nerd.groups :as groups]
-    [tourney-nerd.order :refer [ensure-items-order]]
-    [tourney-nerd.schedule :as schedule]
-    [tourney-nerd.teams :as teams]))
+    [com.oakmac.tourney-nerd.divisions :as divisions]
+    [com.oakmac.tourney-nerd.fields :as fields]
+    [com.oakmac.tourney-nerd.games :as games]
+    [com.oakmac.tourney-nerd.groups :as groups]
+    [com.oakmac.tourney-nerd.order :refer [ensure-items-order]]
+    [com.oakmac.tourney-nerd.schedule :as schedule]
+    [com.oakmac.tourney-nerd.teams :as teams]
+    [taoensso.timbre :as timbre]))
 
 ;; TODO: we need an "event integrity" function
 ;; - all games timeslots are on the schedule
