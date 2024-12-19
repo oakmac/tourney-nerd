@@ -10,7 +10,7 @@ jobs:
 
     strategy:
       matrix:
-        os: [ubuntu-latest, macOS-latest, windows-latest]
+        os: [ubuntu-latest, macOS-latest]
 
     runs-on: ${{ matrix.os }}
 
@@ -24,18 +24,17 @@ jobs:
         uses: actions/setup-java@v3
         with:
           distribution: 'zulu'
-          java-version: '17'
+          java-version: '21'
 
       - name: Install clojure tools
-        uses: DeLaGuardo/setup-clojure@10.3
+        uses: DeLaGuardo/setup-clojure@13.0
         with:
           # Install just one or all simultaneously
           # The value must indicate a particular version of the tool, or use 'latest'
           # to always provision the latest version
           cli: 1.10.1.693              # Clojure CLI based on tools.deps
           lein: 2.9.1                  # Leiningen
-          clj-kondo: 2022.05.31        # clj-kondo
-          cmd-exe-workaround: 'latest' # Replaces `clojure` with `deps.clj` on Windows
+          clj-kondo: 'latest'
 
       - name: Show leiningen version
         run: lein -v
@@ -48,3 +47,12 @@ jobs:
 
       - name: clj-kondo lint
         run: clj-kondo --lint src-cljc/ test/
+
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v1
+
+      - name: Install npm dependencies
+        run: bun install
+
+      - name: Standard Clojure Style
+        run: bun run check-format
