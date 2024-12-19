@@ -1,12 +1,12 @@
 (ns com.oakmac.tourney-nerd.games
   (:require
-    [com.oakmac.tourney-nerd.divisions :refer [division-id-regex]]
-    [com.oakmac.tourney-nerd.fields :refer [field-id-regex]]
-    [com.oakmac.tourney-nerd.groups :refer [group-id-regex]]
-    [com.oakmac.tourney-nerd.schedule :refer [timeslot-id-regex]]
-    [com.oakmac.tourney-nerd.teams :refer [team-id-regex]]
-    [com.oakmac.tourney-nerd.util.base58 :refer [random-base58]]
-    [malli.core :as malli]))
+   [com.oakmac.tourney-nerd.divisions :refer [division-id-regex]]
+   [com.oakmac.tourney-nerd.fields :refer [field-id-regex]]
+   [com.oakmac.tourney-nerd.groups :refer [group-id-regex]]
+   [com.oakmac.tourney-nerd.schedule :refer [timeslot-id-regex]]
+   [com.oakmac.tourney-nerd.teams :refer [team-id-regex]]
+   [com.oakmac.tourney-nerd.util.base58 :refer [random-base58]]
+   [malli.core :as malli]))
 
 ;; -----------------------------------------------------------------------------
 ;; Statuses
@@ -39,19 +39,19 @@
 ;; makes many operations easier
 (def game-schema
   [:and
-    [:map
-      [:id [:re game-id-regex]]
-      [:division-id [:re division-id-regex]]
-      [:group-id [:re group-id-regex]]
-      [:teamA-id [:re team-id-regex]]
-      [:teamB-id [:re team-id-regex]]
-      [:timeslot-id [:re timeslot-id-regex]]
-      [:field-id [:re field-id-regex]]
-      ; [:name [:string {:min 3, :max 100}]]
-      [:status [:enum scheduled-status in-progress-status aborted-status
-                      canceled-status final-status forfeit-status]]]
-    [:fn (fn [{:keys [teamA-id teamB-id]}]
-           (not= teamA-id teamB-id))]])
+   [:map
+    [:id [:re game-id-regex]]
+    [:division-id [:re division-id-regex]]
+    [:group-id [:re group-id-regex]]
+    [:teamA-id [:re team-id-regex]]
+    [:teamB-id [:re team-id-regex]]
+    [:timeslot-id [:re timeslot-id-regex]]
+    [:field-id [:re field-id-regex]]
+    ; [:name [:string {:min 3, :max 100}]]
+    [:status [:enum scheduled-status in-progress-status aborted-status
+                    canceled-status final-status forfeit-status]]]
+   [:fn (fn [{:keys [teamA-id teamB-id]}]
+          (not= teamA-id teamB-id))]])
 
 (defn game?
   "Is g a Game?"

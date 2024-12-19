@@ -1,7 +1,7 @@
 (ns com.oakmac.tourney-nerd.results-test
   (:require
-    [clojure.test :refer [deftest is testing]]
-    [com.oakmac.tourney-nerd.results :refer [games->results games->sorted-results]]))
+   [clojure.test :refer [deftest is testing]]
+   [com.oakmac.tourney-nerd.results :refer [games->results games->sorted-results]]))
 
 ;; TODO: move all this data to .json or .edn files?
 
@@ -449,7 +449,6 @@ only two teams are involved, this rule is commonly called 'head-to-head.'"
              (->> second-and-third (map :team-name) vec))
            ["A" "B"])))
 
-
   (testing "Example 2.2. A, B, and C, are tied for first place; they are all 3-2 after the
 six team round-robin. A has beaten both B and C, while B has beaten C. The records
 among the three teams only are: A is 2-0, B is 1-1, and C is 0-2. A finishes first,
@@ -466,7 +465,6 @@ B finishes second, and C finishes third."
                 (map :team-name)
                 vec)
            ["A" "B" "C"])))
-
 
   (testing "Example 3.1. A, B, C are in a three-way tie for first place. A has beaten B
   15-10, B has beaten C 15-12, and C has beaten A, 15-13. A's point differential,

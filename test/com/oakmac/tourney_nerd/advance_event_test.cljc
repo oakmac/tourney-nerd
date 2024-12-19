@@ -1,8 +1,8 @@
 (ns com.oakmac.tourney-nerd.advance-event-test
   (:require
-    [clojure.test :refer [deftest is testing]]
-    [com.oakmac.tourney-nerd.advance-event :as tn.advance-event]
-    [com.oakmac.tourney-nerd.test-util :refer [load-test-resource-json-file]]))
+   [clojure.test :refer [deftest is testing]]
+   [com.oakmac.tourney-nerd.advance-event :as tn.advance-event]
+   [com.oakmac.tourney-nerd.test-util :refer [load-test-resource-json-file]]))
 
 (def games1-before
   {"game-400"
@@ -242,4 +242,3 @@
           after (load-test-resource-json-file "woodlands-fall-league.after.json")]
       (is (= (tn.advance-event/advance-event before)
              after)))))
-

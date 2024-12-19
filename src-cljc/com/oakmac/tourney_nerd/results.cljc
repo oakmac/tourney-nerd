@@ -1,9 +1,9 @@
 (ns com.oakmac.tourney-nerd.results
   (:require
-    [com.oakmac.tourney-nerd.games :refer [game-finished?]]
-    [taoensso.timbre :as timbre]))
+   [com.oakmac.tourney-nerd.games :refer [game-finished?]]
+   [taoensso.timbre :as timbre]))
 
-;;------------------------------------------------------------------------------
+;; -----------------------------------------------------------------------------
 ;; Misc
 
 (defn winner
@@ -22,7 +22,7 @@
       (:teamA-id game)
       (:teamB-id game))))
 
-;;------------------------------------------------------------------------------
+;; -----------------------------------------------------------------------------
 ;; Calculate Results
 
 (def victory-points-for-a-win 30000)

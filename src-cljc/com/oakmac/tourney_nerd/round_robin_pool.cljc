@@ -1,9 +1,9 @@
 (ns com.oakmac.tourney-nerd.round-robin-pool
   (:require
-    [clojure.string :as str]
-    [com.oakmac.tourney-nerd.constructors :as constructors]
-    [com.oakmac.tourney-nerd.teams :as teams-fns]
-    [com.oakmac.tourney-nerd.util :refer [half str->int]]))
+   [clojure.string :as str]
+   [com.oakmac.tourney-nerd.constructors :as constructors]
+   [com.oakmac.tourney-nerd.teams :as teams-fns]
+   [com.oakmac.tourney-nerd.util :refer [half str->int]]))
 
 (defn- create-cycle-rows [itms]
   (let [itms (vec itms)

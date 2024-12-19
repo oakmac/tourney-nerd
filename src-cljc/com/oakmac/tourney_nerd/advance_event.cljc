@@ -1,12 +1,12 @@
 (ns com.oakmac.tourney-nerd.advance-event
   "Advance an event based on games played."
   (:require
-    [com.oakmac.tourney-nerd.games :as games]
-    [com.oakmac.tourney-nerd.groups :as groups]
-    [com.oakmac.tourney-nerd.results :as results]
-    [com.oakmac.tourney-nerd.util :refer [half]]))
+   [com.oakmac.tourney-nerd.games :as games]
+   [com.oakmac.tourney-nerd.groups :as groups]
+   [com.oakmac.tourney-nerd.results :as results]
+   [com.oakmac.tourney-nerd.util :refer [half]]))
 
-;;------------------------------------------------------------------------------
+;; -----------------------------------------------------------------------------
 ;; Predicates
 
 ;; TODO: this can be replaced using a set of sets:
@@ -20,9 +20,9 @@
         teamB-id (name teamB-id)
         games-list (vals all-games)
         games-where-teams-played-each-other
-          (filter #(or (and (= teamA-id (:teamA-id %)) (= teamB-id (:teamB-id %)))
-                       (and (= teamB-id (:teamA-id %)) (= teamA-id (:teamB-id %))))
-                  games-list)]
+        (filter #(or (and (= teamA-id (:teamA-id %)) (= teamB-id (:teamB-id %)))
+                     (and (= teamB-id (:teamA-id %)) (= teamA-id (:teamB-id %))))
+                games-list)]
     (if (empty? games-where-teams-played-each-other)
       false
       (first games-where-teams-played-each-other))))
@@ -94,7 +94,7 @@
                                                (vec (remove #(= % team-id) ids))))))))]))
     @new-matchups))
 
-;;------------------------------------------------------------------------------
+;; -----------------------------------------------------------------------------
 ;; Determine Next Swiss Round Matchups
 
 (defn- advance-swiss-round

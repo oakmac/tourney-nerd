@@ -73,7 +73,6 @@
                  :description ""
                  :id "field-1003"}})
 
-
 (def weekend-tournament-schedule
   {"timeslot-1000" {:name "Bagels and Bananas"
                     :time "2020-02-13 09:00"

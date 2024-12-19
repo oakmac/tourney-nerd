@@ -1,18 +1,18 @@
 (ns com.oakmac.tourney-nerd.core
   (:require
-    [com.oakmac.tourney-nerd.divisions]
-    [com.oakmac.tourney-nerd.events]
-    [com.oakmac.tourney-nerd.fields]
-    [com.oakmac.tourney-nerd.games]
-    [com.oakmac.tourney-nerd.groups]
-    [com.oakmac.tourney-nerd.schedule]
-    [com.oakmac.tourney-nerd.teams]))
+   [com.oakmac.tourney-nerd.divisions]
+   [com.oakmac.tourney-nerd.events]
+   [com.oakmac.tourney-nerd.fields]
+   [com.oakmac.tourney-nerd.games]
+   [com.oakmac.tourney-nerd.groups]
+   [com.oakmac.tourney-nerd.schedule]
+   [com.oakmac.tourney-nerd.teams]))
 
 ; (defn valid-score? [score]
 ;   (and (integer? score)
 ;        (>= score 0)))
 
-;;------------------------------------------------------------------------------
+;; -----------------------------------------------------------------------------
 ;; Misc
 
 ; (defn- winner
@@ -29,7 +29,7 @@
 ;     (:teamA-id game)
 ;     (:teamB-id game)))
 
-;;------------------------------------------------------------------------------
+;; -----------------------------------------------------------------------------
 ;; Ensure Tournament Structure
 
 ; (defn- ensure-game-status

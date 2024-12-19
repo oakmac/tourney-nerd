@@ -1,0 +1,9 @@
+{
+  "name": "@chrisoakman/tourney-nerd",
+  "scripts": {
+    "format": "standard-clj fix src-cljc/ test/"
+  },
+  "devDependencies": {
+    "@chrisoakman/standard-clojure-style": "0.18.0"
+  }
+}

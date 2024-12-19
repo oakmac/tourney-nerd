@@ -15,6 +15,9 @@ Make sure that [Clojure] and [Leiningen] are installed.
 ```sh
 # run tests
 lein test
+
+# format codebase
+bun run format
 ```
 
 ## License

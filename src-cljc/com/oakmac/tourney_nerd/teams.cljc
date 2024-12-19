@@ -1,8 +1,8 @@
 (ns com.oakmac.tourney-nerd.teams
   (:require
-    [com.oakmac.tourney-nerd.divisions :as divisions]
-    [com.oakmac.tourney-nerd.util.base58 :refer [random-base58]]
-    [malli.core :as malli]))
+   [com.oakmac.tourney-nerd.divisions :as divisions]
+   [com.oakmac.tourney-nerd.util.base58 :refer [random-base58]]
+   [malli.core :as malli]))
 
 (def team-id-regex
   #"^team-[a-zA-Z0-9]{4,}$")
