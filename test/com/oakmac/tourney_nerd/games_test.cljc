@@ -1,6 +1,6 @@
 (ns com.oakmac.tourney-nerd.games-test
   (:require
-   [clojure.test :refer [deftest is testing]]
+         [clojure.test :refer [deftest is testing]]
    [com.oakmac.tourney-nerd.games :as g]))
 
 (def example-game-with-pending
