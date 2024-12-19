@@ -92,9 +92,16 @@
 (defn reset-game
   "Resets the values of a Game for a new Event."
   [g]
-  (assoc g :scoreA 0
-           :scoreB 0
-           :status scheduled-status))
+  (cond-> g
+    true (assoc :scoreA 0
+                :scoreB 0
+                :status scheduled-status)
+
+    (map? (:pending-teamA g))
+    (assoc :teamA-id nil)
+
+    (map? (:pending-teamB g))
+    (assoc :teamB-id nil)))
 
 ;; NOTE: "finished" is legacy here
 (defn game-finished? [game]
