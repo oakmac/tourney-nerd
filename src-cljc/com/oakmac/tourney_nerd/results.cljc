@@ -136,7 +136,7 @@
       ;; Win/Loss Record
       (> a-games-won b-games-won) -1
       (> b-games-won a-games-won) 1
-      ;; FIXME: we need to add loss and tie comparison here, although unlikely
+      ;; TODO: we need to add loss and tie comparison here, although unlikely
 
       ;; Point Differential (PD) – The difference between points scored and points allowed during the season
       (> a-points-diff b-points-diff) -1
@@ -179,8 +179,7 @@
           (> b-points-diff-vs-a a-points-diff-vs-b) 1
 
           ;; FIXME: else coinflip?
-          :else
-          0)))))
+          :else 0)))))
 
 (defn add-record-to-result
   "Adds a record string to a result"

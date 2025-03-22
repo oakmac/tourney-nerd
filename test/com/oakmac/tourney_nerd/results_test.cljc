@@ -642,12 +642,29 @@ B finishes second, and C finishes third."
           results-for-B (first (filter #(= "B" (:team-name %)) all-results))
           results-for-C (first (filter #(= "C" (:team-name %)) all-results))
           only-team-names (map :team-name all-results)
-          only-b-c (filter #{"B" "C"} only-team-names)]
+          only-b-c (filter #{"B" "C"} only-team-names)
+          ;; NOTE: this reduce is just a filter
+          games-played-between-b-and-c (reduce
+                                         (fn [acc [game-id {:keys [teamA-id teamB-id] :as game}]]
+                                           (if (= #{"team-2" "team-3"} (set [teamA-id teamB-id]))
+                                             (assoc acc game-id game)
+                                             acc))
+                                         {}
+                                         example22-games-point-diff-adjusted)
+          results-for-games-between-b-and-c (games->sorted-results
+                                              (select-keys six-teams ["team-2" "team-3"])
+                                              games-played-between-b-and-c
+                                              "TIEBREAK_WOODLANDS_LEAGUE_RULES")
+          results-for-B-vs-C (first (filter #(= "B" (:team-name %)) results-for-games-between-b-and-c))
+          results-for-C-vs-B (first (filter #(= "C" (:team-name %)) results-for-games-between-b-and-c))]
       ;; B and C have the same overall record, same overall point diff, and same overall points-won
       (is (= (:record results-for-B) (:record results-for-C)))
       (is (= (:points-diff results-for-B) (:points-diff results-for-C)))
       (is (= (:points-won results-for-B) (:points-won results-for-C)))
+
       ;; but B beat C in game-301, so they come out ahead
+      (is (= "1-0-0" (:record results-for-B-vs-C)))
+      (is (= "0-1-0" (:record results-for-C-vs-B)))
       (is (= only-b-c ["B" "C"]))))
 
   (testing "point differential in the head-to-head games"
@@ -681,5 +698,3 @@ B finishes second, and C finishes third."
       ;; but C has a greater point diff against B (see game-600), so C comes out ahead
       (is (> (:points-diff results-for-C-vs-B) (:points-diff results-for-B-vs-C)))
       (is (= only-b-c ["C" "B"])))))
-
-  ;; FIXME: ???
