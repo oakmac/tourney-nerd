@@ -315,7 +315,6 @@
 
     :else default-tiebreak-method))
 
-;; TODO: write unit tests for this
 (defn group->tiebreaking-method
   "Returns the tiebreaking method for a Group."
   [event group-id]
