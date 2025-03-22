@@ -1,4 +1,4 @@
-(defproject com.oakmac/tourney-nerd "0.11.0"
+(defproject com.oakmac/tourney-nerd "0.12.0"
 
   :description "Handle logic for Ultimate tournaments."
   :url "https://github.com/oakmac/tourney-nerd"
