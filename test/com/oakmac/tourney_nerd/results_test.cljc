@@ -539,137 +539,40 @@ B finishes second, and C finishes third."
   ;              ["A" "C" "B"]))))))
 
 ;; This is the same thing as example22-games above, but tweaked slightly to give
-;; A, B, C the same point diff
+;; A, B, C the same overall point diff
 (def example22-games-point-diff-adjusted
-  {;; 1v3 2v5 4v6
-   "game-100"
-   {:teamA-id "team-1"
-    :teamB-id "team-3"
-    :teamA-name "A"
-    :teamB-name "C"
-    :scoreA 5
-    :scoreB 4
-    :status "STATUS_FINAL"}
-   "game-101"
-   {:teamA-id "team-2"
-    :teamB-id "team-5"
-    :teamA-name "B"
-    :teamB-name "E"
-    :scoreA 7
-    :scoreB 4
-    :status "STATUS_FINAL"}
-   "game-102"
-   {:teamA-id "team-4"
-    :teamB-id "team-6"
-    :teamA-name "D"
-    :teamB-name "F"
-    :scoreA 5
-    :scoreB 4
-    :status "STATUS_FINAL"}
+  (-> example22-games
+    (assoc-in ["game-101" :scoreA] 7)
+    (assoc-in ["game-200" :scoreA] 8)))
 
-   ;; 1v5 2v4 3v6
-   "game-200"
-   {:teamA-id "team-1"
-    :teamB-id "team-5"
-    :teamA-name "A"
-    :teamB-name "E"
-    :scoreA 8
-    :scoreB 4
-    :status "STATUS_FINAL"}
-   "game-201"
-   {:teamA-id "team-2"
-    :teamB-id "team-4"
-    :teamA-name "B"
-    :teamB-name "D"
-    :scoreA 5
-    :scoreB 4
-    :status "STATUS_FINAL"}
-   "game-202"
-   {:teamA-id "team-3"
-    :teamB-id "team-6"
-    :teamA-name "C"
-    :teamB-name "F"
-    :scoreA 5
-    :scoreB 4
-    :status "STATUS_FINAL"}
-
-   ;; 1v6 2v3 4v5
-   "game-300"
-   {:teamA-id "team-1"
-    :teamB-id "team-6"
-    :teamA-name "A"
-    :teamB-name "F"
-    :scoreA 4
-    :scoreB 8
-    :status "STATUS_FINAL"}
-   "game-301"
-   {:teamA-id "team-2"
-    :teamB-id "team-3"
-    :teamA-name "B"
-    :teamB-name "C"
-    :scoreA 5
-    :scoreB 4
-    :status "STATUS_FINAL"}
-   "game-302"
-   {:teamA-id "team-4"
-    :teamB-id "team-5"
-    :teamA-name "D"
-    :teamB-name "E"
-    :scoreA 2
-    :scoreB 7
-    :status "STATUS_FINAL"}
-
-   ;; 1v4 2v6 3v5
-   "game-400"
-   {:teamA-id "team-1"
-    :teamB-id "team-4"
-    :teamA-name "A"
-    :teamB-name "D"
-    :scoreA 4
-    :scoreB 5
-    :status "STATUS_FINAL"}
-   "game-401"
-   {:teamA-id "team-2"
-    :teamB-id "team-6"
-    :teamA-name "B"
-    :teamB-name "F"
-    :scoreA 2
-    :scoreB 5
-    :status "STATUS_FINAL"}
-   "game-402"
-   {:teamA-id "team-3"
-    :teamB-id "team-5"
-    :teamA-name "C"
-    :teamB-name "E"
-    :scoreA 5
-    :scoreB 4
-    :status "STATUS_FINAL"}
-
-   ;; 1v2 3v4 5v6
-   "game-500"
-   {:teamA-id "team-1"
-    :teamB-id "team-2"
-    :teamA-name "A"
-    :teamB-name "B"
-    :scoreA 5
-    :scoreB 4
-    :status "STATUS_FINAL"}
-   "game-501"
-   {:teamA-id "team-3"
-    :teamB-id "team-4"
-    :teamA-name "C"
-    :teamB-name "D"
-    :scoreA 5
-    :scoreB 4
-    :status "STATUS_FINAL"}
-   "game-502"
-   {:teamA-id "team-5"
-    :teamB-id "team-6"
-    :teamA-name "E"
-    :teamB-name "F"
-    :scoreA 8
-    :scoreB 6
-    :status "STATUS_FINAL"}})
+;; add some additional games between B and C to make them super-tied
+;; see "point differential in the head-to-head games" below
+(def example22-games-b-c-adjusted
+  (-> example22-games-point-diff-adjusted
+    ;; have B and C play another game so their head-to-head record is tied
+    (assoc "game-600" {:teamA-id "team-2"
+                       :teamB-id "team-3"
+                       :teamA-name "B"
+                       :teamB-name "C"
+                       :scoreA 4
+                       :scoreB 6
+                       :status "STATUS_FINAL"})
+    ;; give B another win
+    (assoc "game-601" {:teamA-id "team-2"
+                       :teamB-id "team-4"
+                       :teamA-name "B"
+                       :teamB-name "D"
+                       :scoreA 7
+                       :scoreB 4
+                       :status "STATUS_FINAL"})
+    ;; give C another loss
+    (assoc "game-602" {:teamA-id "team-4"
+                       :teamB-id "team-3"
+                       :teamA-name "D"
+                       :teamB-name "C"
+                       :scoreA 6
+                       :scoreB 5
+                       :status "STATUS_FINAL"})))
 
 (def results-21games (games->results six-teams example21-games))
 (def results-22games (games->results six-teams example22-games))
@@ -744,8 +647,39 @@ B finishes second, and C finishes third."
       (is (= (:record results-for-B) (:record results-for-C)))
       (is (= (:points-diff results-for-B) (:points-diff results-for-C)))
       (is (= (:points-won results-for-B) (:points-won results-for-C)))
-      ;; but B beat C, so they come out ahead
-      (is (= only-b-c ["B" "C"])))))
+      ;; but B beat C in game-301, so they come out ahead
+      (is (= only-b-c ["B" "C"]))))
 
-  ;; FIXME: point differential in the head-to-head games
+  (testing "point differential in the head-to-head games"
+    (let [all-results (games->sorted-results six-teams example22-games-b-c-adjusted "TIEBREAK_WOODLANDS_LEAGUE_RULES")
+          results-for-B (first (filter #(= "B" (:team-name %)) all-results))
+          results-for-C (first (filter #(= "C" (:team-name %)) all-results))
+          only-team-names (map :team-name all-results)
+          only-b-c (filter #{"B" "C"} only-team-names)
+          ;; NOTE: this reduce is just a filter
+          games-played-between-b-and-c (reduce
+                                         (fn [acc [game-id {:keys [teamA-id teamB-id] :as game}]]
+                                           (if (= #{"team-2" "team-3"} (set [teamA-id teamB-id]))
+                                             (assoc acc game-id game)
+                                             acc))
+                                         {}
+                                         example22-games-b-c-adjusted)
+          results-for-games-between-b-and-c (games->sorted-results
+                                              (select-keys six-teams ["team-2" "team-3"])
+                                              games-played-between-b-and-c
+                                              "TIEBREAK_WOODLANDS_LEAGUE_RULES")
+          results-for-B-vs-C (first (filter #(= "B" (:team-name %)) results-for-games-between-b-and-c))
+          results-for-C-vs-B (first (filter #(= "C" (:team-name %)) results-for-games-between-b-and-c))]
+      ;; B and C have the same overall record, same overall point diff, same overall points-won, same head-to-head record
+      (is (= (:record results-for-B) (:record results-for-C)))
+      (is (= (:points-diff results-for-B) (:points-diff results-for-C)))
+      (is (= (:points-won results-for-B) (:points-won results-for-C)))
+
+      ;; B and C have the same head-to-head record
+      (is (= (:record results-for-B-vs-C) (:record results-for-C-vs-B)))
+
+      ;; but C has a greater point diff against B (see game-600), so C comes out ahead
+      (is (> (:points-diff results-for-C-vs-B) (:points-diff results-for-B-vs-C)))
+      (is (= only-b-c ["C" "B"])))))
+
   ;; FIXME: ???

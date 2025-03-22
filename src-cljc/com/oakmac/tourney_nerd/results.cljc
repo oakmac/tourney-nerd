@@ -167,10 +167,8 @@
             results-team-b (get results-map teamB-id)
             a-games-won-vs-b (:games-won results-team-a)
             a-points-diff-vs-b (:points-diff results-team-a)
-            ; a-points-won-vs-b (:points-won results-team-a)
             b-games-won-vs-a (:games-won results-team-b)
             b-points-diff-vs-a (:points-diff results-team-b)]
-            ; b-points-won-vs-a (:points-won results-team-b)]
         (cond
           ;; head-to-head record between the two teams
           (> a-games-won-vs-b b-games-won-vs-a) -1
