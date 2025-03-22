@@ -115,6 +115,42 @@
       :else
       0)))
 
+(defn- compare-using-woodlands-league-rules [a b]
+  (let [a-games-played? (not (zero? (:games-played a)))
+        a-games-won (:games-won a)
+        a-points-diff (:points-diff a)
+        a-points-won (:points-won a)
+
+        b-games-played? (not (zero? (:games-played b)))
+        b-games-won (:games-won b)
+        b-points-diff (:points-diff b)
+        b-points-won (:points-won b)]
+    (cond
+      ;; this should basically never happen, but if a team has not played any games
+      ;; and the other team has, then the team that has played any games should be ahead
+      (and a-games-played? (not b-games-played?)) -1
+      (and b-games-played? (not a-games-played?)) 1
+
+      ;; Win/Loss Record
+      (> a-games-won b-games-won) -1
+      (> b-games-won a-games-won) 1
+      ;; FIXME: we need to add loss and tie comparison here, although unlikely
+
+      ;; Point Differential (PD) – The difference between points scored and points allowed during the season
+      (> a-points-diff b-points-diff) -1
+      (> b-points-diff a-points-diff) 1
+
+      ;; Total Points Scored (PF) – The total number of points a team has scored during the season.
+      (> a-points-won b-points-won) -1
+      (> b-points-won a-points-won) 1
+
+      ;; FIXME: head-to-head record between the two teams
+      ;; FIXME: point differential in the head-to-head games
+      ;; FIXME: ???
+
+      :else
+      0)))
+
 (defn add-record-to-result
   "Adds a record string to a result"
   [{:keys [games-won games-lost games-tied] :as result}]
@@ -214,6 +250,7 @@
    (case sort-method
      "TIEBREAK_VICTORY_POINTS" (sort compare-victory-points results)
      "TIEBREAK_UPA_RULES" (sort compare-upa-tiebreaker-rules results)
+     "TIEBREAK_WOODLANDS_LEAGUE_RULES" (sort compare-using-woodlands-league-rules results)
      (do (timbre/error "Unrecognized sort-method:" sort-method)
          (sort compare-victory-points results)))))
 
