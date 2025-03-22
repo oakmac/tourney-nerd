@@ -5,6 +5,6 @@
     "format": "standard-clj fix src-cljc/ test/"
   },
   "devDependencies": {
-    "@chrisoakman/standard-clojure-style": "0.18.0"
+    "@chrisoakman/standard-clojure-style": "0.24.0"
   }
 }
