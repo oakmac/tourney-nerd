@@ -541,41 +541,42 @@ B finishes second, and C finishes third."
 (def results-21games
   (games->results six-teams example21-games))
 
+(def results-22games
+  (games->results six-teams example22-games))
+
 (deftest sort-results-by-woodlands-league-rules-test
-  ;; FIXME: win-loss record
-  ;; FIXME: Point Differential (PD) – The difference between points scored and points allowed during the season
+  (testing "Win/Loss record"
+    (is (= (-> (zipmap (map :team-name results-21games)
+                       (map :record results-21games))
+               (select-keys ["A" "C"]))
+           {"A" "3-2-0"
+            "C" "4-1-0"}))
+    (let [all-results (games->sorted-results six-teams example21-games "TIEBREAK_WOODLANDS_LEAGUE_RULES")
+          only-team-names (map :team-name all-results)
+          only-a-and-c (filter #{"A" "C"} only-team-names)]
+      (is (= only-a-and-c ["C" "A"])
+          "C has a better record than A")))
+
+  (testing "Point Differential (PD) – The difference between points scored and points allowed during the season"
+    (is (= (-> (zipmap (map :team-name results-22games)
+                       (map :record results-22games))
+               (select-keys ["A" "B" "C"]))
+           {"A" "3-2-0"
+            "B" "3-2-0"
+            "C" "3-2-0"}))
+    (is (= (-> (zipmap (map :team-name results-22games)
+                       (map :points-diff results-22games))
+               (select-keys ["A" "B" "C"]))
+           {"A" -2
+            "B" -1
+            "C" 1}))
+    (let [all-results (games->sorted-results six-teams example22-games "TIEBREAK_WOODLANDS_LEAGUE_RULES")
+          only-team-names (map :team-name all-results)
+          only-a-b-c (filter #{"A" "B" "C"} only-team-names)]
+      (is (= only-a-b-c ["C" "B" "A"])
+          "point diff determines place"))))
+
   ;; FIXME: Total Points Scored (PF) – The total number of points a team has scored during the season.
   ;; FIXME: head-to-head record between the two teams
   ;; FIXME: point differential in the head-to-head games
   ;; FIXME: ???
-
-  (testing "Example 2.1. A and B are tied for second place at 3-2, and during the
-tournament, A has beaten B. Then, A gets second place and B gets third place. When
-only two teams are involved, this rule is commonly called 'head-to-head.'"
-    (is (= (let [results (games->results six-teams example21-games)]
-             (-> (zipmap (map :team-name results)
-                         (map :record results))
-                 (select-keys ["A" "B"])))
-           {"A" "3-2-0"
-            "B" "3-2-0"}))
-    (is (= (let [all-results (games->sorted-results six-teams example21-games "TIEBREAK_WOODLANDS_LEAGUE_RULES")
-                 second-and-third [(nth all-results 1) (nth all-results 2)]]
-             (->> second-and-third (map :team-name) vec))
-           ["A" "B"])))
-
-  (testing "Example 2.2. A, B, and C, are tied for first place; they are all 3-2 after the
-six team round-robin. A has beaten both B and C, while B has beaten C. The records
-among the three teams only are: A is 2-0, B is 1-1, and C is 0-2. A finishes first,
-B finishes second, and C finishes third."
-    (is (= (let [results (games->results six-teams example22-games)]
-             (-> (zipmap (map :team-name results)
-                         (map :record results))
-                 (select-keys ["A" "B" "C"])))
-           {"A" "3-2-0"
-            "B" "3-2-0"
-            "C" "3-2-0"}))
-    (is (= (->> (games->sorted-results six-teams example22-games)
-                (take 3)
-                (map :team-name)
-                vec)
-           ["A" "B" "C"]))))
