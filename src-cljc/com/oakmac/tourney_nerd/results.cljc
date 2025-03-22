@@ -3,6 +3,8 @@
    [com.oakmac.tourney-nerd.games :refer [game-finished?]]
    [taoensso.timbre :as timbre]))
 
+(declare games->results)
+
 ;; -----------------------------------------------------------------------------
 ;; Misc
 
@@ -115,7 +117,7 @@
       :else
       0)))
 
-(defn- compare-using-woodlands-league-rules [a b]
+(defn- compare-using-woodlands-league-rules [all-teams all-games a b]
   (let [a-games-played? (not (zero? (:games-played a)))
         a-games-won (:games-won a)
         a-points-diff (:points-diff a)
@@ -144,12 +146,43 @@
       (> a-points-won b-points-won) -1
       (> b-points-won a-points-won) 1
 
-      ;; FIXME: head-to-head record between the two teams
-      ;; FIXME: point differential in the head-to-head games
-      ;; FIXME: ???
-
       :else
-      0)))
+      (let [teamA-id (:team-id a)
+            teamB-id (:team-id b)
+            team-a-and-b-ids [teamA-id teamB-id]
+            team-a-and-b-ids-set (set team-a-and-b-ids)
+            ;; NOTE: this reduce is just a filter
+            games-played-between-a-and-b (reduce
+                                           (fn [acc [game-id {:keys [teamA-id teamB-id] :as game}]]
+                                             (if (= (set [teamA-id teamB-id]) team-a-and-b-ids-set)
+                                               (assoc acc game-id game)
+                                               acc))
+                                           {}
+                                           all-games)
+            a-b-teams (select-keys all-teams team-a-and-b-ids)
+            results-between-a-and-b (games->results a-b-teams games-played-between-a-and-b)
+            results-map (zipmap (map :team-id results-between-a-and-b)
+                                results-between-a-and-b)
+            results-team-a (get results-map teamA-id)
+            results-team-b (get results-map teamB-id)
+            a-games-won-vs-b (:games-won results-team-a)
+            a-points-diff-vs-b (:points-diff results-team-a)
+            ; a-points-won-vs-b (:points-won results-team-a)
+            b-games-won-vs-a (:games-won results-team-b)
+            b-points-diff-vs-a (:points-diff results-team-b)]
+            ; b-points-won-vs-a (:points-won results-team-b)]
+        (cond
+          ;; head-to-head record between the two teams
+          (> a-games-won-vs-b b-games-won-vs-a) -1
+          (> b-games-won-vs-a a-games-won-vs-b) 1
+
+          ;; point differential in the head-to-head games
+          (> a-points-diff-vs-b b-points-diff-vs-a) -1
+          (> b-points-diff-vs-a a-points-diff-vs-b) 1
+
+          ;; FIXME: else coinflip?
+          :else
+          0)))))
 
 (defn add-record-to-result
   "Adds a record string to a result"
@@ -240,27 +273,31 @@
                    results-with-records)]
     results3))
 
-(def default-tiebreak-method "TIEBREAK_UPA_RULES")
+(def tiebreaking-methods
+  #{"TIEBREAK_VICTORY_POINTS"
+    "TIEBREAK_UPA_RULES"
+    "TIEBREAK_WOODLANDS_LEAGUE_RULES"})
 
-(defn sort-results
+(defn- sort-results
   "Sort a Result list using various tiebreaking methods."
-  ([results]
-   (sort-results results default-tiebreak-method))
-  ([results sort-method]
-   (case sort-method
-     "TIEBREAK_VICTORY_POINTS" (sort compare-victory-points results)
-     "TIEBREAK_UPA_RULES" (sort compare-upa-tiebreaker-rules results)
-     "TIEBREAK_WOODLANDS_LEAGUE_RULES" (sort compare-using-woodlands-league-rules results)
-     (do (timbre/error "Unrecognized sort-method:" sort-method)
-         (sort compare-victory-points results)))))
+  [results sort-method all-teams all-games]
+  (case sort-method
+    "TIEBREAK_VICTORY_POINTS" (sort compare-victory-points results)
+    "TIEBREAK_UPA_RULES" (sort compare-upa-tiebreaker-rules results)
+    "TIEBREAK_WOODLANDS_LEAGUE_RULES" (sort #(compare-using-woodlands-league-rules all-teams all-games %1 %2) results)
+    (do (timbre/error "Unrecognized sort-method:" sort-method)
+        (sort compare-victory-points results))))
+
+(def default-tiebreak-method "TIEBREAK_UPA_RULES")
 
 (defn games->sorted-results
   "Returns a sorted list of Results for the given teams + games."
   ([teams games]
    (games->sorted-results teams games default-tiebreak-method))
   ([teams games tiebreak-method]
+   {:pre [(map? teams) (map? games) (contains? tiebreaking-methods tiebreak-method)]}
    (let [results (games->results teams games)
-         sorted-results (sort-results results tiebreak-method)]
+         sorted-results (sort-results results tiebreak-method teams games)]
      (map-indexed
        (fn [idx result]
          (assoc result :place (inc idx)))
