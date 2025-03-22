@@ -302,3 +302,26 @@
        (fn [idx result]
          (assoc result :place (inc idx)))
        sorted-results))))
+
+(defn event->tiebreaking-method
+  "Returns the tiebreaking method for an event."
+  [event]
+  (cond
+    (contains? tiebreaking-methods (get-in event [:settings :tiebreaking-method]))
+    (get-in event [:settings :tiebreaking-method])
+
+    (contains? tiebreaking-methods (:tiebreaking-method event))
+    (:tiebreaking-method event)
+
+    :else default-tiebreak-method))
+
+(defn group->tiebreaking-method
+  "Returns the tiebreaking method for a Group."
+  [event group-id]
+  (let [grp-tiebreaking-method (or (get-in event [:groups (str group-id) :tiebreaking-method])
+                                   (get-in event [:groups (keyword group-id) :tiebreaking-method]))]
+    (cond
+      (contains? tiebreaking-methods grp-tiebreaking-method)
+      grp-tiebreaking-method
+
+      :else (event->tiebreaking-method event))))

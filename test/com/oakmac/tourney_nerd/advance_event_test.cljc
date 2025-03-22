@@ -231,6 +231,9 @@
      :status "STATUS_SCHEDULED"
      :group-id "group-3"}}})
 
+(def woodlands-spring-league-before (load-test-resource-json-file "2025-woodlands-spring-league.before.json"))
+(def woodlands-spring-league-after (load-test-resource-json-file "2025-woodlands-spring-league.after.json"))
+
 (deftest advance-groups-test
   (testing "Advance Pending games based on group result"
     (is (= (tn.advance-event/advance-event event-group-advance-before)
@@ -241,4 +244,14 @@
     (let [before (load-test-resource-json-file "woodlands-fall-league.before.json")
           after (load-test-resource-json-file "woodlands-fall-league.after.json")]
       (is (= (tn.advance-event/advance-event before)
-             after)))))
+             after))))
+  (testing "use tiebreaker method specified on a group"
+    (let [advanced (tn.advance-event/advance-event woodlands-spring-league-before)]
+      (is (= (get-in woodlands-spring-league-after [:games :game-1004])
+             (get-in advanced [:games :game-1004])))
+      (is (= (get-in woodlands-spring-league-after [:games :game-1005])
+             (get-in advanced [:games :game-1005])))
+      (is (= (get-in woodlands-spring-league-after [:games :game-1006])
+             (get-in advanced [:games :game-1006])))
+      (is (= (get-in woodlands-spring-league-after [:games :game-1007])
+             (get-in advanced [:games :game-1007]))))))

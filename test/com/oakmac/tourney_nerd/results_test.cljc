@@ -1,7 +1,7 @@
 (ns com.oakmac.tourney-nerd.results-test
   (:require
    [clojure.test :refer [deftest is testing]]
-   [com.oakmac.tourney-nerd.results :refer [games->results games->sorted-results]]
+   [com.oakmac.tourney-nerd.results :refer [games->results games->sorted-results group->tiebreaking-method]]
    [com.oakmac.tourney-nerd.test-util :refer [load-test-resource-json-file]]))
 
 ;; TODO: move all this data to .json or .edn files?
@@ -717,3 +717,11 @@ B finishes second, and C finishes third."
               {:team-name "Honey Huckers"   :record "4-4-0" :points-diff -6}
               {:team-name "Claritin Clear"  :record "2-6-0" :points-diff -10}
               {:team-name "Pushing Daisies" :record "2-6-0" :points-diff -13}])))))
+
+(def woodlands-spring-league-before (load-test-resource-json-file "2025-woodlands-spring-league.before.json"))
+
+(deftest group->tiebreaking-method-test
+  (is (= (group->tiebreaking-method woodlands-spring-league-before "group-eyrwqfahB1ZX")
+         "TIEBREAK_WOODLANDS_LEAGUE_RULES"))
+  (is (= (group->tiebreaking-method woodlands-spring-league-before "group-does-not-exist")
+         "TIEBREAK_UPA_RULES")))
