@@ -178,8 +178,11 @@
           (> a-points-diff-vs-b b-points-diff-vs-a) -1
           (> b-points-diff-vs-a a-points-diff-vs-b) 1
 
-          ;; FIXME: else coinflip?
-          :else 0)))))
+          ;; FIXME: need to add more rules here. maybe do a coinflip?
+          :else
+          (do
+            (timbre/warn "Reached unhandled tiebreaker condition for Woodlands League tiebreaker rules!" a b)
+            0))))))
 
 (defn add-record-to-result
   "Adds a record string to a result"

@@ -1,6 +1,7 @@
 (ns com.oakmac.tourney-nerd.results-test
   (:require
    [clojure.test :refer [deftest is testing]]
+   [com.oakmac.tourney-nerd.test-util :refer [load-test-resource-json-file]]
    [com.oakmac.tourney-nerd.results :refer [games->results games->sorted-results]]))
 
 ;; TODO: move all this data to .json or .edn files?
@@ -431,6 +432,8 @@
 ; (deftest results-duplicate-records-test
 ;   (is (= (results->duplicate-records))))
 
+(def woodlands-spring-league (load-test-resource-json-file "2025-woodlands-spring-league.json"))
+
 (deftest sort-results-by-upa-rules-test
   ;; NOTE: I changed this example to be 3-2 instead of 4-2 and second/third place
   ;; instead of third/fourth place in order to reduce the number of example games required.
@@ -699,4 +702,18 @@ B finishes second, and C finishes third."
 
       ;; but C has a greater point diff against B (see game-600), so C comes out ahead
       (is (> (:points-diff results-for-C-vs-B) (:points-diff results-for-B-vs-C)))
-      (is (= only-b-c ["C" "B"])))))
+      (is (= only-b-c ["C" "B"]))))
+
+  (testing "test some real-world games from 2025 Woodlands Spring League"
+    (let [results (games->sorted-results
+                    (:teams woodlands-spring-league)
+                    (:games woodlands-spring-league)
+                    "TIEBREAK_WOODLANDS_LEAGUE_RULES")
+          results-reduced (map #(select-keys % [:team-name :record :points-diff]) results)]
+      (is (= results-reduced
+             [{:team-name "Doom & Bloom"    :record "6-2-0" :points-diff 29}
+              {:team-name "Trophy Husbands" :record "6-2-0" :points-diff 2}
+              {:team-name "Springbreakers"  :record "4-4-0" :points-diff -2}
+              {:team-name "Honey Huckers"   :record "4-4-0" :points-diff -6}
+              {:team-name "Claritin Clear"  :record "2-6-0" :points-diff -10}
+              {:team-name "Pushing Daisies" :record "2-6-0" :points-diff -13}])))))

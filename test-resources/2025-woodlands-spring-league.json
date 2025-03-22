@@ -1,0 +1,837 @@
+{
+  "schedule": {
+    "timeslot-jW4V3zqe1gxh": {
+      "name": "Week 6, Playoffs Round 1",
+      "time": "2025-03-30 16:00",
+      "id": "timeslot-jW4V3zqe1gxh"
+    },
+    "timeslot-rQRTpaPDvEp1": {
+      "name": "Week 4, Game 1",
+      "time": "2025-03-16 17:00",
+      "id": "timeslot-rQRTpaPDvEp1"
+    },
+    "timeslot-Vu2jvu9D9k3y": {
+      "name": "Week 1, Game 2",
+      "time": "2025-02-23 18:35",
+      "id": "timeslot-Vu2jvu9D9k3y"
+    },
+    "timeslot-Ba4km3jD47zr": {
+      "name": "Week 6, Playoffs Round 2",
+      "time": "2025-03-30 17:25",
+      "id": "timeslot-Ba4km3jD47zr"
+    },
+    "timeslot-NvHmzsDqyY6u": {
+      "name": "Week 3, Game 1",
+      "time": "2025-03-09 17:00",
+      "id": "timeslot-NvHmzsDqyY6u"
+    },
+    "timeslot-339EmzPkD2nD": {
+      "name": "Week 4, Game 2",
+      "time": "2025-03-16 18:35",
+      "id": "timeslot-339EmzPkD2nD"
+    },
+    "timeslot-fjkX6yKuW4vz": {
+      "name": "Week 1, Game 1",
+      "time": "2025-02-23 17:00",
+      "id": "timeslot-fjkX6yKuW4vz"
+    },
+    "timeslot-iJFFB1aAcdnu": {
+      "name": "Week 3, Game 2",
+      "time": "2025-03-09 18:35",
+      "id": "timeslot-iJFFB1aAcdnu"
+    },
+    "timeslot-jkhTkK1RCLi4": {
+      "name": "Week 5, Game 1",
+      "time": "2025-03-23 17:00",
+      "id": "timeslot-jkhTkK1RCLi4"
+    },
+    "timeslot-PTXDSZLTWe9g": {
+      "name": "Week 6, Playoffs Round 3",
+      "time": "2025-03-30 18:50",
+      "id": "timeslot-PTXDSZLTWe9g"
+    },
+    "timeslot-cPiD6h994Ers": {
+      "name": "Week 2, Game 2",
+      "time": "2025-03-02 18:35",
+      "id": "timeslot-cPiD6h994Ers"
+    },
+    "timeslot-3U2ohrYtGA6e": {
+      "name": "Week 5, Game 2",
+      "time": "2025-03-23 18:35",
+      "id": "timeslot-3U2ohrYtGA6e"
+    },
+    "timeslot-RbgLn9tWDHk7": {
+      "name": "Week 2, Game 1",
+      "time": "2025-03-02 17:00",
+      "id": "timeslot-RbgLn9tWDHk7"
+    }
+  },
+  "slug": "2025-woodlands-spring-league",
+  "fields": {
+    "field-p2c5AUiuqqnB": {
+      "name": "Gosling Sports Fields - Field 1B",
+      "id": "field-p2c5AUiuqqnB",
+      "order": 5
+    },
+    "field-bZXkBM3BwZsJ": {
+      "description": "",
+      "name": "Alden Bridge Sports Park - Field 5",
+      "id": "field-bZXkBM3BwZsJ",
+      "order": 3
+    },
+    "field-L5gHxGDZDCQ5": {
+      "description": "",
+      "name": "Alden Bridge Sports Park - Field 1",
+      "id": "field-L5gHxGDZDCQ5",
+      "order": 1
+    },
+    "field-fMTBBk6hL2Za": {
+      "name": "Gosling Sports Fields - Field 1A",
+      "id": "field-fMTBBk6hL2Za",
+      "order": 4
+    },
+    "field-8pwjGqohBxHn": {
+      "name": "Gosling Sports Fields - Field 2",
+      "id": "field-8pwjGqohBxHn",
+      "order": 6
+    },
+    "field-r1wpMFEKzbkt": {
+      "description": "",
+      "name": "Alden Bridge Sports Park - Field 2",
+      "id": "field-r1wpMFEKzbkt",
+      "order": 2
+    }
+  },
+  "divisions": {
+    "division-WZRSYM8y8dNN": {
+      "name": "Open",
+      "id": "division-WZRSYM8y8dNN",
+      "order": 1
+    }
+  },
+  "teams": {
+    "team-v4rScUBSYNRg": {
+      "name": "Doom & Bloom",
+      "seed": 3,
+      "id": "team-v4rScUBSYNRg",
+      "jersey-color": "#9a9996",
+      "division-id": "division-WZRSYM8y8dNN"
+    },
+    "team-r7Pkw8XqriQa": {
+      "name": "Claritin Clear",
+      "seed": 4,
+      "id": "team-r7Pkw8XqriQa",
+      "jersey-color": "#00fcff",
+      "division-id": "division-WZRSYM8y8dNN"
+    },
+    "team-3RN4HUBjbEmb": {
+      "name": "Pushing Daisies",
+      "seed": 5,
+      "id": "team-3RN4HUBjbEmb",
+      "jersey-color": "#000000",
+      "division-id": "division-WZRSYM8y8dNN"
+    },
+    "team-q1g1sD1Z4e5h": {
+      "name": "Trophy Husbands",
+      "seed": 6,
+      "id": "team-q1g1sD1Z4e5h",
+      "jersey-color": "#ffffff",
+      "division-id": "division-WZRSYM8y8dNN"
+    },
+    "team-qNjZiFHLnFDU": {
+      "name": "Honey Huckers",
+      "seed": 2,
+      "id": "team-qNjZiFHLnFDU",
+      "jersey-color": "#bf5700",
+      "division-id": "division-WZRSYM8y8dNN"
+    },
+    "team-5GBtxw9d9DUg": {
+      "name": "Springbreakers",
+      "seed": 1,
+      "id": "team-5GBtxw9d9DUg",
+      "jersey-color": "#ff5f1f",
+      "division-id": "division-WZRSYM8y8dNN"
+    }
+  },
+  "title": "2025 Woodlands Spring League",
+  "ctime": null,
+  "groups": {
+    "group-eyrwqfahB1ZX": {
+      "name": "Round-robin pool play",
+      "id": "group-eyrwqfahB1ZX",
+      "order": 2,
+      "division-id": "division-WZRSYM8y8dNN"
+    },
+    "group-gEuBKMfzuNSG": {
+      "name": "Play-offs",
+      "id": "group-gEuBKMfzuNSG",
+      "order": 1,
+      "division-id": "division-WZRSYM8y8dNN"
+    }
+  },
+  "version": 77,
+  "games": {
+    "game-kMmW8tkgPLL7": {
+      "game-id": "game-kMmW8tkgPLL7",
+      "group-id": "group-eyrwqfahB1ZX",
+      "teamB-id": "team-v4rScUBSYNRg",
+      "name": "Week 5: 1v3",
+      "scoreB": 0,
+      "scoreA": 0,
+      "teamA-type": "TEAM_TYPE_DIRECT_TEAM",
+      "teamB-type": "TEAM_TYPE_DIRECT_TEAM",
+      "timeslot-id": "timeslot-3U2ohrYtGA6e",
+      "status": "STATUS_SCHEDULED",
+      "id": "game-kMmW8tkgPLL7",
+      "teamA-id": "team-5GBtxw9d9DUg",
+      "field-id": "field-L5gHxGDZDCQ5",
+      "division-id": "division-WZRSYM8y8dNN"
+    },
+    "game-4vaDm6dKd5ER": {
+      "game-id": "game-4vaDm6dKd5ER",
+      "group-id": "group-eyrwqfahB1ZX",
+      "teamB-id": "team-qNjZiFHLnFDU",
+      "name": "Week 2: 6v2",
+      "scoreB": 7,
+      "scoreA": 11,
+      "teamA-type": "TEAM_TYPE_DIRECT_TEAM",
+      "teamB-type": "TEAM_TYPE_DIRECT_TEAM",
+      "timeslot-id": "timeslot-cPiD6h994Ers",
+      "status": "STATUS_FINAL",
+      "id": "game-4vaDm6dKd5ER",
+      "teamA-id": "team-q1g1sD1Z4e5h",
+      "field-id": "field-L5gHxGDZDCQ5",
+      "division-id": "division-WZRSYM8y8dNN"
+    },
+    "game-MBKEoMoKu9Dn": {
+      "game-id": "game-MBKEoMoKu9Dn",
+      "pending-teamB": {
+        "game-id": "game-AUSfpCon2mUU",
+        "type": "PENDING_GAME_RESULT",
+        "result": "winner-of"
+      },
+      "pending-teamA": {
+        "game-id": "game-iE7ZmvcyWGVy",
+        "type": "PENDING_GAME_RESULT",
+        "result": "winner-of"
+      },
+      "group-id": "group-gEuBKMfzuNSG",
+      "teamB-id": null,
+      "name": "Play-offs: 1st Place",
+      "scoreB": 0,
+      "scoreA": 0,
+      "teamA-type": "TEAM_TYPE_WINNER_OF",
+      "teamB-type": "TEAM_TYPE_WINNER_OF",
+      "timeslot-id": "timeslot-PTXDSZLTWe9g",
+      "status": "STATUS_SCHEDULED",
+      "id": "game-MBKEoMoKu9Dn",
+      "teamA-id": null,
+      "field-id": "field-fMTBBk6hL2Za",
+      "division-id": "division-WZRSYM8y8dNN"
+    },
+    "game-KmbqLY5U8NQ4": {
+      "game-id": "game-KmbqLY5U8NQ4",
+      "group-id": "group-eyrwqfahB1ZX",
+      "teamB-id": "team-q1g1sD1Z4e5h",
+      "name": "Week 3: 3v6",
+      "scoreB": 6,
+      "scoreA": 13,
+      "teamA-type": "TEAM_TYPE_DIRECT_TEAM",
+      "teamB-type": "TEAM_TYPE_DIRECT_TEAM",
+      "timeslot-id": "timeslot-iJFFB1aAcdnu",
+      "status": "STATUS_FINAL",
+      "id": "game-KmbqLY5U8NQ4",
+      "teamA-id": "team-v4rScUBSYNRg",
+      "field-id": "field-r1wpMFEKzbkt",
+      "division-id": "division-WZRSYM8y8dNN"
+    },
+    "game-b384mzq1zNvr": {
+      "game-id": "game-b384mzq1zNvr",
+      "group-id": "group-eyrwqfahB1ZX",
+      "teamB-id": "team-3RN4HUBjbEmb",
+      "name": "Week 1: 4v5",
+      "scoreB": 11,
+      "scoreA": 13,
+      "teamA-type": "TEAM_TYPE_DIRECT_TEAM",
+      "teamB-type": "TEAM_TYPE_DIRECT_TEAM",
+      "timeslot-id": "timeslot-fjkX6yKuW4vz",
+      "status": "STATUS_FINAL",
+      "id": "game-b384mzq1zNvr",
+      "teamA-id": "team-r7Pkw8XqriQa",
+      "field-id": "field-L5gHxGDZDCQ5",
+      "division-id": "division-WZRSYM8y8dNN"
+    },
+    "game-Lt1Nc7PSZyWK": {
+      "game-id": "game-Lt1Nc7PSZyWK",
+      "group-id": "group-eyrwqfahB1ZX",
+      "teamB-id": "team-3RN4HUBjbEmb",
+      "name": "Week 1: 2v5",
+      "scoreB": 8,
+      "scoreA": 10,
+      "teamA-type": "TEAM_TYPE_DIRECT_TEAM",
+      "teamB-type": "TEAM_TYPE_DIRECT_TEAM",
+      "timeslot-id": "timeslot-Vu2jvu9D9k3y",
+      "status": "STATUS_FINAL",
+      "id": "game-Lt1Nc7PSZyWK",
+      "teamA-id": "team-qNjZiFHLnFDU",
+      "field-id": "field-r1wpMFEKzbkt",
+      "division-id": "division-WZRSYM8y8dNN"
+    },
+    "game-b85VjQHbVQXT": {
+      "game-id": "game-b85VjQHbVQXT",
+      "group-id": "group-eyrwqfahB1ZX",
+      "teamB-id": "team-r7Pkw8XqriQa",
+      "name": "Week 1: 3v4",
+      "scoreB": 8,
+      "scoreA": 10,
+      "teamA-type": "TEAM_TYPE_DIRECT_TEAM",
+      "teamB-type": "TEAM_TYPE_DIRECT_TEAM",
+      "timeslot-id": "timeslot-Vu2jvu9D9k3y",
+      "status": "STATUS_FINAL",
+      "id": "game-b85VjQHbVQXT",
+      "teamA-id": "team-v4rScUBSYNRg",
+      "field-id": "field-bZXkBM3BwZsJ",
+      "division-id": "division-WZRSYM8y8dNN"
+    },
+    "game-KJfUZ6HujhUP": {
+      "game-id": "game-KJfUZ6HujhUP",
+      "group-id": "group-eyrwqfahB1ZX",
+      "teamB-id": "team-q1g1sD1Z4e5h",
+      "name": "Week 5: 5v6",
+      "scoreB": 0,
+      "scoreA": 0,
+      "teamA-type": "TEAM_TYPE_DIRECT_TEAM",
+      "teamB-type": "TEAM_TYPE_DIRECT_TEAM",
+      "timeslot-id": "timeslot-3U2ohrYtGA6e",
+      "status": "STATUS_SCHEDULED",
+      "id": "game-KJfUZ6HujhUP",
+      "teamA-id": "team-3RN4HUBjbEmb",
+      "field-id": "field-bZXkBM3BwZsJ",
+      "division-id": "division-WZRSYM8y8dNN"
+    },
+    "game-kZmJknH9z6Z9": {
+      "game-id": "game-kZmJknH9z6Z9",
+      "pending-teamB": {
+        "game-id": "game-AUSfpCon2mUU",
+        "type": "PENDING_GAME_RESULT",
+        "result": "loser-of"
+      },
+      "pending-teamA": {
+        "game-id": "game-iE7ZmvcyWGVy",
+        "type": "PENDING_GAME_RESULT",
+        "result": "loser-of"
+      },
+      "group-id": "group-gEuBKMfzuNSG",
+      "teamB-id": null,
+      "name": "Play-offs: 3rd Place",
+      "scoreB": 0,
+      "scoreA": 0,
+      "teamA-type": "TEAM_TYPE_LOSER_OF",
+      "teamB-type": "TEAM_TYPE_LOSER_OF",
+      "timeslot-id": "timeslot-PTXDSZLTWe9g",
+      "status": "STATUS_SCHEDULED",
+      "id": "game-kZmJknH9z6Z9",
+      "teamA-id": null,
+      "field-id": "field-p2c5AUiuqqnB",
+      "division-id": "division-WZRSYM8y8dNN"
+    },
+    "game-LUcbaCq7Pih1": {
+      "game-id": "game-LUcbaCq7Pih1",
+      "group-id": "group-eyrwqfahB1ZX",
+      "teamB-id": "team-qNjZiFHLnFDU",
+      "name": "Week 3: 2v5",
+      "scoreB": 11,
+      "scoreA": 12,
+      "teamA-type": "TEAM_TYPE_DIRECT_TEAM",
+      "teamB-type": "TEAM_TYPE_DIRECT_TEAM",
+      "timeslot-id": "timeslot-NvHmzsDqyY6u",
+      "status": "STATUS_FINAL",
+      "id": "game-LUcbaCq7Pih1",
+      "teamA-id": "team-r7Pkw8XqriQa",
+      "field-id": "field-r1wpMFEKzbkt",
+      "division-id": "division-WZRSYM8y8dNN"
+    },
+    "game-szPSutCqDEgy": {
+      "game-id": "game-szPSutCqDEgy",
+      "group-id": "group-eyrwqfahB1ZX",
+      "teamB-id": "team-r7Pkw8XqriQa",
+      "name": "Week 4: 6v4",
+      "scoreB": 10,
+      "scoreA": 11,
+      "teamA-type": "TEAM_TYPE_DIRECT_TEAM",
+      "teamB-type": "TEAM_TYPE_DIRECT_TEAM",
+      "timeslot-id": "timeslot-339EmzPkD2nD",
+      "status": "STATUS_FINAL",
+      "id": "game-szPSutCqDEgy",
+      "teamA-id": "team-q1g1sD1Z4e5h",
+      "field-id": "field-L5gHxGDZDCQ5",
+      "division-id": "division-WZRSYM8y8dNN"
+    },
+    "game-cLmMHzUcZtN5": {
+      "game-id": "game-cLmMHzUcZtN5",
+      "group-id": "group-eyrwqfahB1ZX",
+      "teamB-id": "team-3RN4HUBjbEmb",
+      "name": "Week 4: 1v5",
+      "scoreB": 11,
+      "scoreA": 13,
+      "teamA-type": "TEAM_TYPE_DIRECT_TEAM",
+      "teamB-type": "TEAM_TYPE_DIRECT_TEAM",
+      "timeslot-id": "timeslot-339EmzPkD2nD",
+      "status": "STATUS_FINAL",
+      "id": "game-cLmMHzUcZtN5",
+      "teamA-id": "team-5GBtxw9d9DUg",
+      "field-id": "field-bZXkBM3BwZsJ",
+      "division-id": "division-WZRSYM8y8dNN"
+    },
+    "game-awRtLQzz37UR": {
+      "game-id": "game-awRtLQzz37UR",
+      "group-id": "group-eyrwqfahB1ZX",
+      "teamB-id": "team-r7Pkw8XqriQa",
+      "name": "Week 2: 6v4",
+      "scoreB": 11,
+      "scoreA": 12,
+      "teamA-type": "TEAM_TYPE_DIRECT_TEAM",
+      "teamB-type": "TEAM_TYPE_DIRECT_TEAM",
+      "timeslot-id": "timeslot-RbgLn9tWDHk7",
+      "status": "STATUS_FINAL",
+      "id": "game-awRtLQzz37UR",
+      "teamA-id": "team-q1g1sD1Z4e5h",
+      "field-id": "field-L5gHxGDZDCQ5",
+      "division-id": "division-WZRSYM8y8dNN"
+    },
+    "game-8c17hE3M7u2R": {
+      "game-id": "game-8c17hE3M7u2R",
+      "group-id": "group-eyrwqfahB1ZX",
+      "teamB-id": "team-r7Pkw8XqriQa",
+      "name": "Week 4: 3v4",
+      "scoreB": 7,
+      "scoreA": 13,
+      "teamA-type": "TEAM_TYPE_DIRECT_TEAM",
+      "teamB-type": "TEAM_TYPE_DIRECT_TEAM",
+      "timeslot-id": "timeslot-rQRTpaPDvEp1",
+      "status": "STATUS_FINAL",
+      "id": "game-8c17hE3M7u2R",
+      "teamA-id": "team-v4rScUBSYNRg",
+      "field-id": "field-bZXkBM3BwZsJ",
+      "division-id": "division-WZRSYM8y8dNN"
+    },
+    "game-Q8WLjzSmeQPC": {
+      "game-id": "game-Q8WLjzSmeQPC",
+      "group-id": "group-eyrwqfahB1ZX",
+      "teamB-id": "team-v4rScUBSYNRg",
+      "name": "Week 3: 1v3",
+      "scoreB": 13,
+      "scoreA": 8,
+      "teamA-type": "TEAM_TYPE_DIRECT_TEAM",
+      "teamB-type": "TEAM_TYPE_DIRECT_TEAM",
+      "timeslot-id": "timeslot-NvHmzsDqyY6u",
+      "status": "STATUS_FINAL",
+      "id": "game-Q8WLjzSmeQPC",
+      "teamA-id": "team-5GBtxw9d9DUg",
+      "field-id": "field-L5gHxGDZDCQ5",
+      "division-id": "division-WZRSYM8y8dNN"
+    },
+    "game-d7DcDDjqchL9": {
+      "game-id": "game-d7DcDDjqchL9",
+      "group-id": "group-eyrwqfahB1ZX",
+      "teamB-id": "team-5GBtxw9d9DUg",
+      "name": "Week 3: 2v1",
+      "scoreB": 11,
+      "scoreA": 13,
+      "teamA-type": "TEAM_TYPE_DIRECT_TEAM",
+      "teamB-type": "TEAM_TYPE_DIRECT_TEAM",
+      "timeslot-id": "timeslot-iJFFB1aAcdnu",
+      "status": "STATUS_FINAL",
+      "id": "game-d7DcDDjqchL9",
+      "teamA-id": "team-qNjZiFHLnFDU",
+      "field-id": "field-bZXkBM3BwZsJ",
+      "division-id": "division-WZRSYM8y8dNN"
+    },
+    "game-gG79crxka8NU": {
+      "game-id": "game-gG79crxka8NU",
+      "pending-teamB": {
+        "place": 4,
+        "group-id": "group-eyrwqfahB1ZX",
+        "type": "PENDING_GROUP_RESULT"
+      },
+      "pending-teamA": {
+        "place": 5,
+        "group-id": "group-eyrwqfahB1ZX",
+        "type": "PENDING_GROUP_RESULT"
+      },
+      "group-id": "group-gEuBKMfzuNSG",
+      "teamB-id": null,
+      "name": "Finals Round 1: 5th vs 4th",
+      "scoreB": 0,
+      "scoreA": 0,
+      "teamA-type": "TEAM_TYPE_DIRECT_TEAM",
+      "teamB-type": "TEAM_TYPE_DIRECT_TEAM",
+      "timeslot-id": "timeslot-jW4V3zqe1gxh",
+      "status": "STATUS_SCHEDULED",
+      "id": "game-gG79crxka8NU",
+      "teamA-id": null,
+      "field-id": "field-p2c5AUiuqqnB",
+      "division-id": "division-WZRSYM8y8dNN"
+    },
+    "game-AUSfpCon2mUU": {
+      "game-id": "game-AUSfpCon2mUU",
+      "pending-teamB": {
+        "place": 1,
+        "group-id": "group-eyrwqfahB1ZX",
+        "type": "PENDING_GROUP_RESULT"
+      },
+      "pending-teamA": {
+        "game-id": "game-gG79crxka8NU",
+        "type": "PENDING_GAME_RESULT",
+        "result": "winner-of"
+      },
+      "group-id": "group-gEuBKMfzuNSG",
+      "teamB-id": null,
+      "name": "Finals Round 2: Winner Game 2 vs 1st Seed",
+      "scoreB": 0,
+      "scoreA": 0,
+      "teamA-type": "TEAM_TYPE_WINNER_OF",
+      "teamB-type": "TEAM_TYPE_DIRECT_TEAM",
+      "timeslot-id": "timeslot-Ba4km3jD47zr",
+      "status": "STATUS_SCHEDULED",
+      "id": "game-AUSfpCon2mUU",
+      "teamA-id": null,
+      "field-id": "field-p2c5AUiuqqnB",
+      "division-id": "division-WZRSYM8y8dNN"
+    },
+    "game-iv7p4qiLK4ma": {
+      "game-id": "game-iv7p4qiLK4ma",
+      "group-id": "group-eyrwqfahB1ZX",
+      "teamB-id": "team-q1g1sD1Z4e5h",
+      "name": "Week 4: 1v6",
+      "scoreB": 13,
+      "scoreA": 12,
+      "teamA-type": "TEAM_TYPE_DIRECT_TEAM",
+      "teamB-type": "TEAM_TYPE_DIRECT_TEAM",
+      "timeslot-id": "timeslot-rQRTpaPDvEp1",
+      "status": "STATUS_FINAL",
+      "id": "game-iv7p4qiLK4ma",
+      "teamA-id": "team-5GBtxw9d9DUg",
+      "field-id": "field-L5gHxGDZDCQ5",
+      "division-id": "division-WZRSYM8y8dNN"
+    },
+    "game-1W4DhyRxuJp6": {
+      "game-id": "game-1W4DhyRxuJp6",
+      "pending-teamB": {
+        "game-id": "game-gG79crxka8NU",
+        "type": "PENDING_GAME_RESULT",
+        "result": "loser-of"
+      },
+      "pending-teamA": {
+        "game-id": "game-Wf3XtfqG8or9",
+        "type": "PENDING_GAME_RESULT",
+        "result": "loser-of"
+      },
+      "group-id": "group-gEuBKMfzuNSG",
+      "teamB-id": null,
+      "name": "Play-offs: 5th Place",
+      "scoreB": 0,
+      "scoreA": 0,
+      "teamA-type": "TEAM_TYPE_LOSER_OF",
+      "teamB-type": "TEAM_TYPE_LOSER_OF",
+      "timeslot-id": "timeslot-Ba4km3jD47zr",
+      "status": "STATUS_SCHEDULED",
+      "id": "game-1W4DhyRxuJp6",
+      "teamA-id": null,
+      "field-id": "field-8pwjGqohBxHn",
+      "division-id": "division-WZRSYM8y8dNN"
+    },
+    "game-ZjzwyEfMRmSi": {
+      "game-id": "game-ZjzwyEfMRmSi",
+      "group-id": "group-eyrwqfahB1ZX",
+      "teamB-id": "team-v4rScUBSYNRg",
+      "name": "Week 5: 5v3",
+      "scoreB": 0,
+      "scoreA": 0,
+      "teamA-type": "TEAM_TYPE_DIRECT_TEAM",
+      "teamB-type": "TEAM_TYPE_DIRECT_TEAM",
+      "timeslot-id": "timeslot-jkhTkK1RCLi4",
+      "status": "STATUS_SCHEDULED",
+      "id": "game-ZjzwyEfMRmSi",
+      "teamA-id": "team-3RN4HUBjbEmb",
+      "field-id": "field-r1wpMFEKzbkt",
+      "division-id": "division-WZRSYM8y8dNN"
+    },
+    "game-M1nhcYpVSZL9": {
+      "game-id": "game-M1nhcYpVSZL9",
+      "group-id": "group-eyrwqfahB1ZX",
+      "teamB-id": "team-q1g1sD1Z4e5h",
+      "name": "Week 1: 3v6",
+      "scoreB": 12,
+      "scoreA": 10,
+      "teamA-type": "TEAM_TYPE_DIRECT_TEAM",
+      "teamB-type": "TEAM_TYPE_DIRECT_TEAM",
+      "timeslot-id": "timeslot-fjkX6yKuW4vz",
+      "status": "STATUS_FINAL",
+      "id": "game-M1nhcYpVSZL9",
+      "teamA-id": "team-v4rScUBSYNRg",
+      "field-id": "field-r1wpMFEKzbkt",
+      "division-id": "division-WZRSYM8y8dNN"
+    },
+    "game-Ao9urxf41MYG": {
+      "game-id": "game-Ao9urxf41MYG",
+      "group-id": "group-eyrwqfahB1ZX",
+      "teamB-id": "team-v4rScUBSYNRg",
+      "name": "Week 2: 5v3",
+      "scoreB": 13,
+      "scoreA": 8,
+      "teamA-type": "TEAM_TYPE_DIRECT_TEAM",
+      "teamB-type": "TEAM_TYPE_DIRECT_TEAM",
+      "timeslot-id": "timeslot-cPiD6h994Ers",
+      "status": "STATUS_FINAL",
+      "id": "game-Ao9urxf41MYG",
+      "teamA-id": "team-3RN4HUBjbEmb",
+      "field-id": "field-r1wpMFEKzbkt",
+      "division-id": "division-WZRSYM8y8dNN"
+    },
+    "game-d3WL64AGScCj": {
+      "game-id": "game-d3WL64AGScCj",
+      "group-id": "group-eyrwqfahB1ZX",
+      "teamB-id": "team-3RN4HUBjbEmb",
+      "name": "Week 2: 1v5",
+      "scoreB": 8,
+      "scoreA": 10,
+      "teamA-type": "TEAM_TYPE_DIRECT_TEAM",
+      "teamB-type": "TEAM_TYPE_DIRECT_TEAM",
+      "timeslot-id": "timeslot-RbgLn9tWDHk7",
+      "status": "STATUS_FINAL",
+      "id": "game-d3WL64AGScCj",
+      "teamA-id": "team-5GBtxw9d9DUg",
+      "field-id": "field-bZXkBM3BwZsJ",
+      "division-id": "division-WZRSYM8y8dNN"
+    },
+    "game-iE7ZmvcyWGVy": {
+      "game-id": "game-iE7ZmvcyWGVy",
+      "pending-teamB": {
+        "place": 2,
+        "group-id": "group-eyrwqfahB1ZX",
+        "type": "PENDING_GROUP_RESULT"
+      },
+      "pending-teamA": {
+        "game-id": "game-Wf3XtfqG8or9",
+        "type": "PENDING_GAME_RESULT",
+        "result": "winner-of"
+      },
+      "group-id": "group-gEuBKMfzuNSG",
+      "teamB-id": null,
+      "name": "Finals Round 2: Winner Game 1 vs 2nd Seed",
+      "scoreB": 0,
+      "scoreA": 0,
+      "teamA-type": "TEAM_TYPE_WINNER_OF",
+      "teamB-type": "TEAM_TYPE_DIRECT_TEAM",
+      "timeslot-id": "timeslot-Ba4km3jD47zr",
+      "status": "STATUS_SCHEDULED",
+      "id": "game-iE7ZmvcyWGVy",
+      "teamA-id": null,
+      "field-id": "field-fMTBBk6hL2Za",
+      "division-id": "division-WZRSYM8y8dNN"
+    },
+    "game-UEMu3c3wfBy3": {
+      "game-id": "game-UEMu3c3wfBy3",
+      "group-id": "group-eyrwqfahB1ZX",
+      "teamB-id": "team-3RN4HUBjbEmb",
+      "name": "Week 4: 5v4",
+      "scoreB": 10,
+      "scoreA": 9,
+      "teamA-type": "TEAM_TYPE_DIRECT_TEAM",
+      "teamB-type": "TEAM_TYPE_DIRECT_TEAM",
+      "timeslot-id": "timeslot-rQRTpaPDvEp1",
+      "status": "STATUS_FINAL",
+      "id": "game-UEMu3c3wfBy3",
+      "teamA-id": "team-qNjZiFHLnFDU",
+      "field-id": "field-r1wpMFEKzbkt",
+      "division-id": "division-WZRSYM8y8dNN"
+    },
+    "game-i2mfEoQYsNnJ": {
+      "game-id": "game-i2mfEoQYsNnJ",
+      "group-id": "group-eyrwqfahB1ZX",
+      "teamB-id": "team-q1g1sD1Z4e5h",
+      "name": "Week 1: 1v6",
+      "scoreB": 11,
+      "scoreA": 13,
+      "teamA-type": "TEAM_TYPE_DIRECT_TEAM",
+      "teamB-type": "TEAM_TYPE_DIRECT_TEAM",
+      "timeslot-id": "timeslot-Vu2jvu9D9k3y",
+      "status": "STATUS_FINAL",
+      "id": "game-i2mfEoQYsNnJ",
+      "teamA-id": "team-5GBtxw9d9DUg",
+      "field-id": "field-L5gHxGDZDCQ5",
+      "division-id": "division-WZRSYM8y8dNN"
+    },
+    "game-1eHwcfkxmziA": {
+      "game-id": "game-1eHwcfkxmziA",
+      "group-id": "group-eyrwqfahB1ZX",
+      "teamB-id": "team-q1g1sD1Z4e5h",
+      "name": "Week 3: 5v6",
+      "scoreB": 13,
+      "scoreA": 11,
+      "teamA-type": "TEAM_TYPE_DIRECT_TEAM",
+      "teamB-type": "TEAM_TYPE_DIRECT_TEAM",
+      "timeslot-id": "timeslot-NvHmzsDqyY6u",
+      "status": "STATUS_FINAL",
+      "id": "game-1eHwcfkxmziA",
+      "teamA-id": "team-3RN4HUBjbEmb",
+      "field-id": "field-bZXkBM3BwZsJ",
+      "division-id": "division-WZRSYM8y8dNN"
+    },
+    "game-dXjdDG8p2NH1": {
+      "game-id": "game-dXjdDG8p2NH1",
+      "group-id": "group-eyrwqfahB1ZX",
+      "teamB-id": "team-v4rScUBSYNRg",
+      "name": "Week 2: 2v3",
+      "scoreB": 7,
+      "scoreA": 10,
+      "teamA-type": "TEAM_TYPE_DIRECT_TEAM",
+      "teamB-type": "TEAM_TYPE_DIRECT_TEAM",
+      "timeslot-id": "timeslot-RbgLn9tWDHk7",
+      "status": "STATUS_FINAL",
+      "id": "game-dXjdDG8p2NH1",
+      "teamA-id": "team-qNjZiFHLnFDU",
+      "field-id": "field-r1wpMFEKzbkt",
+      "division-id": "division-WZRSYM8y8dNN"
+    },
+    "game-j51nQFnDxVkz": {
+      "game-id": "game-j51nQFnDxVkz",
+      "group-id": "group-eyrwqfahB1ZX",
+      "teamB-id": "team-r7Pkw8XqriQa",
+      "name": "Week 2: 1v4",
+      "scoreB": 10,
+      "scoreA": 12,
+      "teamA-type": "TEAM_TYPE_DIRECT_TEAM",
+      "teamB-type": "TEAM_TYPE_DIRECT_TEAM",
+      "timeslot-id": "timeslot-cPiD6h994Ers",
+      "status": "STATUS_FINAL",
+      "id": "game-j51nQFnDxVkz",
+      "teamA-id": "team-5GBtxw9d9DUg",
+      "field-id": "field-bZXkBM3BwZsJ",
+      "division-id": "division-WZRSYM8y8dNN"
+    },
+    "game-9boU1Thbm7iJ": {
+      "game-id": "game-9boU1Thbm7iJ",
+      "group-id": "group-eyrwqfahB1ZX",
+      "teamB-id": "team-v4rScUBSYNRg",
+      "name": "Week 4: 2v3",
+      "scoreB": 13,
+      "scoreA": 4,
+      "teamA-type": "TEAM_TYPE_DIRECT_TEAM",
+      "teamB-type": "TEAM_TYPE_DIRECT_TEAM",
+      "timeslot-id": "timeslot-339EmzPkD2nD",
+      "status": "STATUS_FINAL",
+      "id": "game-9boU1Thbm7iJ",
+      "teamA-id": "team-qNjZiFHLnFDU",
+      "field-id": "field-r1wpMFEKzbkt",
+      "division-id": "division-WZRSYM8y8dNN"
+    },
+    "game-Wf3XtfqG8or9": {
+      "game-id": "game-Wf3XtfqG8or9",
+      "pending-teamB": {
+        "place": 3,
+        "group-id": "group-eyrwqfahB1ZX",
+        "type": "PENDING_GROUP_RESULT"
+      },
+      "pending-teamA": {
+        "place": 6,
+        "group-id": "group-eyrwqfahB1ZX",
+        "type": "PENDING_GROUP_RESULT"
+      },
+      "group-id": "group-gEuBKMfzuNSG",
+      "teamB-id": null,
+      "name": "Finals Round 1: 6th vs 3rd",
+      "scoreB": 0,
+      "scoreA": 0,
+      "teamA-type": "TEAM_TYPE_DIRECT_TEAM",
+      "teamB-type": "TEAM_TYPE_DIRECT_TEAM",
+      "timeslot-id": "timeslot-jW4V3zqe1gxh",
+      "status": "STATUS_SCHEDULED",
+      "id": "game-Wf3XtfqG8or9",
+      "teamA-id": null,
+      "field-id": "field-fMTBBk6hL2Za",
+      "division-id": "division-WZRSYM8y8dNN"
+    },
+    "game-6jw4JiSogMru": {
+      "game-id": "game-6jw4JiSogMru",
+      "group-id": "group-eyrwqfahB1ZX",
+      "teamB-id": "team-qNjZiFHLnFDU",
+      "name": "Week 5: 6v2",
+      "scoreB": 0,
+      "scoreA": 0,
+      "teamA-type": "TEAM_TYPE_DIRECT_TEAM",
+      "teamB-type": "TEAM_TYPE_DIRECT_TEAM",
+      "timeslot-id": "timeslot-jkhTkK1RCLi4",
+      "status": "STATUS_SCHEDULED",
+      "id": "game-6jw4JiSogMru",
+      "teamA-id": "team-q1g1sD1Z4e5h",
+      "field-id": "field-L5gHxGDZDCQ5",
+      "division-id": "division-WZRSYM8y8dNN"
+    },
+    "game-ugxCaC8PPHqA": {
+      "game-id": "game-ugxCaC8PPHqA",
+      "group-id": "group-eyrwqfahB1ZX",
+      "teamB-id": "team-3RN4HUBjbEmb",
+      "name": "Week 3: 4v5",
+      "scoreB": 13,
+      "scoreA": 12,
+      "teamA-type": "TEAM_TYPE_DIRECT_TEAM",
+      "teamB-type": "TEAM_TYPE_DIRECT_TEAM",
+      "timeslot-id": "timeslot-iJFFB1aAcdnu",
+      "status": "STATUS_FINAL",
+      "id": "game-ugxCaC8PPHqA",
+      "teamA-id": "team-r7Pkw8XqriQa",
+      "field-id": "field-L5gHxGDZDCQ5",
+      "division-id": "division-WZRSYM8y8dNN"
+    },
+    "game-wGUJ4YiPQakW": {
+      "game-id": "game-wGUJ4YiPQakW",
+      "group-id": "group-eyrwqfahB1ZX",
+      "teamB-id": "team-qNjZiFHLnFDU",
+      "name": "Week 5: 4v2",
+      "scoreB": 0,
+      "scoreA": 0,
+      "teamA-type": "TEAM_TYPE_DIRECT_TEAM",
+      "teamB-type": "TEAM_TYPE_DIRECT_TEAM",
+      "timeslot-id": "timeslot-3U2ohrYtGA6e",
+      "status": "STATUS_SCHEDULED",
+      "id": "game-wGUJ4YiPQakW",
+      "teamA-id": "team-r7Pkw8XqriQa",
+      "field-id": "field-r1wpMFEKzbkt",
+      "division-id": "division-WZRSYM8y8dNN"
+    },
+    "game-sCQTRwcv3SxC": {
+      "game-id": "game-sCQTRwcv3SxC",
+      "group-id": "group-eyrwqfahB1ZX",
+      "teamB-id": "team-r7Pkw8XqriQa",
+      "name": "Week 5: 1v4",
+      "scoreB": 0,
+      "scoreA": 0,
+      "teamA-type": "TEAM_TYPE_DIRECT_TEAM",
+      "teamB-type": "TEAM_TYPE_DIRECT_TEAM",
+      "timeslot-id": "timeslot-jkhTkK1RCLi4",
+      "status": "STATUS_SCHEDULED",
+      "id": "game-sCQTRwcv3SxC",
+      "teamA-id": "team-5GBtxw9d9DUg",
+      "field-id": "field-bZXkBM3BwZsJ",
+      "division-id": "division-WZRSYM8y8dNN"
+    },
+    "game-cPuK8DzK7FXM": {
+      "game-id": "game-cPuK8DzK7FXM",
+      "group-id": "group-eyrwqfahB1ZX",
+      "teamB-id": "team-5GBtxw9d9DUg",
+      "name": "Week 1: 2v1",
+      "scoreB": 9,
+      "scoreA": 11,
+      "teamA-type": "TEAM_TYPE_DIRECT_TEAM",
+      "teamB-type": "TEAM_TYPE_DIRECT_TEAM",
+      "timeslot-id": "timeslot-fjkX6yKuW4vz",
+      "status": "STATUS_FINAL",
+      "id": "game-cPuK8DzK7FXM",
+      "teamA-id": "team-qNjZiFHLnFDU",
+      "field-id": "field-bZXkBM3BwZsJ",
+      "division-id": "division-WZRSYM8y8dNN"
+    }
+  }
+}
