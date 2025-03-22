@@ -597,7 +597,8 @@ B finishes second, and C finishes third."
                (select-keys ["A" "B" "C"]))
            {"A" "3-2-0"
             "B" "3-2-0"
-            "C" "3-2-0"}))
+            "C" "3-2-0"})
+        "A,B,C have the same overall record")
     (is (= (-> (zipmap (map :team-name results-22games)
                        (map :points-diff results-22games))
                (select-keys ["A" "B" "C"]))
@@ -616,13 +617,15 @@ B finishes second, and C finishes third."
                (select-keys ["A" "B" "C"]))
            {"A" "3-2-0"
             "B" "3-2-0"
-            "C" "3-2-0"}))
+            "C" "3-2-0"})
+        "A,B,C have the same overall record")
     (is (= (-> (zipmap (map :team-name results-22games-point-diff-adjusted)
                        (map :points-diff results-22games-point-diff-adjusted))
                (select-keys ["A" "B" "C"]))
            {"A" 1
             "B" 1
-            "C" 1}))
+            "C" 1})
+        "A,B,C have the same overall point diff")
     (is (= (-> (zipmap (map :team-name results-22games-point-diff-adjusted)
                        (map :points-won results-22games-point-diff-adjusted))
                (select-keys ["A" "B" "C"]))
@@ -633,9 +636,8 @@ B finishes second, and C finishes third."
           only-team-names (map :team-name all-results)
           only-a-b (filter #{"A" "B"} only-team-names)
           only-a-c (filter #{"A" "C"} only-team-names)]
-      ;; A should come out ahead here because A scored more points than B or C
-      (is (= only-a-b ["A" "B"]))
-      (is (= only-a-c ["A" "C"]))))
+      (is (= only-a-b ["A" "B"]) "A has scored more points than B")
+      (is (= only-a-c ["A" "C"]) "A has scored more points than C")))
 
   (testing "head-to-head record between the two teams"
     (let [all-results (games->sorted-results six-teams example22-games-point-diff-adjusted "TIEBREAK_WOODLANDS_LEAGUE_RULES")
@@ -662,7 +664,7 @@ B finishes second, and C finishes third."
       (is (= (:points-diff results-for-B) (:points-diff results-for-C)))
       (is (= (:points-won results-for-B) (:points-won results-for-C)))
 
-      ;; but B beat C in game-301, so they come out ahead
+      ;; but B beat C in game-301, so B comes out ahead
       (is (= "1-0-0" (:record results-for-B-vs-C)))
       (is (= "0-1-0" (:record results-for-C-vs-B)))
       (is (= only-b-c ["B" "C"]))))
