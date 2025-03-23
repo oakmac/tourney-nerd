@@ -1,5 +1,7 @@
 (ns com.oakmac.tourney-nerd.teams
   (:require
+   [clojure.set :as set]
+   [clojure.string :as str]
    [com.oakmac.tourney-nerd.divisions :as divisions]
    [com.oakmac.tourney-nerd.util.base58 :refer [random-base58]]
    [malli.core :as malli]))
@@ -25,12 +27,18 @@
    [:seed [:int {:min 1}]]])
    ;; TODO: need optional captain + team members information here
 
+(defn- looks-like-a-team-id? [id]
+  (and
+    (string? id)
+    (str/starts-with? id "team-")))
+
 (defn team?
   "Is t a Team?"
   [t]
-  (and (map? t)
-       (string? (:id t))
-       (re-matches team-id-regex (:id t))))
+  (and
+    (map? t)
+    (looks-like-a-team-id? (:id t))
+    (set/subset? #{:id :name :division-id} (set (keys t)))))
 
 ;; TODO: we should be able to use Malli for this
 ; (def team? (malli/validator team-schema))

@@ -1,5 +1,6 @@
 (ns com.oakmac.tourney-nerd.games
   (:require
+   [clojure.set :as set]
    [clojure.string :as str]
    [com.oakmac.tourney-nerd.divisions :refer [division-id-regex]]
    [com.oakmac.tourney-nerd.fields :refer [field-id-regex]]
@@ -59,6 +60,17 @@
     (string? id)
     (str/starts-with? id "game-")))
 
+(defn game->id [game]
+  (cond
+    (looks-like-a-game-id? (:id game))
+    (:id game)
+
+    (looks-like-a-game-id? (:game-id game))
+    (:game-id game)
+
+    :else
+    (throw (ex-info "Unable to get game-id from game:" game))))
+
 (defn game?
   "Is g a Game?"
   [g]
@@ -66,11 +78,7 @@
     (map? g)
     (looks-like-a-game-id? (:id g))
     (contains? game-statuses (:status g))
-    (boolean
-      (let [game-keys (set (keys g))]
-        (and
-          (contains? game-keys :teamA-id)
-          (contains? game-keys :teamB-id))))))
+    (set/subset? #{:id :status :teamA-id :teamB-id} (set (keys g)))))
 
 ;; TODO: we should be able to use Malli for this
 ; (def game? (malli/validator game-schema))
@@ -120,3 +128,38 @@
   (boolean
     (or (= final-status (:status game))
         (= "finished" (:status game)))))
+
+(defn games->games-list
+  "Converts games into a list or throws if unable to do so"
+  [games]
+  (cond
+    (sequential? games) games
+
+    (map? games) (reduce
+                   (fn [acc [game-id-key game]]
+                     (let [game-id-key-str (str game-id-key)
+                           game-id2 (cond
+                                      (looks-like-a-game-id? game-id-key-str) game-id-key-str
+                                      (looks-like-a-game-id? (:id game)) (:id game)
+                                      (looks-like-a-game-id? (:game-id game)) (:game-id game)
+                                      :else (throw (ex-info "Game does not have an id:" game)))]
+                       (conj acc (assoc game :id game-id2))))
+                   []
+                   games)
+
+    :else (throw (ex-info "Unable to convert games into a list:" games))))
+
+(defn get-games-played-between-two-teams
+  "Returns a hash map of the games played between two teams.
+
+  games can either be a list or a map"
+  [games teamA-id teamB-id]
+  (let [teams-id-set (set [teamA-id teamB-id])]
+    ;; this reduce is a filter
+    (reduce
+      (fn [filtered-games game]
+        (if (= teams-id-set (set [(:teamA-id game) (:teamB-id game)]))
+          (assoc filtered-games (game->id game) game)
+          filtered-games))
+      {}
+      (games->games-list games))))

@@ -117,10 +117,10 @@
       "jersey-color": "#9a9996",
       "division-id": "division-WZRSYM8y8dNN"
     },
-    "team-r7Pkw8XqriQa": {
+    "team-claritinclear": {
       "name": "Claritin Clear",
       "seed": 4,
-      "id": "team-r7Pkw8XqriQa",
+      "id": "team-claritinclear",
       "jersey-color": "#00fcff",
       "division-id": "division-WZRSYM8y8dNN"
     },
@@ -131,10 +131,10 @@
       "jersey-color": "#000000",
       "division-id": "division-WZRSYM8y8dNN"
     },
-    "team-q1g1sD1Z4e5h": {
+    "team-trophyhusbands": {
       "name": "Trophy Husbands",
       "seed": 6,
-      "id": "team-q1g1sD1Z4e5h",
+      "id": "team-trophyhusbands",
       "jersey-color": "#ffffff",
       "division-id": "division-WZRSYM8y8dNN"
     },
@@ -197,7 +197,7 @@
       "timeslot-id": "timeslot-cPiD6h994Ers",
       "status": "STATUS_FINAL",
       "id": "game-4vaDm6dKd5ER",
-      "teamA-id": "team-q1g1sD1Z4e5h",
+      "teamA-id": "team-trophyhusbands",
       "field-id": "field-L5gHxGDZDCQ5",
       "division-id": "division-WZRSYM8y8dNN"
     },
@@ -230,7 +230,7 @@
     "game-KmbqLY5U8NQ4": {
       "game-id": "game-KmbqLY5U8NQ4",
       "group-id": "group-eyrwqfahB1ZX",
-      "teamB-id": "team-q1g1sD1Z4e5h",
+      "teamB-id": "team-trophyhusbands",
       "name": "Week 3: 3v6",
       "scoreB": 6,
       "scoreA": 13,
@@ -255,7 +255,7 @@
       "timeslot-id": "timeslot-fjkX6yKuW4vz",
       "status": "STATUS_FINAL",
       "id": "game-b384mzq1zNvr",
-      "teamA-id": "team-r7Pkw8XqriQa",
+      "teamA-id": "team-claritinclear",
       "field-id": "field-L5gHxGDZDCQ5",
       "division-id": "division-WZRSYM8y8dNN"
     },
@@ -278,7 +278,7 @@
     "game-b85VjQHbVQXT": {
       "game-id": "game-b85VjQHbVQXT",
       "group-id": "group-eyrwqfahB1ZX",
-      "teamB-id": "team-r7Pkw8XqriQa",
+      "teamB-id": "team-claritinclear",
       "name": "Week 1: 3v4",
       "scoreB": 8,
       "scoreA": 10,
@@ -294,7 +294,7 @@
     "game-KJfUZ6HujhUP": {
       "game-id": "game-KJfUZ6HujhUP",
       "group-id": "group-eyrwqfahB1ZX",
-      "teamB-id": "team-q1g1sD1Z4e5h",
+      "teamB-id": "team-trophyhusbands",
       "name": "Week 5: 5v6",
       "scoreB": 0,
       "scoreA": 0,
@@ -345,14 +345,14 @@
       "timeslot-id": "timeslot-NvHmzsDqyY6u",
       "status": "STATUS_FINAL",
       "id": "game-LUcbaCq7Pih1",
-      "teamA-id": "team-r7Pkw8XqriQa",
+      "teamA-id": "team-claritinclear",
       "field-id": "field-r1wpMFEKzbkt",
       "division-id": "division-WZRSYM8y8dNN"
     },
     "game-szPSutCqDEgy": {
       "game-id": "game-szPSutCqDEgy",
       "group-id": "group-eyrwqfahB1ZX",
-      "teamB-id": "team-r7Pkw8XqriQa",
+      "teamB-id": "team-claritinclear",
       "name": "Week 4: 6v4",
       "scoreB": 10,
       "scoreA": 11,
@@ -361,7 +361,7 @@
       "timeslot-id": "timeslot-339EmzPkD2nD",
       "status": "STATUS_FINAL",
       "id": "game-szPSutCqDEgy",
-      "teamA-id": "team-q1g1sD1Z4e5h",
+      "teamA-id": "team-trophyhusbands",
       "field-id": "field-L5gHxGDZDCQ5",
       "division-id": "division-WZRSYM8y8dNN"
     },
@@ -384,7 +384,7 @@
     "game-awRtLQzz37UR": {
       "game-id": "game-awRtLQzz37UR",
       "group-id": "group-eyrwqfahB1ZX",
-      "teamB-id": "team-r7Pkw8XqriQa",
+      "teamB-id": "team-claritinclear",
       "name": "Week 2: 6v4",
       "scoreB": 11,
       "scoreA": 12,
@@ -393,14 +393,14 @@
       "timeslot-id": "timeslot-RbgLn9tWDHk7",
       "status": "STATUS_FINAL",
       "id": "game-awRtLQzz37UR",
-      "teamA-id": "team-q1g1sD1Z4e5h",
+      "teamA-id": "team-trophyhusbands",
       "field-id": "field-L5gHxGDZDCQ5",
       "division-id": "division-WZRSYM8y8dNN"
     },
     "game-8c17hE3M7u2R": {
       "game-id": "game-8c17hE3M7u2R",
       "group-id": "group-eyrwqfahB1ZX",
-      "teamB-id": "team-r7Pkw8XqriQa",
+      "teamB-id": "team-claritinclear",
       "name": "Week 4: 3v4",
       "scoreB": 7,
       "scoreA": 13,
@@ -500,7 +500,7 @@
     "game-iv7p4qiLK4ma": {
       "game-id": "game-iv7p4qiLK4ma",
       "group-id": "group-eyrwqfahB1ZX",
-      "teamB-id": "team-q1g1sD1Z4e5h",
+      "teamB-id": "team-trophyhusbands",
       "name": "Week 4: 1v6",
       "scoreB": 13,
       "scoreA": 12,
@@ -558,7 +558,7 @@
     "game-M1nhcYpVSZL9": {
       "game-id": "game-M1nhcYpVSZL9",
       "group-id": "group-eyrwqfahB1ZX",
-      "teamB-id": "team-q1g1sD1Z4e5h",
+      "teamB-id": "team-trophyhusbands",
       "name": "Week 1: 3v6",
       "scoreB": 12,
       "scoreA": 10,
@@ -648,7 +648,7 @@
     "game-i2mfEoQYsNnJ": {
       "game-id": "game-i2mfEoQYsNnJ",
       "group-id": "group-eyrwqfahB1ZX",
-      "teamB-id": "team-q1g1sD1Z4e5h",
+      "teamB-id": "team-trophyhusbands",
       "name": "Week 1: 1v6",
       "scoreB": 11,
       "scoreA": 13,
@@ -664,7 +664,7 @@
     "game-1eHwcfkxmziA": {
       "game-id": "game-1eHwcfkxmziA",
       "group-id": "group-eyrwqfahB1ZX",
-      "teamB-id": "team-q1g1sD1Z4e5h",
+      "teamB-id": "team-trophyhusbands",
       "name": "Week 3: 5v6",
       "scoreB": 13,
       "scoreA": 11,
@@ -696,7 +696,7 @@
     "game-j51nQFnDxVkz": {
       "game-id": "game-j51nQFnDxVkz",
       "group-id": "group-eyrwqfahB1ZX",
-      "teamB-id": "team-r7Pkw8XqriQa",
+      "teamB-id": "team-claritinclear",
       "name": "Week 2: 1v4",
       "scoreB": 10,
       "scoreA": 12,
@@ -763,7 +763,7 @@
       "timeslot-id": "timeslot-jkhTkK1RCLi4",
       "status": "STATUS_SCHEDULED",
       "id": "game-6jw4JiSogMru",
-      "teamA-id": "team-q1g1sD1Z4e5h",
+      "teamA-id": "team-trophyhusbands",
       "field-id": "field-L5gHxGDZDCQ5",
       "division-id": "division-WZRSYM8y8dNN"
     },
@@ -779,7 +779,7 @@
       "timeslot-id": "timeslot-iJFFB1aAcdnu",
       "status": "STATUS_FINAL",
       "id": "game-ugxCaC8PPHqA",
-      "teamA-id": "team-r7Pkw8XqriQa",
+      "teamA-id": "team-claritinclear",
       "field-id": "field-L5gHxGDZDCQ5",
       "division-id": "division-WZRSYM8y8dNN"
     },
@@ -795,14 +795,14 @@
       "timeslot-id": "timeslot-3U2ohrYtGA6e",
       "status": "STATUS_SCHEDULED",
       "id": "game-wGUJ4YiPQakW",
-      "teamA-id": "team-r7Pkw8XqriQa",
+      "teamA-id": "team-claritinclear",
       "field-id": "field-r1wpMFEKzbkt",
       "division-id": "division-WZRSYM8y8dNN"
     },
     "game-sCQTRwcv3SxC": {
       "game-id": "game-sCQTRwcv3SxC",
       "group-id": "group-eyrwqfahB1ZX",
-      "teamB-id": "team-r7Pkw8XqriQa",
+      "teamB-id": "team-claritinclear",
       "name": "Week 5: 1v4",
       "scoreB": 0,
       "scoreA": 0,

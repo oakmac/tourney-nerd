@@ -1,6 +1,6 @@
 (ns com.oakmac.tourney-nerd.results
   (:require
-   [com.oakmac.tourney-nerd.games :refer [game-finished?]]
+   [com.oakmac.tourney-nerd.games :as games :refer [game-finished?]]
    [taoensso.timbre :as timbre]))
 
 (declare games->results)
@@ -150,15 +150,7 @@
       (let [teamA-id (:team-id a)
             teamB-id (:team-id b)
             team-a-and-b-ids [teamA-id teamB-id]
-            team-a-and-b-ids-set (set team-a-and-b-ids)
-            ;; NOTE: this reduce is just a filter
-            games-played-between-a-and-b (reduce
-                                           (fn [acc [game-id {:keys [teamA-id teamB-id] :as game}]]
-                                             (if (= (set [teamA-id teamB-id]) team-a-and-b-ids-set)
-                                               (assoc acc game-id game)
-                                               acc))
-                                           {}
-                                           all-games)
+            games-played-between-a-and-b (games/get-games-played-between-two-teams all-games teamA-id teamB-id)
             a-b-teams (select-keys all-teams team-a-and-b-ids)
             results-between-a-and-b (games->results a-b-teams games-played-between-a-and-b)
             results-map (zipmap (map :team-id results-between-a-and-b)

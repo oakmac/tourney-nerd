@@ -71,3 +71,12 @@
   (is (false? (g/game? nil)))
   (is (false? (g/game? (get-in woodlands-spring-league [:schedule :timeslot-jW4V3zqe1gxh]))))
   (is (false? (g/game? (get-in woodlands-spring-league [:teams :team-3RN4HUBjbEmb])))))
+
+(deftest get-games-played-between-two-teams-test
+  (is (= (->> (g/get-games-played-between-two-teams (:games woodlands-spring-league) "team-claritinclear" "team-trophyhusbands")
+           vals
+           (map :id)
+           set)
+         #{"game-szPSutCqDEgy" "game-awRtLQzz37UR"}))
+  (is (= (g/get-games-played-between-two-teams (:games woodlands-spring-league) "team-claritinclear" "team-does_not_exist")
+         {})))
