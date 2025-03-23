@@ -1,7 +1,8 @@
 (ns com.oakmac.tourney-nerd.games-test
   (:require
    [clojure.test :refer [deftest is testing]]
-   [com.oakmac.tourney-nerd.games :as g]))
+   [com.oakmac.tourney-nerd.games :as g]
+   [com.oakmac.tourney-nerd.test-util :refer [load-test-resource-json-file]]))
 
 (def example-game-with-pending
   {:division-id "division-KmbM3AMx8xe3"
@@ -59,3 +60,14 @@
       (is (nil? (:pending-teamB example-game-without-pending)))
       (is (= (:teamA-id example-game-without-pending) (:teamA-id reset-example-game-without-pending)))
       (is (= (:teamB-id example-game-without-pending) (:teamB-id reset-example-game-without-pending))))))
+
+(def woodlands-spring-league (load-test-resource-json-file "2025-woodlands-spring-league.json"))
+
+(deftest game-predicate-test
+  (is (true? (g/game? example-game-with-pending)))
+  (is (true? (g/game? example-game-without-pending)))
+  (is (true? (g/game? (get-in woodlands-spring-league [:games :game-kMmW8tkgPLL7]))))
+  (is (true? (g/game? (get-in woodlands-spring-league [:games :game-MBKEoMoKu9Dn]))))
+  (is (false? (g/game? nil)))
+  (is (false? (g/game? (get-in woodlands-spring-league [:schedule :timeslot-jW4V3zqe1gxh]))))
+  (is (false? (g/game? (get-in woodlands-spring-league [:teams :team-3RN4HUBjbEmb])))))

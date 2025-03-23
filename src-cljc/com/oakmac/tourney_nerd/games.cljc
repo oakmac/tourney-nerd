@@ -1,5 +1,6 @@
 (ns com.oakmac.tourney-nerd.games
   (:require
+   [clojure.string :as str]
    [com.oakmac.tourney-nerd.divisions :refer [division-id-regex]]
    [com.oakmac.tourney-nerd.fields :refer [field-id-regex]]
    [com.oakmac.tourney-nerd.groups :refer [group-id-regex]]
@@ -53,12 +54,23 @@
    [:fn (fn [{:keys [teamA-id teamB-id]}]
           (not= teamA-id teamB-id))]])
 
+(defn- looks-like-a-game-id? [id]
+  (and
+    (string? id)
+    (str/starts-with? id "game-")))
+
 (defn game?
   "Is g a Game?"
   [g]
-  (and (map? g)
-       (string? (:id g))
-       (re-matches game-id-regex (:id g))))
+  (and
+    (map? g)
+    (looks-like-a-game-id? (:id g))
+    (contains? game-statuses (:status g))
+    (boolean
+      (let [game-keys (set (keys g))]
+        (and
+          (contains? game-keys :teamA-id)
+          (contains? game-keys :teamB-id))))))
 
 ;; TODO: we should be able to use Malli for this
 ; (def game? (malli/validator game-schema))
