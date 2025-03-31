@@ -296,7 +296,7 @@
        sorted-results))))
 
 (defn event->tiebreaking-method
-  "Returns the tiebreaking method for an event."
+  "Returns the tiebreaking method for an Event."
   [event]
   (cond
     (contains? tiebreaking-methods (get-in event [:settings :tiebreaking-method]))
@@ -308,7 +308,8 @@
     :else default-tiebreak-method))
 
 (defn group->tiebreaking-method
-  "Returns the tiebreaking method for a Group."
+  "Returns the tiebreaking method for a Group.
+  If a tiebreaking method is not set on the group, falls back to the setting for the Event."
   [event group-id]
   (let [grp-tiebreaking-method (or (get-in event [:groups (str group-id) :tiebreaking-method])
                                    (get-in event [:groups (keyword group-id) :tiebreaking-method]))]
@@ -317,3 +318,11 @@
       grp-tiebreaking-method
 
       :else (event->tiebreaking-method event))))
+
+(defn get-sorted-results-for-group
+  "Returns sorted results for a Games Group"
+  [event group-id])
+  ;; FIXME: what should this return if all of the games are not final?
+  ;; FIXME: this needs to take into account bracket vs pool-play results
+
+;; FIXME: there should be a "results for division" function
