@@ -433,7 +433,6 @@
 ;   (is (= (results->duplicate-records))))
 
 (def woodlands-spring-league (load-test-resource-json-file "2025-woodlands-spring-league.json"))
-(def woodlands-fall-league1 (load-test-resource-json-file "2025-woodlands-fall-league.before.json"))
 (def woodlands-fall-league-2025 (load-test-resource-json-file "2025-woodlands-fall-league.json"))
 
 (deftest sort-results-by-upa-rules-test
