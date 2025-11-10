@@ -2,12 +2,7 @@
   (:require
    [clojure.set :as set]
    [clojure.string :as str]
-   [com.oakmac.tourney-nerd.divisions :refer [division-id-regex]]
-   [com.oakmac.tourney-nerd.fields :refer [field-id-regex]]
-   [com.oakmac.tourney-nerd.groups :refer [group-id-regex]]
-   [com.oakmac.tourney-nerd.schedule :refer [timeslot-id-regex]]
-   [com.oakmac.tourney-nerd.teams :refer [team-id-regex]]
-   [com.oakmac.tourney-nerd.util.base58 :refer [random-base58]]
+   [com.oakmac.tourney-nerd.util.ids :as util.ids]
    [malli.core :as malli]))
 
 ;; -----------------------------------------------------------------------------
@@ -31,24 +26,18 @@
 ;; -----------------------------------------------------------------------------
 ;; Game Creation
 
-(def game-id-regex
-  #"^game-[a-zA-Z0-9]{4,}$")
-
-(defn random-game-id []
-  (str "game-" (random-base58)))
-
 ;; NOTE: division-id is downstream from team-id, but I think it's fine to require it for Games
 ;; makes many operations easier
 (def game-schema
   [:and
    [:map
-    [:id [:re game-id-regex]]
-    [:division-id [:re division-id-regex]]
-    [:group-id [:re group-id-regex]]
-    [:teamA-id [:re team-id-regex]]
-    [:teamB-id [:re team-id-regex]]
-    [:timeslot-id [:re timeslot-id-regex]]
-    [:field-id [:re field-id-regex]]
+    [:id [:re util.ids/game-id-regex]]
+    [:division-id [:re util.ids/division-id-regex]]
+    [:group-id [:re util.ids/group-id-regex]]
+    [:teamA-id [:re util.ids/team-id-regex]]
+    [:teamB-id [:re util.ids/team-id-regex]]
+    [:timeslot-id [:re util.ids/timeslot-id-regex]]
+    [:field-id [:re util.ids/field-id-regex]]
     ; [:name [:string {:min 3, :max 100}]]
     [:status [:enum scheduled-status in-progress-status aborted-status
                     canceled-status final-status forfeit-status]]]
@@ -88,7 +77,7 @@
   [opts]
   {:post [(malli/validate game-schema %)]}
   (merge
-    {:id (random-game-id)
+    {:id (util.ids/create-game-id)
      :status scheduled-status
      :scoreA 0
      :scoreB 0
@@ -124,10 +113,16 @@
     (assoc :teamB-id nil)))
 
 ;; NOTE: "finished" is legacy here
+;; TODO: mark deprecated
 (defn game-finished? [game]
   (boolean
     (or (= final-status (:status game))
         (= "finished" (:status game)))))
+
+(defn final?
+  "Has this game been played?"
+  [game]
+  (= final-status (:status game)))
 
 (defn games->games-list
   "Converts games into a list or throws if unable to do so"
@@ -163,3 +158,23 @@
           filtered-games))
       {}
       (games->games-list games))))
+
+;; FIXME: easy candidate for unit tests
+;; FIXME: what to return when tied?
+(defn game->winning-team-id
+  "returns the winning team-id from a game if it is final, nil otherwise"
+  [{:keys [scoreA scoreB teamA-id teamB-id] :as game}]
+  (when (final? game)
+    (cond
+      (> scoreA scoreB) teamA-id
+      (> scoreB scoreA) teamB-id
+      :else nil)))
+
+(defn game->losing-team-id
+  "returns the losing team-id from a game if it is final, nil otherwise"
+  [{:keys [scoreA scoreB teamA-id teamB-id] :as game}]
+  (when (final? game)
+    (cond
+      (< scoreA scoreB) teamA-id
+      (< scoreB scoreA) teamB-id
+      :else nil)))

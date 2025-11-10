@@ -1,17 +1,11 @@
 (ns com.oakmac.tourney-nerd.fields
   (:require
-   [com.oakmac.tourney-nerd.util.base58 :refer [random-base58]]
+   [com.oakmac.tourney-nerd.util.ids :as util.ids]
    [malli.core :as malli]))
-
-(def field-id-regex
-  #"^field-[a-zA-Z0-9]{4,}$")
-
-(defn random-field-id []
-  (str "field-" (random-base58)))
 
 (def field-schema
   [:map
-   [:id [:re field-id-regex]]
+   [:id [:re util.ids/field-id-regex]]
    [:name [:string {:min 1, :max 100}]]
    [:order [:int {:min 1}]]])
    ;; TODO: add optional description field here
@@ -20,7 +14,7 @@
   "creates a single Field"
   [order name]
   {:post [(malli/validate field-schema %)]}
-  {:id (random-field-id)
+  {:id (util.ids/create-field-id)
    :name name
    :order order})
 

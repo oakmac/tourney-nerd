@@ -1,16 +1,12 @@
 (ns com.oakmac.tourney-nerd.events
   (:require
    [clojure.set :as set]
-   [clojure.string :as str]
    [clojure.walk :as walk]
-   [com.oakmac.tourney-nerd.divisions :as divisions]
-   [com.oakmac.tourney-nerd.fields :as fields]
    [com.oakmac.tourney-nerd.games :as games]
    [com.oakmac.tourney-nerd.groups :as groups]
    [com.oakmac.tourney-nerd.order :refer [ensure-items-order]]
-   [com.oakmac.tourney-nerd.schedule :as schedule]
    [com.oakmac.tourney-nerd.teams :as teams]
-   [taoensso.timbre :as timbre]))
+   [com.oakmac.tourney-nerd.util.ids :as util.ids]))
 
 ;; TODO: we need an "event integrity" function
 ;; - all games timeslots are on the schedule
@@ -18,17 +14,6 @@
 ;; - all games divisions match the teams playing
 ;; - all fields + timeslots are unique (no double-booked fields)
 ;; - scheduled games cannot have scores
-
-(defn new-random-id [id]
-  (let [[head _tail] (str/split id #"-")]
-    (case head
-      "division" (divisions/random-division-id)
-      "timeslot" (schedule/random-timeslot-id)
-      "team" (teams/random-team-id)
-      "field" (fields/random-field-id)
-      "game" (games/random-game-id)
-      "group" (groups/random-group-id)
-      (timbre/warn "Unrecognized id type:" id))))
 
 ;; TODO: What else to reset here?
 (defn clone-event
@@ -46,7 +31,7 @@
         ;; map of "old-id" -> "new-id"
         new-ids (reduce
                   (fn [new-ids old-id]
-                    (assoc new-ids old-id (new-random-id old-id)))
+                    (assoc new-ids old-id (util.ids/create-id-of-same-type old-id)))
                   {}
                   old-ids)]
 

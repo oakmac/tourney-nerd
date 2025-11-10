@@ -1,17 +1,11 @@
 (ns com.oakmac.tourney-nerd.divisions
   (:require
-   [com.oakmac.tourney-nerd.util.base58 :refer [random-base58]]
+   [com.oakmac.tourney-nerd.util.ids :as util.ids]
    [malli.core :as malli]))
-
-(def division-id-regex
-  #"^division-[a-zA-Z0-9]{4,}$")
-
-(defn random-division-id []
-  (str "division-" (random-base58)))
 
 (def division-schema
   [:map
-   [:id [:re division-id-regex]]
+   [:id [:re util.ids/division-id-regex]]
    [:name [:string {:min 3, :max 100}]]
    [:order [:int {:min 1}]]])
 
@@ -19,7 +13,7 @@
   "creates a single Division"
   [order name]
   {:post [(malli/validate division-schema %)]}
-  {:id (random-division-id)
+  {:id (util.ids/create-division-id)
    :name name
    :order order})
 

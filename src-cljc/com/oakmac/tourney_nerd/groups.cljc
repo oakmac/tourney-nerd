@@ -1,12 +1,7 @@
 (ns com.oakmac.tourney-nerd.groups
   (:require
-   [com.oakmac.tourney-nerd.order :refer [ensure-items-order]]
-   [com.oakmac.tourney-nerd.util.base58 :refer [random-base58]]))
-
-(def group-id-regex #"^group-[a-zA-Z0-9]{4,}$")
-
-(defn random-group-id []
-  (str "group-" (random-base58)))
+   [com.oakmac.tourney-nerd.games :as tn.games]
+   [com.oakmac.tourney-nerd.order :refer [ensure-items-order]]))
 
 (defn get-all-games-for-group
   "returns a map of all the games for a given group-id"
@@ -44,3 +39,9 @@
         groups-coll (flatten groups-with-order)]
     (zipmap (map #(-> % :id keyword) groups-coll)
             groups-coll)))
+
+(defn all-games-final?
+  "Have all of the games in this group been played? ie: are they all STATUS_FINAL?"
+  [event group-id]
+  (let [games (get-all-games-for-group event group-id)]
+    (every? tn.games/final? games)))
