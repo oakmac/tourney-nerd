@@ -45,3 +45,5 @@
   [event group-id]
   (let [games (get-all-games-for-group event group-id)]
     (every? tn.games/final? games)))
+
+;; TODO: we should have an "integrity" function that ensures brackets have result placements

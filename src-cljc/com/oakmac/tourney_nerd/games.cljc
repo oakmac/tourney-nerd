@@ -113,11 +113,9 @@
     (assoc :teamB-id nil)))
 
 ;; NOTE: "finished" is legacy here
-;; TODO: mark deprecated
+;; TODO: mark this function as deprecated
 (defn game-finished? [game]
-  (boolean
-    (or (= final-status (:status game))
-        (= "finished" (:status game)))))
+  (contains? #{final-status "finished"} (:status game)))
 
 (defn final?
   "Has this game been played?"
@@ -159,10 +157,10 @@
       {}
       (games->games-list games))))
 
-;; FIXME: easy candidate for unit tests
-;; FIXME: what to return when tied?
+;; TODO: easy candidate for unit tests
 (defn game->winning-team-id
-  "returns the winning team-id from a game if it is final, nil otherwise"
+  "returns the winning team-id from a game if it is final and one team has scored more points than the other
+  nil otherwise (including ties)"
   [{:keys [scoreA scoreB teamA-id teamB-id] :as game}]
   (when (final? game)
     (cond
@@ -171,7 +169,8 @@
       :else nil)))
 
 (defn game->losing-team-id
-  "returns the losing team-id from a game if it is final, nil otherwise"
+  "returns the losing team-id from a game if it is final and one team has scored less points than the otherwise
+  nil otherwise (including ties)"
   [{:keys [scoreA scoreB teamA-id teamB-id] :as game}]
   (when (final? game)
     (cond

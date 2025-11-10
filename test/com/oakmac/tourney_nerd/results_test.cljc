@@ -733,10 +733,12 @@ B finishes second, and C finishes third."
 ;          "aaa")))
 
 (deftest group-results-test
-  (is (= (results/group->sorted-results woodlands-fall-league-2025 "group-94pXoxYJWzBL")
-         [{:place 1, :team-name "Sweater Weather",     :team-id "team-yasy1hnnku8t"}
-          {:place 2, :team-name "Discaffeinated",      :team-id "team-wD1jVxJdmjkZ"}
-          {:place 3, :team-name "Spirits of the Game", :team-id "team-Q3H4Pr6eEf3c"}
-          {:place 4, :team-name "Huck-O-Lanterns",     :team-id "team-5Qaw8MxNJMAz"}
-          {:place 5, :team-name "Headless Horsemen",   :team-id "team-S5hApBgb9pA5"}
-          {:place 6, :team-name "Huckleberry Pie",     :team-id "team-vfzgApxUkmEL"}])))
+  ;; FIXME: add results from a round robin pool here
+  (testing "results from a bracket group"
+    (is (= (results/group->sorted-results woodlands-fall-league-2025 "group-94pXoxYJWzBL")
+           [{:place 1, :team-name "Sweater Weather",     :team-id "team-yasy1hnnku8t"}
+            {:place 2, :team-name "Discaffeinated",      :team-id "team-wD1jVxJdmjkZ"}
+            {:place 3, :team-name "Spirits of the Game", :team-id "team-Q3H4Pr6eEf3c"}
+            {:place 4, :team-name "Huck-O-Lanterns",     :team-id "team-5Qaw8MxNJMAz"}
+            {:place 5, :team-name "Headless Horsemen",   :team-id "team-S5hApBgb9pA5"}
+            {:place 6, :team-name "Huckleberry Pie",     :team-id "team-vfzgApxUkmEL"}]))))

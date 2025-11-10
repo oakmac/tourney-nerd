@@ -8,27 +8,6 @@
    [com.oakmac.tourney-nerd.schedule]
    [com.oakmac.tourney-nerd.teams]))
 
-; (defn valid-score? [score]
-;   (and (integer? score)
-;        (>= score 0)))
-
-;; -----------------------------------------------------------------------------
-;; Misc
-
-; (defn- winner
-;   "Returns the game-id of the winning team."
-;   [game]
-;   (if (> (:scoreA game) (:scoreB game))
-;     (:teamA-id game)
-;     (:teamB-id game)))
-
-; (defn- loser
-;   "Returns the game-id of the losing team."
-;   [game]
-;   (if (< (:scoreA game) (:scoreB game))
-;     (:teamA-id game)
-;     (:teamB-id game)))
-
 ;; -----------------------------------------------------------------------------
 ;; Ensure Tournament Structure
 
