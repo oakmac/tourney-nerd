@@ -728,12 +728,33 @@ B finishes second, and C finishes third."
   (is (= (group->tiebreaking-method woodlands-spring-league-before "group-does-not-exist")
          "TIEBREAK_UPA_RULES")))
 
-; (deftest foo-test
-;   (is (= (games->sorted-results (:teams woodlands-fall-league1) (:games woodlands-fall-league1) "TIEBREAK_UPA_RULES")
-;          "aaa")))
-
 (deftest group-results-test
-  ;; FIXME: add results from a round robin pool here
+  (testing "returns nil if not all games are finished"
+    (let [league-with-scheduled-game (assoc-in woodlands-fall-league-2025
+                                       [:games :game-JMmoZDwtzj91 :status]
+                                       "STATUS_SCHEDULED")]
+      (is (nil? (results/group->sorted-results league-with-scheduled-game "group-94pXoxYJWzBL")))))
+  (testing "results from a round robin group - USAU tiebreaker rules"
+    (let [league-with-usau-tiebreaking-method (assoc-in woodlands-fall-league-2025
+                                                [:groups :group-FBT18rCWLFej :tiebreaking-method]
+                                                "TIEBREAK_UPA_RULES")]
+      (is (= (->> (results/group->sorted-results league-with-usau-tiebreaking-method "group-FBT18rCWLFej")
+               (map #(select-keys % [:place :team-name :team-id])))
+             [{:place 1, :team-name "Spirits of the Game", :team-id "team-Q3H4Pr6eEf3c"}
+              {:place 2, :team-name "Sweater Weather",     :team-id "team-yasy1hnnku8t"}
+              {:place 3, :team-name "Huck-O-Lanterns",     :team-id "team-5Qaw8MxNJMAz"}
+              {:place 4, :team-name "Discaffeinated",      :team-id "team-wD1jVxJdmjkZ"}
+              {:place 5, :team-name "Huckleberry Pie",     :team-id "team-vfzgApxUkmEL"}
+              {:place 6, :team-name "Headless Horsemen",   :team-id "team-S5hApBgb9pA5"}]))))
+  (testing "results from a round robin group - Woodlands tiebreaker rules"
+    (is (= (->> (results/group->sorted-results woodlands-fall-league-2025 "group-FBT18rCWLFej")
+             (map #(select-keys % [:place :team-name :team-id])))
+           [{:place 1, :team-name "Huck-O-Lanterns",     :team-id "team-5Qaw8MxNJMAz"}
+            {:place 2, :team-name "Sweater Weather",     :team-id "team-yasy1hnnku8t"}
+            {:place 3, :team-name "Spirits of the Game", :team-id "team-Q3H4Pr6eEf3c"}
+            {:place 4, :team-name "Discaffeinated",      :team-id "team-wD1jVxJdmjkZ"}
+            {:place 5, :team-name "Huckleberry Pie",     :team-id "team-vfzgApxUkmEL"}
+            {:place 6, :team-name "Headless Horsemen",   :team-id "team-S5hApBgb9pA5"}])))
   (testing "results from a bracket group"
     (is (= (results/group->sorted-results woodlands-fall-league-2025 "group-94pXoxYJWzBL")
            [{:place 1, :team-name "Sweater Weather",     :team-id "team-yasy1hnnku8t"}

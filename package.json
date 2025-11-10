@@ -2,7 +2,7 @@
   "name": "@chrisoakman/tourney-nerd",
   "scripts": {
     "check-format": "standard-clj check src-cljc/ test/",
-    "format": "standard-clj fix src-cljc/ test/"
+    "format": "standard-clj fix --log-level=1 src-cljc/ test/"
   },
   "devDependencies": {
     "@chrisoakman/standard-clojure-style": "0.25.0"

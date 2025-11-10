@@ -6,13 +6,14 @@
 (defn get-all-games-for-group
   "returns a map of all the games for a given group-id"
   [event group-id]
-  (reduce
-    (fn [games [game-id game]]
-      (if (= group-id (:group-id game))
-        (assoc games game-id game)
-        games))
-    {}
-    (:games event)))
+  (let [group-id-str (str group-id)]
+    (reduce
+      (fn [games [game-id game]]
+        (if (= group-id-str (:group-id game))
+          (assoc games game-id game)
+          games))
+      {}
+      (:games event))))
 
 (defn get-teams-for-group
   "returns a map of all the teams for a given group-id"
@@ -44,6 +45,6 @@
   "Have all of the games in this group been played? ie: are they all STATUS_FINAL?"
   [event group-id]
   (let [games (get-all-games-for-group event group-id)]
-    (every? tn.games/final? games)))
+    (every? tn.games/final? (vals games))))
 
 ;; TODO: we should have an "integrity" function that ensures brackets have result placements
