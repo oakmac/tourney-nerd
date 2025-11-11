@@ -157,7 +157,6 @@
       {}
       (games->games-list games))))
 
-;; TODO: easy candidate for unit tests
 (defn game->winning-team-id
   "returns the winning team-id from a game if it is final and one team has scored more points than the other
   nil otherwise (including ties)"

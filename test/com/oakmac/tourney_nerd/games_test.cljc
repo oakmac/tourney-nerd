@@ -80,3 +80,11 @@
          #{"game-szPSutCqDEgy" "game-awRtLQzz37UR"}))
   (is (= (g/get-games-played-between-two-teams (:games woodlands-spring-league) "team-claritinclear" "team-does_not_exist")
          {})))
+
+(deftest game-winners-losers-test
+  (is (= "team-qNjZiFHLnFDU" (g/game->winning-team-id (get-in woodlands-spring-league [:games :game-d7DcDDjqchL9]))))
+  (is (= "team-5GBtxw9d9DUg" (g/game->losing-team-id (get-in woodlands-spring-league [:games :game-d7DcDDjqchL9]))))
+  (is (= "team-v4rScUBSYNRg" (g/game->winning-team-id (get-in woodlands-spring-league [:games :game-b85VjQHbVQXT]))))
+  (is (= "team-claritinclear" (g/game->losing-team-id (get-in woodlands-spring-league [:games :game-b85VjQHbVQXT]))))
+  (is (nil? (g/game->winning-team-id (get-in woodlands-spring-league [:games :game-gG79crxka8NU]))))
+  (is (nil? (g/game->losing-team-id (get-in woodlands-spring-league [:games :game-gG79crxka8NU])))))
