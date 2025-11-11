@@ -1,5 +1,6 @@
 {
   "name": "@chrisoakman/tourney-nerd",
+  "version": "0.14.0",
   "scripts": {
     "check-format": "standard-clj check src-cljc/ test/",
     "format": "standard-clj fix --log-level=1 src-cljc/ test/"

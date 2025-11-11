@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.14.0] - 2025-11-10
+
+- [PR-16] - support results from bracket game groups
+
 ## [0.13.0] - 2025-03-22
 
 - [PR-15] - use tiebreaker method specified on a Group or Event when advancing an event
@@ -21,7 +25,8 @@ All notable changes to this project will be documented in this file.
 
 - Initial release to clojars
 
-[Unreleased]: https://github.com/oakmac/tourney-nerd/compare/v0.13.0...HEAD
+[Unreleased]: https://github.com/oakmac/tourney-nerd/compare/v0.14.0...HEAD
+[0.14.0]: https://github.com/oakmac/tourney-nerd/releases/tag/v0.14.0
 [0.13.0]: https://github.com/oakmac/tourney-nerd/releases/tag/v0.13.0
 [0.12.0]: https://github.com/oakmac/tourney-nerd/releases/tag/v0.12.0
 [0.11.0]: https://github.com/oakmac/tourney-nerd/releases/tag/v0.11.0
@@ -31,5 +36,6 @@ All notable changes to this project will be documented in this file.
 
 [PR-14]:https://github.com/oakmac/tourney-nerd/pull/14
 [PR-15]:https://github.com/oakmac/tourney-nerd/pull/15
+[PR-16]:https://github.com/oakmac/tourney-nerd/pull/16
 
 [commit #a8d80197]:https://github.com/oakmac/tourney-nerd/commit/a8d801974c850e82f0c1d987b2b324ef537f9a59
