@@ -10,3 +10,5 @@
 (deftest ensure-order-test
   (is (= (events/ensure-order unordered-event)
          ordered-event)))
+
+;; TODO: we need some unit tests for cloning an event

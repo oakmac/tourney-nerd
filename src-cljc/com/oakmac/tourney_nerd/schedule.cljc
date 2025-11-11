@@ -1,21 +1,15 @@
 (ns com.oakmac.tourney-nerd.schedule
   (:require
    [clojure.string :as str]
-   [com.oakmac.tourney-nerd.util.base58 :refer [random-base58]]
+   [com.oakmac.tourney-nerd.util.ids :as util.ids]
    [malli.core :as malli]))
-
-(def timeslot-id-regex
-  #"^timeslot-[a-zA-Z0-9]{4,}$")
 
 (def iso-8601-regex
   #"^[12]\d\d\d-\d\d-\d\d \d\d:\d\d$")
 
-(defn random-timeslot-id []
-  (str "timeslot-" (random-base58)))
-
 (def timeslot-schema
   [:map
-   [:id [:re timeslot-id-regex]]
+   [:id [:re util.ids/timeslot-id-regex]]
    [:time [:re iso-8601-regex]]
    [:name [:string {:min 3, :max 100}]]])
    ;; TODO: need optional description field here
@@ -24,7 +18,7 @@
   "creates a single Timeslot"
   [time name]
   {:post [(malli/validate timeslot-schema %)]}
-  {:id (random-timeslot-id)
+  {:id (util.ids/create-timeslot-id)
    :time time
    :name name})
 

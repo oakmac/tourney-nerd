@@ -4,6 +4,8 @@
    [com.oakmac.tourney-nerd.games :as g]
    [com.oakmac.tourney-nerd.test-util :refer [load-test-resource-json-file]]))
 
+(def woodlands-spring-league (load-test-resource-json-file "2025-woodlands-spring-league.json"))
+
 (def example-game-with-pending
   {:division-id "division-KmbM3AMx8xe3"
    :field-id "field-tTzY73PenZeT"
@@ -59,9 +61,22 @@
       (is (nil? (:pending-teamA example-game-without-pending)))
       (is (nil? (:pending-teamB example-game-without-pending)))
       (is (= (:teamA-id example-game-without-pending) (:teamA-id reset-example-game-without-pending)))
-      (is (= (:teamB-id example-game-without-pending) (:teamB-id reset-example-game-without-pending))))))
-
-(def woodlands-spring-league (load-test-resource-json-file "2025-woodlands-spring-league.json"))
+      (is (= (:teamB-id example-game-without-pending) (:teamB-id reset-example-game-without-pending)))))
+  (is (= (g/reset-game (get-in woodlands-spring-league [:games :game-4vaDm6dKd5ER]))
+         {:division-id "division-WZRSYM8y8dNN"
+          :field-id "field-L5gHxGDZDCQ5"
+          :game-id "game-4vaDm6dKd5ER"
+          :group-id "group-eyrwqfahB1ZX"
+          :id "game-4vaDm6dKd5ER"
+          :name "Week 2: 6v2"
+          :scoreA 0
+          :scoreB 0
+          :status "STATUS_SCHEDULED"
+          :teamA-id "team-trophyhusbands"
+          :teamA-type "TEAM_TYPE_DIRECT_TEAM"
+          :teamB-id "team-qNjZiFHLnFDU"
+          :teamB-type "TEAM_TYPE_DIRECT_TEAM"
+          :timeslot-id "timeslot-cPiD6h994Ers"})))
 
 (deftest game-predicate-test
   (is (true? (g/game? example-game-with-pending)))
@@ -80,3 +95,11 @@
          #{"game-szPSutCqDEgy" "game-awRtLQzz37UR"}))
   (is (= (g/get-games-played-between-two-teams (:games woodlands-spring-league) "team-claritinclear" "team-does_not_exist")
          {})))
+
+(deftest game-winners-losers-test
+  (is (= "team-qNjZiFHLnFDU" (g/game->winning-team-id (get-in woodlands-spring-league [:games :game-d7DcDDjqchL9]))))
+  (is (= "team-5GBtxw9d9DUg" (g/game->losing-team-id (get-in woodlands-spring-league [:games :game-d7DcDDjqchL9]))))
+  (is (= "team-v4rScUBSYNRg" (g/game->winning-team-id (get-in woodlands-spring-league [:games :game-b85VjQHbVQXT]))))
+  (is (= "team-claritinclear" (g/game->losing-team-id (get-in woodlands-spring-league [:games :game-b85VjQHbVQXT]))))
+  (is (nil? (g/game->winning-team-id (get-in woodlands-spring-league [:games :game-gG79crxka8NU]))))
+  (is (nil? (g/game->losing-team-id (get-in woodlands-spring-league [:games :game-gG79crxka8NU])))))

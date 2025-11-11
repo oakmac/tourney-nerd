@@ -2,12 +2,8 @@
   (:require
    [clojure.set :as set]
    [clojure.string :as str]
-   [com.oakmac.tourney-nerd.divisions :as divisions]
-   [com.oakmac.tourney-nerd.util.base58 :refer [random-base58]]
+   [com.oakmac.tourney-nerd.util.ids :as util.ids]
    [malli.core :as malli]))
-
-(def team-id-regex
-  #"^team-[a-zA-Z0-9]{4,}$")
 
 (defn teams->sorted-by-seed
   "Convert teams into a list ordered by their seed."
@@ -16,13 +12,10 @@
     (assert (sequential? teams) "Non-sequential value for teams passed to teams->sorted-by-seed")
     (sort-by :seed teams)))
 
-(defn random-team-id []
-  (str "team-" (random-base58)))
-
 (def team-schema
   [:map
-   [:id [:re team-id-regex]]
-   [:division-id [:re divisions/division-id-regex]]
+   [:id [:re util.ids/team-id-regex]]
+   [:division-id [:re util.ids/division-id-regex]]
    [:name [:string {:min 3, :max 100}]]
    [:seed [:int {:min 1}]]])
    ;; TODO: need optional captain + team members information here
@@ -47,7 +40,7 @@
   "Creates a single team"
   [opts]
   {:post [(malli/validate team-schema %)]}
-  (let [new-id (random-team-id)]
+  (let [new-id (util.ids/create-team-id)]
     (merge
       {:id new-id}
       opts)))
@@ -69,3 +62,10 @@
   [{:keys [seed] :as team}]
   (assoc team :name (str "Team " seed)))
   ;; TODO: clear out captain information here
+
+(defn get-team-by-id
+  "Returns a team with team-id, nil otherwise"
+  [event team-id]
+  (or
+    (get-in event [:teams (keyword team-id)])
+    (get-in event ["teams" (str team-id)])))

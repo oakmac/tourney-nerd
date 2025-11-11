@@ -1,28 +1,11 @@
 (ns com.oakmac.tourney-nerd.results
   (:require
    [com.oakmac.tourney-nerd.games :as games :refer [game-finished?]]
+   [com.oakmac.tourney-nerd.groups :as groups]
+   [com.oakmac.tourney-nerd.teams :as teams]
    [taoensso.timbre :as timbre]))
 
 (declare games->results)
-
-;; -----------------------------------------------------------------------------
-;; Misc
-
-(defn winner
-  "Returns the game-id of the winning team."
-  [game]
-  (when (game-finished? game)
-    (if (> (:scoreA game) (:scoreB game))
-      (:teamA-id game)
-      (:teamB-id game))))
-
-(defn loser
-  "Returns the game-id of the losing team."
-  [game]
-  (when (game-finished? game)
-    (if (< (:scoreA game) (:scoreB game))
-      (:teamA-id game)
-      (:teamB-id game))))
 
 ;; -----------------------------------------------------------------------------
 ;; Calculate Results
@@ -317,3 +300,47 @@
       grp-tiebreaking-method
 
       :else (event->tiebreaking-method event))))
+
+(defmulti group->sorted-results
+  "Returns the sorted results for a Game Group.
+  All of the games in the group must be STATUS_FINAL. Returns nil otherwise"
+  (fn [event group-id]
+    (or
+      (get-in event [:groups (keyword group-id) :type])
+      (get-in event ["groups" (str group-id) "type"]))))
+
+(defmethod group->sorted-results "GROUP_TYPE_RR_POOL"
+  [event group-id]
+  (when (groups/all-games-final? event group-id)
+    (let [group-games (groups/get-all-games-for-group event group-id)
+          tiebreaking-method (group->tiebreaking-method event group-id)
+          teams (groups/get-teams-for-group event group-id)]
+      (games->sorted-results teams group-games tiebreaking-method))))
+
+(defmethod group->sorted-results "GROUP_TYPE_BRACKET"
+  [event group-id]
+  (when (groups/all-games-final? event group-id)
+    (let [group-games (groups/get-all-games-for-group event group-id)
+          results (reduce
+                    (fn [acc {:keys [result-place-for-loser result-place-for-winner] :as game}]
+                      (let [winning-team-id (games/game->winning-team-id game)
+                            losing-team-id (games/game->losing-team-id game)]
+                        (cond-> acc
+                          (and losing-team-id (pos-int? result-place-for-loser))
+                          (conj {:place result-place-for-loser, :team-id losing-team-id})
+
+                          (and winning-team-id (pos-int? result-place-for-winner))
+                          (conj {:place result-place-for-winner, :team-id winning-team-id}))))
+                    []
+                    (vals group-games))
+          results-with-team-name (map
+                                   (fn [{:keys [team-id] :as result}]
+                                     (let [team (teams/get-team-by-id event team-id)]
+                                       (assoc result :team-name (:name team))))
+                                   results)]
+      (sort-by :place results-with-team-name))))
+
+(defmethod group->sorted-results :default
+  [event group-id]
+  (throw (ex-info "group->sorted-results unknown group type"
+                  {:group (get-in event [:groups group-id])})))

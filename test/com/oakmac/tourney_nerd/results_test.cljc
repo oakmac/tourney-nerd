@@ -1,7 +1,7 @@
 (ns com.oakmac.tourney-nerd.results-test
   (:require
    [clojure.test :refer [deftest is testing]]
-   [com.oakmac.tourney-nerd.results :refer [games->results games->sorted-results group->tiebreaking-method]]
+   [com.oakmac.tourney-nerd.results :as results :refer [games->results games->sorted-results group->tiebreaking-method]]
    [com.oakmac.tourney-nerd.test-util :refer [load-test-resource-json-file]]))
 
 ;; TODO: move all this data to .json or .edn files?
@@ -433,6 +433,7 @@
 ;   (is (= (results->duplicate-records))))
 
 (def woodlands-spring-league (load-test-resource-json-file "2025-woodlands-spring-league.json"))
+(def woodlands-fall-league-2025 (load-test-resource-json-file "2025-woodlands-fall-league.json"))
 
 (deftest sort-results-by-upa-rules-test
   ;; NOTE: I changed this example to be 3-2 instead of 4-2 and second/third place
@@ -725,3 +726,39 @@ B finishes second, and C finishes third."
          "TIEBREAK_WOODLANDS_LEAGUE_RULES"))
   (is (= (group->tiebreaking-method woodlands-spring-league-before "group-does-not-exist")
          "TIEBREAK_UPA_RULES")))
+
+(deftest group-results-test
+  (testing "returns nil if not all games are finished"
+    (let [league-with-scheduled-game (assoc-in woodlands-fall-league-2025
+                                       [:games :game-JMmoZDwtzj91 :status]
+                                       "STATUS_SCHEDULED")]
+      (is (nil? (results/group->sorted-results league-with-scheduled-game "group-94pXoxYJWzBL")))))
+  (testing "results from a round robin group - USAU tiebreaker rules"
+    (let [league-with-usau-tiebreaking-method (assoc-in woodlands-fall-league-2025
+                                                [:groups :group-FBT18rCWLFej :tiebreaking-method]
+                                                "TIEBREAK_UPA_RULES")]
+      (is (= (->> (results/group->sorted-results league-with-usau-tiebreaking-method "group-FBT18rCWLFej")
+               (map #(select-keys % [:place :team-name :team-id])))
+             [{:place 1, :team-name "Spirits of the Game", :team-id "team-Q3H4Pr6eEf3c"}
+              {:place 2, :team-name "Sweater Weather",     :team-id "team-yasy1hnnku8t"}
+              {:place 3, :team-name "Huck-O-Lanterns",     :team-id "team-5Qaw8MxNJMAz"}
+              {:place 4, :team-name "Discaffeinated",      :team-id "team-wD1jVxJdmjkZ"}
+              {:place 5, :team-name "Huckleberry Pie",     :team-id "team-vfzgApxUkmEL"}
+              {:place 6, :team-name "Headless Horsemen",   :team-id "team-S5hApBgb9pA5"}]))))
+  (testing "results from a round robin group - Woodlands tiebreaker rules"
+    (is (= (->> (results/group->sorted-results woodlands-fall-league-2025 "group-FBT18rCWLFej")
+             (map #(select-keys % [:place :team-name :team-id])))
+           [{:place 1, :team-name "Huck-O-Lanterns",     :team-id "team-5Qaw8MxNJMAz"}
+            {:place 2, :team-name "Sweater Weather",     :team-id "team-yasy1hnnku8t"}
+            {:place 3, :team-name "Spirits of the Game", :team-id "team-Q3H4Pr6eEf3c"}
+            {:place 4, :team-name "Discaffeinated",      :team-id "team-wD1jVxJdmjkZ"}
+            {:place 5, :team-name "Huckleberry Pie",     :team-id "team-vfzgApxUkmEL"}
+            {:place 6, :team-name "Headless Horsemen",   :team-id "team-S5hApBgb9pA5"}])))
+  (testing "results from a bracket group"
+    (is (= (results/group->sorted-results woodlands-fall-league-2025 "group-94pXoxYJWzBL")
+           [{:place 1, :team-name "Sweater Weather",     :team-id "team-yasy1hnnku8t"}
+            {:place 2, :team-name "Discaffeinated",      :team-id "team-wD1jVxJdmjkZ"}
+            {:place 3, :team-name "Spirits of the Game", :team-id "team-Q3H4Pr6eEf3c"}
+            {:place 4, :team-name "Huck-O-Lanterns",     :team-id "team-5Qaw8MxNJMAz"}
+            {:place 5, :team-name "Headless Horsemen",   :team-id "team-S5hApBgb9pA5"}
+            {:place 6, :team-name "Huckleberry Pie",     :team-id "team-vfzgApxUkmEL"}]))))
