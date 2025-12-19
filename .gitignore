@@ -6,5 +6,6 @@ target/
 .lein-repl-history
 .nrepl-port
 *.diff
+code_dump.txt
 pom.xml
 pom.xml.asc
