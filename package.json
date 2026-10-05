@@ -7,7 +7,7 @@
     "test-cljs": "shadow-cljs compile test && node out/node-tests.js"
   },
   "devDependencies": {
-    "@chrisoakman/standard-clojure-style": "0.25.0",
+    "@chrisoakman/standard-clojure-style": "0.29.0",
     "shadow-cljs": "3.5.3"
   }
 }
