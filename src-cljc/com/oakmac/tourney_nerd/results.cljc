@@ -63,11 +63,17 @@
                          scored-for
                          (* -1 scored-against)))))
 
+(defn- get-team
+  "Returns the team with team-id from a teams map.
+  The teams map may be keyed by string or keyword."
+  [teams team-id]
+  (or (get teams team-id)
+      (get teams (keyword team-id))))
+
 (defn- team->result
   "Creates a result map for a single team."
   [teams games-vec team-id]
-  (let [team (or (get teams team-id)
-                 (get teams (keyword team-id)))
+  (let [team (get-team teams team-id)
         games-this-team-has-played (filter #(and (game-finished? %)
                                                  (or (= (:teamA-id %) (name team-id))
                                                      (= (:teamB-id %) (name team-id))))
@@ -116,6 +122,9 @@
       (and a-games-played? (not b-games-played?)) -1
       (and b-games-played? (not a-games-played?)) 1
 
+      ;; two teams that have not played any games are tied
+      (and (not a-games-played?) (not b-games-played?)) 0
+
       ;; Win/Loss Record
       (> a-games-won b-games-won) -1
       (> b-games-won a-games-won) 1
@@ -132,9 +141,10 @@
       :else
       (let [teamA-id (:team-id a)
             teamB-id (:team-id b)
-            team-a-and-b-ids [teamA-id teamB-id]
             games-played-between-a-and-b (games/get-games-played-between-two-teams all-games teamA-id teamB-id)
-            a-b-teams (select-keys all-teams team-a-and-b-ids)
+            ;; NOTE: result team-ids are always strings, but all-teams may be keyed by keyword
+            a-b-teams {teamA-id (get-team all-teams teamA-id)
+                       teamB-id (get-team all-teams teamB-id)}
             results-between-a-and-b (games->results a-b-teams games-played-between-a-and-b)
             results-map (zipmap (map :team-id results-between-a-and-b)
                                 results-between-a-and-b)

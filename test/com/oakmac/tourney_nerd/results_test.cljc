@@ -719,6 +719,26 @@ B finishes second, and C finishes third."
               {:team-name "Claritin Clear"  :record "2-6-0" :points-diff -10}
               {:team-name "Pushing Daisies" :record "2-6-0" :points-diff -13}])))))
 
+(def six-teams-keyword-keyed
+  "Same as six-teams, but keyed by keyword the way an Event decoded from JSON is."
+  (into {} (map (fn [[team-id team]] [(keyword team-id) team])) six-teams))
+
+(deftest woodlands-league-rules-keyword-keyed-teams-test
+  (testing "the ranking is the same whether the teams map is keyed by string or keyword"
+    (doseq [games [example22-games-point-diff-adjusted example22-games-b-c-adjusted]]
+      (is (= (map :team-name (games->sorted-results six-teams games "TIEBREAK_WOODLANDS_LEAGUE_RULES"))
+             (map :team-name (games->sorted-results six-teams-keyword-keyed games "TIEBREAK_WOODLANDS_LEAGUE_RULES"))))))
+
+  (testing "a league after its first game: every other team is tied at zero"
+    ;; This is a real league loaded from JSON with only its first game kept.
+    ;; Prior to the fix, comparing two teams that had not played threw an exception.
+    (let [league (update woodlands-fall-league-2025 :games select-keys [:game-2B2hs7eCX3eK])
+          results (games->sorted-results (:teams league) (:games league) "TIEBREAK_WOODLANDS_LEAGUE_RULES")]
+      (is (= 6 (count results)))
+      (is (= ["Discaffeinated" "Sweater Weather"] (->> results (take 2) (map :team-name))))
+      (is (= [1 2 3 4 5 6] (map :place results)))
+      (is (every? zero? (->> results (drop 2) (map :games-played)))))))
+
 (def woodlands-spring-league-before (load-test-resource-json-file "2025-woodlands-spring-league.before.json"))
 
 (deftest group->tiebreaking-method-test

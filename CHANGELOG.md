@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Fixed
+- Woodlands League tiebreaker threw an exception when two teams were tied on
+  record, point diff, and points scored and the teams map was keyed by keyword
+  (ie: an Event decoded from JSON). Two teams that have not played any games now
+  compare as tied.
+
 ## [0.14.0] - 2025-11-10
 
 - [PR-16] - support results from bracket game groups
