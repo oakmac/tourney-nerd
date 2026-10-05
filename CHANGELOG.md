@@ -9,6 +9,9 @@ All notable changes to this project will be documented in this file.
 - `valid-division?`, `valid-field?`, `valid-game?`, `valid-team?`, `valid-timeslot?` predicates
 - `division-id?`, `field-id?`, `game-id?`, `group-id?`, `team-id?`, `timeslot-id?` predicates in
   the `util.ids` namespace
+- `get-group-by-id`, `get-field-by-id`, `get-timeslot-by-id` (alongside the existing
+  `get-team-by-id`), and `util/get-by-id` underneath them. All accept an Event or map keyed
+  by string or keyword, and an id that is a string or keyword.
 
 ### Changed
 - tourney-nerd now has zero dependencies (removed malli and timbre)

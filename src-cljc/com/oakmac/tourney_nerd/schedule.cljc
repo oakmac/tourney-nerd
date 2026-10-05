@@ -74,6 +74,12 @@
     {}
     template-timeslots))
 
+(defn get-timeslot-by-id
+  "Returns the Timeslot with timeslot-id from an Event's :schedule, nil otherwise.
+  The Event may be keyed by string or keyword."
+  [event timeslot-id]
+  (util/get-by-id (or (:schedule event) (get event "schedule")) timeslot-id))
+
 (defn ts->date
   "returns the date part from an ISO 8601 string"
   [ts]

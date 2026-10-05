@@ -1,7 +1,16 @@
 (ns com.oakmac.tourney-nerd.fields-test
   (:require
    [clojure.test :refer [deftest is]]
-   [com.oakmac.tourney-nerd.fields :as fields]))
+   [com.oakmac.tourney-nerd.fields :as fields]
+   [com.oakmac.tourney-nerd.test-util :refer [load-test-resource-json-file]]))
+
+(def woodlands-fall-league-2025 (load-test-resource-json-file "2025-woodlands-fall-league.json"))
+
+(deftest get-field-by-id-test
+  (is (string? (:name (fields/get-field-by-id woodlands-fall-league-2025 "field-EkgJyW2Tub7L"))))
+  (is (= (fields/get-field-by-id woodlands-fall-league-2025 "field-EkgJyW2Tub7L")
+         (fields/get-field-by-id woodlands-fall-league-2025 :field-EkgJyW2Tub7L)))
+  (is (nil? (fields/get-field-by-id woodlands-fall-league-2025 "field-does-not-exist"))))
 
 (deftest create-field-test
   (let [f (fields/create-field 2 "B")]

@@ -1,7 +1,14 @@
 (ns com.oakmac.tourney-nerd.groups
   (:require
    [com.oakmac.tourney-nerd.games :as tn.games]
-   [com.oakmac.tourney-nerd.order :refer [ensure-items-order]]))
+   [com.oakmac.tourney-nerd.order :refer [ensure-items-order]]
+   [com.oakmac.tourney-nerd.util :as util]))
+
+(defn get-group-by-id
+  "Returns the Group with group-id from an Event, nil otherwise.
+  The Event may be keyed by string or keyword."
+  [event group-id]
+  (util/get-by-id (or (:groups event) (get event "groups")) group-id))
 
 (defn get-all-games-for-group
   "returns a map of all the games for a given group-id"

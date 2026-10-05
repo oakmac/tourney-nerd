@@ -20,6 +20,12 @@
    :name name
    :order order})
 
+(defn get-field-by-id
+  "Returns the Field with field-id from an Event, nil otherwise.
+  The Event may be keyed by string or keyword."
+  [event field-id]
+  (util/get-by-id (or (:fields event) (get event "fields")) field-id))
+
 (defn create-n-fields
   "returns a map of N Fields; used for Event creation"
   [num-fields]

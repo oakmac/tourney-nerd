@@ -1,7 +1,17 @@
 (ns com.oakmac.tourney-nerd.teams-test
   (:require
    [clojure.test :refer [deftest is]]
-   [com.oakmac.tourney-nerd.teams :as teams]))
+   [com.oakmac.tourney-nerd.teams :as teams]
+   [com.oakmac.tourney-nerd.test-util :refer [load-test-resource-json-file]]))
+
+(def woodlands-fall-league-2025 (load-test-resource-json-file "2025-woodlands-fall-league.json"))
+
+(deftest get-team-by-id-test
+  (is (= "Sweater Weather" (:name (teams/get-team-by-id woodlands-fall-league-2025 "team-yasy1hnnku8t"))))
+  (is (= "Sweater Weather" (:name (teams/get-team-by-id woodlands-fall-league-2025 :team-yasy1hnnku8t))))
+  (is (nil? (teams/get-team-by-id woodlands-fall-league-2025 "team-does-not-exist")))
+  (is (= "Zebras" (:name (teams/get-team-by-id {"teams" {"team-aaaa" {:name "Zebras"}}} "team-aaaa")))
+      "string-keyed event"))
 
 (deftest create-team-test
   (let [t (teams/create-team {:division-id "division-KmbM3AMx8xe3"

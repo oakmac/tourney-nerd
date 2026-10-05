@@ -65,8 +65,7 @@
   ;; TODO: clear out captain information here
 
 (defn get-team-by-id
-  "Returns a team with team-id, nil otherwise"
+  "Returns the Team with team-id from an Event, nil otherwise.
+  The Event may be keyed by string or keyword."
   [event team-id]
-  (or
-    (get-in event [:teams (keyword team-id)])
-    (get-in event ["teams" (str team-id)])))
+  (util/get-by-id (or (:teams event) (get event "teams")) team-id))

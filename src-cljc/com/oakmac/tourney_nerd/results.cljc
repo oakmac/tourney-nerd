@@ -2,7 +2,8 @@
   (:require
    [com.oakmac.tourney-nerd.games :as games :refer [game-finished?]]
    [com.oakmac.tourney-nerd.groups :as groups]
-   [com.oakmac.tourney-nerd.teams :as teams]))
+   [com.oakmac.tourney-nerd.teams :as teams]
+   [com.oakmac.tourney-nerd.util :as util]))
 
 (declare games->results)
 
@@ -62,17 +63,10 @@
                          scored-for
                          (* -1 scored-against)))))
 
-(defn- get-team
-  "Returns the team with team-id from a teams map.
-  The teams map may be keyed by string or keyword."
-  [teams team-id]
-  (or (get teams team-id)
-      (get teams (keyword team-id))))
-
 (defn- team->result
   "Creates a result map for a single team."
   [teams games-vec team-id]
-  (let [team (get-team teams team-id)
+  (let [team (util/get-by-id teams team-id)
         games-this-team-has-played (filter #(and (game-finished? %)
                                                  (or (= (:teamA-id %) (name team-id))
                                                      (= (:teamB-id %) (name team-id))))
@@ -142,8 +136,8 @@
             teamB-id (:team-id b)
             games-played-between-a-and-b (games/get-games-played-between-two-teams all-games teamA-id teamB-id)
             ;; NOTE: result team-ids are always strings, but all-teams may be keyed by keyword
-            a-b-teams {teamA-id (get-team all-teams teamA-id)
-                       teamB-id (get-team all-teams teamB-id)}
+            a-b-teams {teamA-id (util/get-by-id all-teams teamA-id)
+                       teamB-id (util/get-by-id all-teams teamB-id)}
             results-between-a-and-b (games->results a-b-teams games-played-between-a-and-b)
             results-map (zipmap (map :team-id results-between-a-and-b)
                                 results-between-a-and-b)
