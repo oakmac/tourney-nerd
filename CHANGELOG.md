@@ -10,6 +10,8 @@ All notable changes to this project will be documented in this file.
 - `division-id?`, `field-id?`, `game-id?`, `group-id?`, `team-id?`, `timeslot-id?` predicates in
   the `util.ids` namespace
 - `results/team->streak` - a team's current win / loss / tie streak across its finished games
+- `games/games->counts` and `groups/group->game-counts` - how many games have been played:
+  `{:total 30, :final 9, :remaining 21}`
 - `results/group->placements` - the places decided by a bracket's placement games, including
   the places that are still undecided and the game that will decide them. Works for a bracket
   that is partially played (or not played at all), unlike `group->sorted-results`.
@@ -28,6 +30,8 @@ All notable changes to this project will be documented in this file.
   (malli schemas); use the `valid-*?` predicates instead
 
 ### Fixed
+- `groups/get-all-games-for-group` (and everything built on it: `all-games-final?`,
+  `group->sorted-results`, `group->placements`) returned nothing when given a keyword group-id
 - Woodlands League tiebreaker threw an exception when two teams were tied on
   record, point diff, and points scored and the teams map was keyed by keyword
   (ie: an Event decoded from JSON). Two teams that have not played any games now

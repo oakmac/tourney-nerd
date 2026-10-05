@@ -116,6 +116,15 @@
   (is (false? (g/valid-game? nil)))
   (is (false? (g/valid-game? (dissoc example-game-without-pending :group-id)))))
 
+(deftest games->counts-test
+  (is (= {:total 37, :final 24, :remaining 13} (g/games->counts (:games woodlands-spring-league)))
+      "the 2025 spring league fixture is mid-season: 24 games played, 13 to go")
+  (is (= {:total 37, :final 24, :remaining 13} (g/games->counts (vals (:games woodlands-spring-league))))
+      "games may be a list instead of a map")
+  (is (= {:total 2, :final 0, :remaining 2} (g/games->counts [example-game-with-pending example-game-without-pending]))
+      "scheduled games count as remaining")
+  (is (= {:total 0, :final 0, :remaining 0} (g/games->counts {}))))
+
 (deftest get-games-played-between-two-teams-test
   (is (= (->> (g/get-games-played-between-two-teams (:games woodlands-spring-league) "team-claritinclear" "team-trophyhusbands")
            vals

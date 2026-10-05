@@ -120,6 +120,19 @@
   [game]
   (= final-status (:status game)))
 
+(defn games->counts
+  "Returns how many games have been played. games may be a map or a list.
+    {:total 30, :final 9, :remaining 21}
+  :final is the number of STATUS_FINAL games; :remaining is every other status
+  (scheduled, in progress, canceled, etc)."
+  [games]
+  (let [games (if (map? games) (vals games) games)
+        total (count games)
+        final (count (filter final? games))]
+    {:total total
+     :final final
+     :remaining (- total final)}))
+
 (defn games->games-list
   "Converts games into a list or throws if unable to do so"
   [games]

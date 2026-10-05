@@ -13,7 +13,7 @@
 (defn get-all-games-for-group
   "returns a map of all the games for a given group-id"
   [event group-id]
-  (let [group-id-str (str group-id)]
+  (let [group-id-str (if (keyword? group-id) (name group-id) (str group-id))]
     (reduce
       (fn [games [game-id game]]
         (if (= group-id-str (:group-id game))
@@ -47,6 +47,12 @@
         groups-coll (flatten groups-with-order)]
     (zipmap (map #(-> % :id keyword) groups-coll)
             groups-coll)))
+
+(defn group->game-counts
+  "Returns how many of a Group's games have been played. See games->counts.
+    {:total 30, :final 9, :remaining 21}"
+  [event group-id]
+  (tn.games/games->counts (get-all-games-for-group event group-id)))
 
 (defn all-games-final?
   "Have all of the games in this group been played? ie: are they all STATUS_FINAL?"
