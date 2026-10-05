@@ -4,6 +4,21 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Added
+- [Issue #17] - run the test suite in ClojureScript on Node.js (in addition to the JVM)
+- `valid-division?`, `valid-field?`, `valid-game?`, `valid-team?`, `valid-timeslot?` predicates
+- `division-id?`, `field-id?`, `game-id?`, `group-id?`, `team-id?`, `timeslot-id?` predicates in
+  the `util.ids` namespace
+
+### Changed
+- tourney-nerd now has zero dependencies (removed malli and timbre)
+- `games->sorted-results` throws on an unrecognized tiebreaking method instead of
+  logging an error and falling back to victory points
+
+### Removed
+- `division-schema`, `field-schema`, `game-schema`, `team-schema`, `timeslot-schema`
+  (malli schemas); use the `valid-*?` predicates instead
+
 ### Fixed
 - Woodlands League tiebreaker threw an exception when two teams were tied on
   record, point diff, and points scored and the teams map was keyed by keyword
@@ -39,6 +54,7 @@ All notable changes to this project will be documented in this file.
 [0.10.0]: https://github.com/oakmac/tourney-nerd/releases/tag/v0.10.0
 
 [Issue #12]:https://github.com/oakmac/tourney-nerd/issues/12
+[Issue #17]:https://github.com/oakmac/tourney-nerd/issues/17
 
 [PR-14]:https://github.com/oakmac/tourney-nerd/pull/14
 [PR-15]:https://github.com/oakmac/tourney-nerd/pull/15

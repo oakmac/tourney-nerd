@@ -1,23 +1,26 @@
 (ns com.oakmac.tourney-nerd.schedule
   (:require
    [clojure.string :as str]
-   [com.oakmac.tourney-nerd.util.ids :as util.ids]
-   [malli.core :as malli]))
+   [com.oakmac.tourney-nerd.util :as util]
+   [com.oakmac.tourney-nerd.util.ids :as util.ids]))
 
 (def iso-8601-regex
   #"^[12]\d\d\d-\d\d-\d\d \d\d:\d\d$")
 
-(def timeslot-schema
-  [:map
-   [:id [:re util.ids/timeslot-id-regex]]
-   [:time [:re iso-8601-regex]]
-   [:name [:string {:min 3, :max 100}]]])
-   ;; TODO: need optional description field here
+(defn valid-timeslot?
+  "Is ts a valid Timeslot?"
+  [ts]
+  (and (map? ts)
+       (util.ids/timeslot-id? (:id ts))
+       (string? (:time ts))
+       (some? (re-matches iso-8601-regex (:time ts)))
+       (util/string-of-length? (:name ts) 3 100)))
+       ;; TODO: need optional description field here
 
 (defn create-timeslot
   "creates a single Timeslot"
   [time name]
-  {:post [(malli/validate timeslot-schema %)]}
+  {:post [(valid-timeslot? %)]}
   {:id (util.ids/create-timeslot-id)
    :time time
    :name name})

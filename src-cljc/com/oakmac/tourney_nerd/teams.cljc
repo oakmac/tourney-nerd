@@ -2,8 +2,8 @@
   (:require
    [clojure.set :as set]
    [clojure.string :as str]
-   [com.oakmac.tourney-nerd.util.ids :as util.ids]
-   [malli.core :as malli]))
+   [com.oakmac.tourney-nerd.util :as util]
+   [com.oakmac.tourney-nerd.util.ids :as util.ids]))
 
 (defn teams->sorted-by-seed
   "Convert teams into a list ordered by their seed."
@@ -12,13 +12,16 @@
     (assert (sequential? teams) "Non-sequential value for teams passed to teams->sorted-by-seed")
     (sort-by :seed teams)))
 
-(def team-schema
-  [:map
-   [:id [:re util.ids/team-id-regex]]
-   [:division-id [:re util.ids/division-id-regex]]
-   [:name [:string {:min 3, :max 100}]]
-   [:seed [:int {:min 1}]]])
-   ;; TODO: need optional captain + team members information here
+(defn valid-team?
+  "Is t a well-formed Team? Checks every field, including seed.
+  See team? to recognize Teams inside an Event."
+  [t]
+  (and (map? t)
+       (util.ids/team-id? (:id t))
+       (util.ids/division-id? (:division-id t))
+       (util/string-of-length? (:name t) 3 100)
+       (pos-int? (:seed t))))
+       ;; TODO: need optional captain + team members information here
 
 (defn- looks-like-a-team-id? [id]
   (and
@@ -26,20 +29,18 @@
     (str/starts-with? id "team-")))
 
 (defn team?
-  "Is t a Team?"
+  "Does t look like a Team? A loose check used to recognize Teams when walking an
+  Event. See valid-team? for a strict check."
   [t]
   (and
     (map? t)
     (looks-like-a-team-id? (:id t))
     (set/subset? #{:id :name :division-id} (set (keys t)))))
 
-;; TODO: we should be able to use Malli for this
-; (def team? (malli/validator team-schema))
-
 (defn create-team
   "Creates a single team"
   [opts]
-  {:post [(malli/validate team-schema %)]}
+  {:post [(valid-team? %)]}
   (let [new-id (util.ids/create-team-id)]
     (merge
       {:id new-id}

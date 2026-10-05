@@ -1,18 +1,20 @@
 (ns com.oakmac.tourney-nerd.divisions
   (:require
-   [com.oakmac.tourney-nerd.util.ids :as util.ids]
-   [malli.core :as malli]))
+   [com.oakmac.tourney-nerd.util :as util]
+   [com.oakmac.tourney-nerd.util.ids :as util.ids]))
 
-(def division-schema
-  [:map
-   [:id [:re util.ids/division-id-regex]]
-   [:name [:string {:min 3, :max 100}]]
-   [:order [:int {:min 1}]]])
+(defn valid-division?
+  "Is d a valid Division?"
+  [d]
+  (and (map? d)
+       (util.ids/division-id? (:id d))
+       (util/string-of-length? (:name d) 3 100)
+       (pos-int? (:order d))))
 
 (defn create-division
   "creates a single Division"
   [order name]
-  {:post [(malli/validate division-schema %)]}
+  {:post [(valid-division? %)]}
   {:id (util.ids/create-division-id)
    :name name
    :order order})

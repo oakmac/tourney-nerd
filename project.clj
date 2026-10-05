@@ -8,9 +8,7 @@
             :distribution :repo}
 
   :dependencies
-  [[org.clojure/clojure "1.11.1"]
-   [com.taoensso/timbre "6.3.1"]
-   [metosin/malli "0.13.0"]]
+  [[org.clojure/clojure "1.11.1"]]
 
   :source-paths ["src-cljc"]
 

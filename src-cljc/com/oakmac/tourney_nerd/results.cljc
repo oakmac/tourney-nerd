@@ -2,8 +2,7 @@
   (:require
    [com.oakmac.tourney-nerd.games :as games :refer [game-finished?]]
    [com.oakmac.tourney-nerd.groups :as groups]
-   [com.oakmac.tourney-nerd.teams :as teams]
-   [taoensso.timbre :as timbre]))
+   [com.oakmac.tourney-nerd.teams :as teams]))
 
 (declare games->results)
 
@@ -163,11 +162,10 @@
           (> a-points-diff-vs-b b-points-diff-vs-a) -1
           (> b-points-diff-vs-a a-points-diff-vs-b) 1
 
+          ;; the teams are tied: same record, point diff, points scored,
+          ;; head-to-head record, and head-to-head point diff
           ;; FIXME: need to add more rules here. maybe do a coinflip?
-          :else
-          (do
-            (timbre/warn "Reached unhandled tiebreaker condition for Woodlands League tiebreaker rules!" a b)
-            0))))))
+          :else 0)))))
 
 (defn add-record-to-result
   "Adds a record string to a result"
@@ -187,13 +185,14 @@
         a-tiebreaker-points (get-in resultA [:result-against-tied-teams :victory-points])
         b-tiebreaker-points (get-in resultB [:result-against-tied-teams :victory-points])]
 
-    ;; defensive / sanity-check:
+    ;; defensive / sanity-check: games->results adds :result-against-tied-teams
+    ;; to every Result whose record is shared with another team
     (when (and same-record?
                (not (:result-against-tied-teams resultA))
                (not (:result-against-tied-teams resultB)))
-      (timbre/error "Two teams with the same record do NOT have result-against-tied-teams!"
-                    "teamA-id:" (:team-id resultA)
-                    "teamB-id:" (:team-id resultB)))
+      (throw (ex-info "Two teams with the same record do NOT have result-against-tied-teams!"
+                      {:teamA-id (:team-id resultA)
+                       :teamB-id (:team-id resultB)})))
 
     (cond
       ;; teams that have played any games sort higher than teams that have played none
@@ -270,8 +269,7 @@
     "TIEBREAK_VICTORY_POINTS" (sort compare-victory-points results)
     "TIEBREAK_UPA_RULES" (sort compare-upa-tiebreaker-rules results)
     "TIEBREAK_WOODLANDS_LEAGUE_RULES" (sort #(compare-using-woodlands-league-rules all-teams all-games %1 %2) results)
-    (do (timbre/error "Unrecognized sort-method:" sort-method)
-        (sort compare-victory-points results))))
+    (throw (ex-info "Unrecognized sort-method" {:sort-method sort-method}))))
 
 (def default-tiebreak-method "TIEBREAK_UPA_RULES")
 

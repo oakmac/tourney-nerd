@@ -1,19 +1,21 @@
 (ns com.oakmac.tourney-nerd.fields
   (:require
-   [com.oakmac.tourney-nerd.util.ids :as util.ids]
-   [malli.core :as malli]))
+   [com.oakmac.tourney-nerd.util :as util]
+   [com.oakmac.tourney-nerd.util.ids :as util.ids]))
 
-(def field-schema
-  [:map
-   [:id [:re util.ids/field-id-regex]]
-   [:name [:string {:min 1, :max 100}]]
-   [:order [:int {:min 1}]]])
-   ;; TODO: add optional description field here
+(defn valid-field?
+  "Is f a valid Field?"
+  [f]
+  (and (map? f)
+       (util.ids/field-id? (:id f))
+       (util/string-of-length? (:name f) 1 100)
+       (pos-int? (:order f))))
+       ;; TODO: add optional description field here
 
 (defn create-field
   "creates a single Field"
   [order name]
-  {:post [(malli/validate field-schema %)]}
+  {:post [(valid-field? %)]}
   {:id (util.ids/create-field-id)
    :name name
    :order order})

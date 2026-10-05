@@ -87,6 +87,35 @@
   (is (false? (g/game? (get-in woodlands-spring-league [:schedule :timeslot-jW4V3zqe1gxh]))))
   (is (false? (g/game? (get-in woodlands-spring-league [:teams :team-3RN4HUBjbEmb])))))
 
+(def valid-game-opts
+  {:division-id "division-XvxxWwQ2Ktgp"
+   :group-id "group-Xa2hNJmGNKJg"
+   :teamA-id "team-BWYTkqoUCBEz"
+   :teamB-id "team-3aiSeihwLnom"
+   :timeslot-id "timeslot-PvznhYtikfQf"
+   :field-id "field-GLjEHw8ZrAXN"})
+
+(deftest create-game-test
+  (let [game (g/create-game valid-game-opts)]
+    (is (true? (g/valid-game? game)))
+    (is (true? (g/game? game)))
+    (is (= "STATUS_SCHEDULED" (:status game)))
+    (is (= [0 0] [(:scoreA game) (:scoreB game)])))
+  (is (thrown? #?(:clj AssertionError :cljs js/Error)
+               (g/create-game (dissoc valid-game-opts :field-id)))
+      "field-id is required")
+  (is (thrown? #?(:clj AssertionError :cljs js/Error)
+               (g/create-game (assoc valid-game-opts :teamB-id "team-BWYTkqoUCBEz")))
+      "a team cannot play itself")
+  (is (thrown? #?(:clj AssertionError :cljs js/Error)
+               (g/create-game (assoc valid-game-opts :status "STATUS_BOGUS")))
+      "status must be a known game status"))
+
+(deftest valid-game-test
+  (is (true? (g/valid-game? example-game-without-pending)))
+  (is (false? (g/valid-game? nil)))
+  (is (false? (g/valid-game? (dissoc example-game-without-pending :group-id)))))
+
 (deftest get-games-played-between-two-teams-test
   (is (= (->> (g/get-games-played-between-two-teams (:games woodlands-spring-league) "team-claritinclear" "team-trophyhusbands")
            vals

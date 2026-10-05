@@ -10,6 +10,17 @@
 (def team-id-regex #"^team-[a-zA-Z0-9]{4,}$")
 (def timeslot-id-regex #"^timeslot-[a-zA-Z0-9]{4,}$")
 
+(defn- matches-id-regex? [regex id]
+  (and (string? id)
+       (some? (re-matches regex id))))
+
+(defn division-id? [id] (matches-id-regex? division-id-regex id))
+(defn field-id? [id] (matches-id-regex? field-id-regex id))
+(defn game-id? [id] (matches-id-regex? game-id-regex id))
+(defn group-id? [id] (matches-id-regex? group-id-regex id))
+(defn team-id? [id] (matches-id-regex? team-id-regex id))
+(defn timeslot-id? [id] (matches-id-regex? timeslot-id-regex id))
+
 (def valid-id-types
   #{"division"
     "field"

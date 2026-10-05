@@ -2,8 +2,7 @@
   (:require
    [clojure.set :as set]
    [clojure.string :as str]
-   [com.oakmac.tourney-nerd.util.ids :as util.ids]
-   [malli.core :as malli]))
+   [com.oakmac.tourney-nerd.util.ids :as util.ids]))
 
 ;; -----------------------------------------------------------------------------
 ;; Statuses
@@ -28,21 +27,22 @@
 
 ;; NOTE: division-id is downstream from team-id, but I think it's fine to require it for Games
 ;; makes many operations easier
-(def game-schema
-  [:and
-   [:map
-    [:id [:re util.ids/game-id-regex]]
-    [:division-id [:re util.ids/division-id-regex]]
-    [:group-id [:re util.ids/group-id-regex]]
-    [:teamA-id [:re util.ids/team-id-regex]]
-    [:teamB-id [:re util.ids/team-id-regex]]
-    [:timeslot-id [:re util.ids/timeslot-id-regex]]
-    [:field-id [:re util.ids/field-id-regex]]
-    ; [:name [:string {:min 3, :max 100}]]
-    [:status [:enum scheduled-status in-progress-status aborted-status
-                    canceled-status final-status forfeit-status]]]
-   [:fn (fn [{:keys [teamA-id teamB-id]}]
-          (not= teamA-id teamB-id))]])
+(defn valid-game?
+  "Is g a well-formed Game? Checks every field, so a Game with pending teams
+  (nil teamA-id / teamB-id) is not valid. See game? to recognize Games inside an Event."
+  [g]
+  (and (map? g)
+       (util.ids/game-id? (:id g))
+       (util.ids/division-id? (:division-id g))
+       (util.ids/group-id? (:group-id g))
+       (util.ids/team-id? (:teamA-id g))
+       (util.ids/team-id? (:teamB-id g))
+       (util.ids/timeslot-id? (:timeslot-id g))
+       (util.ids/field-id? (:field-id g))
+       ;; TODO: validate :name (string, 3-100 chars)
+       (contains? game-statuses (:status g))
+       ;; a team cannot play itself
+       (not= (:teamA-id g) (:teamB-id g))))
 
 (defn- looks-like-a-game-id? [id]
   (and
@@ -61,7 +61,8 @@
     (throw (ex-info "Unable to get game-id from game:" game))))
 
 (defn game?
-  "Is g a Game?"
+  "Does g look like a Game? A loose check used to recognize Games when walking an
+  Event; it accepts Games with pending teams. See valid-game? for a strict check."
   [g]
   (and
     (map? g)
@@ -69,13 +70,10 @@
     (contains? game-statuses (:status g))
     (set/subset? #{:id :status :teamA-id :teamB-id} (set (keys g)))))
 
-;; TODO: we should be able to use Malli for this
-; (def game? (malli/validator game-schema))
-
 (defn create-game
   "creates a new Game"
   [opts]
-  {:post [(malli/validate game-schema %)]}
+  {:post [(valid-game? %)]}
   (merge
     {:id (util.ids/create-game-id)
      :status scheduled-status

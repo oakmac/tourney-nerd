@@ -1,12 +1,6 @@
 {:source-paths ["src-cljc" "test"]
 
- :dependencies
- [[com.taoensso/timbre "6.3.1"]
-  [metosin/malli "0.13.0"]]
-
- ;; -Dtaoensso.elide-deprecated: silences deprecation warnings from timbre's
- ;; encore dependency when compiling, https://github.com/taoensso/timbre/issues/379
- :jvm-opts ["-Dtaoensso.elide-deprecated=true"]
+ :dependencies []
 
  :builds
  {:test
