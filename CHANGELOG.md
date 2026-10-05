@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.15.0] - 2026-10-04
+
 ### Added
 - [Issue #17] - run the test suite in ClojureScript on Node.js (in addition to the JVM)
 - `valid-division?`, `valid-field?`, `valid-game?`, `valid-team?`, `valid-timeslot?` predicates
@@ -58,7 +60,8 @@ All notable changes to this project will be documented in this file.
 
 - Initial release to clojars
 
-[Unreleased]: https://github.com/oakmac/tourney-nerd/compare/v0.14.0...HEAD
+[Unreleased]: https://github.com/oakmac/tourney-nerd/compare/v0.15.0...HEAD
+[0.15.0]: https://github.com/oakmac/tourney-nerd/releases/tag/v0.15.0
 [0.14.0]: https://github.com/oakmac/tourney-nerd/releases/tag/v0.14.0
 [0.13.0]: https://github.com/oakmac/tourney-nerd/releases/tag/v0.13.0
 [0.12.0]: https://github.com/oakmac/tourney-nerd/releases/tag/v0.12.0
