@@ -12,6 +12,7 @@ All notable changes to this project will be documented in this file.
 
 ### Changed
 - tourney-nerd now has zero dependencies (removed malli and timbre)
+- Clojure 1.11.1 -> 1.12.6
 - `games->sorted-results` throws on an unrecognized tiebreaking method instead of
   logging an error and falling back to victory points
 

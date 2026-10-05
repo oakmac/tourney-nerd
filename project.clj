@@ -8,7 +8,7 @@
             :distribution :repo}
 
   :dependencies
-  [[org.clojure/clojure "1.11.1"]]
+  [[org.clojure/clojure "1.12.6"]]
 
   :source-paths ["src-cljc"]
 
