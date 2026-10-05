@@ -319,28 +319,40 @@
           teams (groups/get-teams-for-group event group-id)]
       (games->sorted-results teams group-games tiebreaking-method))))
 
+(defn group->placements
+  "Returns the places decided by a Group's placement games, sorted by place.
+  A placement game carries result-place-for-winner and / or result-place-for-loser.
+  Each place looks like:
+    {:place 1, :team-id \"team-xxx\", :team-name \"Foo\", :game-id \"game-xxx\", :decided? true}
+    {:place 3, :team-id nil, :team-name nil, :game-id \"game-yyy\", :decided? false}
+  A place is undecided when its game is not STATUS_FINAL or ended in a tie.
+  Unlike group->sorted-results, this works for a bracket that is partially played.
+  Returns an empty vector when no game in the Group has placements (ie: a round robin pool)."
+  [event group-id]
+  (let [placement (fn [game-id place team-id]
+                    {:place place
+                     :team-id team-id
+                     :team-name (:name (teams/get-team-by-id event team-id))
+                     :game-id game-id
+                     :decided? (some? team-id)})]
+    (->> (groups/get-all-games-for-group event group-id)
+         (mapcat (fn [[game-id-key {:keys [result-place-for-winner result-place-for-loser] :as game}]]
+                   (let [game-id (name game-id-key)]
+                     (cond-> []
+                       (pos-int? result-place-for-winner)
+                       (conj (placement game-id result-place-for-winner (games/game->winning-team-id game)))
+
+                       (pos-int? result-place-for-loser)
+                       (conj (placement game-id result-place-for-loser (games/game->losing-team-id game)))))))
+         (sort-by :place)
+         vec)))
+
 (defmethod group->sorted-results "GROUP_TYPE_BRACKET"
   [event group-id]
   (when (groups/all-games-final? event group-id)
-    (let [group-games (groups/get-all-games-for-group event group-id)
-          results (reduce
-                    (fn [acc {:keys [result-place-for-loser result-place-for-winner] :as game}]
-                      (let [winning-team-id (games/game->winning-team-id game)
-                            losing-team-id (games/game->losing-team-id game)]
-                        (cond-> acc
-                          (and losing-team-id (pos-int? result-place-for-loser))
-                          (conj {:place result-place-for-loser, :team-id losing-team-id})
-
-                          (and winning-team-id (pos-int? result-place-for-winner))
-                          (conj {:place result-place-for-winner, :team-id winning-team-id}))))
-                    []
-                    (vals group-games))
-          results-with-team-name (map
-                                   (fn [{:keys [team-id] :as result}]
-                                     (let [team (teams/get-team-by-id event team-id)]
-                                       (assoc result :team-name (:name team))))
-                                   results)]
-      (sort-by :place results-with-team-name))))
+    (->> (group->placements event group-id)
+         (filter :decided?)
+         (map #(select-keys % [:place :team-id :team-name])))))
 
 (defmethod group->sorted-results :default
   [event group-id]

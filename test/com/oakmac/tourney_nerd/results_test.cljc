@@ -1,6 +1,8 @@
 (ns com.oakmac.tourney-nerd.results-test
   (:require
    [clojure.test :refer [deftest is testing]]
+   [com.oakmac.tourney-nerd.games :as games]
+   [com.oakmac.tourney-nerd.groups :as groups]
    [com.oakmac.tourney-nerd.results :as results :refer [games->results games->sorted-results group->tiebreaking-method]]
    [com.oakmac.tourney-nerd.test-util :refer [load-test-resource-json-file]]))
 
@@ -746,6 +748,83 @@ B finishes second, and C finishes third."
          "TIEBREAK_WOODLANDS_LEAGUE_RULES"))
   (is (= (group->tiebreaking-method woodlands-spring-league-before "group-does-not-exist")
          "TIEBREAK_UPA_RULES")))
+
+(def play-offs-group-id "group-94pXoxYJWzBL")
+(def third-place-game-id :game-ZWeBRTkxNCkd)
+
+(defn- reset-group-games
+  "Resets every game in the group to STATUS_SCHEDULED with no score."
+  [event group-id]
+  (reduce
+    (fn [evt [game-id game]]
+      (assoc-in evt [:games game-id] (games/reset-game game)))
+    event
+    (groups/get-all-games-for-group event group-id)))
+
+(deftest group->placements-test
+  (testing "a complete bracket: every place is decided"
+    (is (= (results/group->placements woodlands-fall-league-2025 play-offs-group-id)
+           [{:place 1, :team-id "team-yasy1hnnku8t", :team-name "Sweater Weather",     :game-id "game-JMmoZDwtzj91", :decided? true}
+            {:place 2, :team-id "team-wD1jVxJdmjkZ", :team-name "Discaffeinated",      :game-id "game-JMmoZDwtzj91", :decided? true}
+            {:place 3, :team-id "team-Q3H4Pr6eEf3c", :team-name "Spirits of the Game", :game-id "game-ZWeBRTkxNCkd", :decided? true}
+            {:place 4, :team-id "team-5Qaw8MxNJMAz", :team-name "Huck-O-Lanterns",     :game-id "game-ZWeBRTkxNCkd", :decided? true}
+            {:place 5, :team-id "team-S5hApBgb9pA5", :team-name "Headless Horsemen",   :game-id "game-4whmeccUebLv", :decided? true}
+            {:place 6, :team-id "team-vfzgApxUkmEL", :team-name "Huckleberry Pie",     :game-id "game-4whmeccUebLv", :decided? true}])))
+
+  (testing "a partial bracket: the 3rd place game was never played"
+    (let [league (assoc-in woodlands-fall-league-2025 [:games third-place-game-id :status] "STATUS_SCHEDULED")
+          placements (results/group->placements league play-offs-group-id)]
+      (is (= [1 2 3 4 5 6] (map :place placements)))
+      (is (= [true true false false true true] (map :decided? placements)))
+      (is (= [{:place 3, :team-id nil, :team-name nil, :game-id "game-ZWeBRTkxNCkd", :decided? false}
+              {:place 4, :team-id nil, :team-name nil, :game-id "game-ZWeBRTkxNCkd", :decided? false}]
+             (filter #(false? (:decided? %)) placements)))
+      (is (nil? (results/group->sorted-results league play-offs-group-id))
+          "group->sorted-results stays strict")))
+
+  (testing "a tied final game decides nothing"
+    (let [league (assoc-in woodlands-fall-league-2025 [:games third-place-game-id :scoreB] 6)
+          placements (results/group->placements league play-offs-group-id)]
+      (is (= [true true false false true true] (map :decided? placements)))))
+
+  (testing "a bracket where no game has been played yet"
+    (let [league (reset-group-games woodlands-fall-league-2025 play-offs-group-id)
+          placements (results/group->placements league play-offs-group-id)]
+      (is (= [1 2 3 4 5 6] (map :place placements)))
+      (is (every? #(false? (:decided? %)) placements))
+      (is (every? nil? (map :team-id placements)))
+      (is (= #{"game-JMmoZDwtzj91" "game-ZWeBRTkxNCkd" "game-4whmeccUebLv"} (set (map :game-id placements))))))
+
+  (testing "a round robin pool has no placement games"
+    (is (= [] (results/group->placements woodlands-fall-league-2025 "group-FBT18rCWLFej")))))
+
+(def woodlands-charity-hat-2025 (load-test-resource-json-file "2025-woodlands-charity-hat.json"))
+
+(deftest group->placements-charity-hat-test
+  (testing "Championship Bracket: the finals were played, the 3rd place game never was"
+    (is (= (results/group->placements woodlands-charity-hat-2025 "group-7Rxv6hVzEiXs")
+           [{:place 1, :team-id "team-99999999a",   :team-name "Wonderful, Awful Idea", :game-id "game-claude-champ-finals", :decided? true}
+            {:place 2, :team-id "team-sKnDgd3JoaWw", :team-name "Two Sizes Too Small",   :game-id "game-claude-champ-finals", :decided? true}
+            {:place 3, :team-id nil, :team-name nil, :game-id "game-claude-champ-3rd", :decided? false}
+            {:place 4, :team-id nil, :team-name nil, :game-id "game-claude-champ-3rd", :decided? false}]))
+    (is (nil? (results/group->sorted-results woodlands-charity-hat-2025 "group-7Rxv6hVzEiXs"))))
+
+  (testing "Middle Bracket: complete"
+    (is (= (results/group->placements woodlands-charity-hat-2025 "group-mddlemddlemddle")
+           [{:place 5, :team-id "team-121212121212c",   :team-name "Thirty Nine and a Half Foot Pole", :game-id "game-claude-middle-finals", :decided? true}
+            {:place 6, :team-id "team-n6q6rU19Ny9P",     :team-name "Welcome Christmas! Welcome Joy!",  :game-id "game-claude-middle-finals", :decided? true}
+            {:place 7, :team-id "team-11111111111111j", :team-name "Hate, Hate, Hate…Loathe!",         :game-id "game-claude-middle-3rd",    :decided? true}
+            {:place 8, :team-id "team-mEkcKYYZrfZk",     :team-name "Stink, Stank, Stunk",              :game-id "game-claude-middle-3rd",    :decided? true}]))
+    (is (= (->> (results/group->sorted-results woodlands-charity-hat-2025 "group-mddlemddlemddle")
+                (map :team-id))
+           ["team-121212121212c" "team-n6q6rU19Ny9P" "team-11111111111111j" "team-mEkcKYYZrfZk"])))
+
+  (testing "Spirit Bracket: semis played, neither placement game played"
+    (let [placements (results/group->placements woodlands-charity-hat-2025 "group-spiritspriritspirit")]
+      (is (= [9 10 11 12] (map :place placements)))
+      (is (every? #(false? (:decided? %)) placements))
+      (is (= ["game-claude-spirit-finals" "game-claude-spirit-finals" "game-claude-spirit-3rd" "game-claude-spirit-3rd"]
+             (map :game-id placements))))))
 
 (deftest group-results-test
   (testing "returns nil if not all games are finished"

@@ -1,0 +1,730 @@
+{
+  "divisions": {
+    "division-u4xbG4F9N8QR": {
+      "id": "division-u4xbG4F9N8QR",
+      "name": "Open",
+      "order": 1
+    }
+  },
+  "fields": {
+    "field-2ttUg4ZXULyV": {
+      "description": "",
+      "id": "field-2ttUg4ZXULyV",
+      "name": "3B",
+      "order": 2
+    },
+    "field-4uJfTzVVeLFj": {
+      "description": "",
+      "id": "field-4uJfTzVVeLFj",
+      "name": "3A",
+      "order": 1
+    },
+    "field-Nc7tWxVEMyAT": {
+      "description": "",
+      "id": "field-Nc7tWxVEMyAT",
+      "name": "4A",
+      "order": 3
+    },
+    "field-VJSjrKLntDZ6": {
+      "description": "",
+      "id": "field-VJSjrKLntDZ6",
+      "name": "4B",
+      "order": 4
+    },
+    "field-s9qzFNkwEWLY": {
+      "id": "field-s9qzFNkwEWLY",
+      "name": "5A",
+      "order": 5
+    },
+    "field-yCUzErLMQdNa": {
+      "id": "field-yCUzErLMQdNa",
+      "name": "5B",
+      "order": 6
+    }
+  },
+  "games": {
+    "game-1GoFbrz8Bqme": {
+      "description": null,
+      "division-id": "division-u4xbG4F9N8QR",
+      "field-id": "field-yCUzErLMQdNa",
+      "group-id": "group-pcpcpcpcpc2",
+      "id": "game-1GoFbrz8Bqme",
+      "name": null,
+      "scoreA": 5,
+      "scoreB": 6,
+      "status": "STATUS_FINAL",
+      "teamA-id": "team-10101010101d",
+      "teamB-id": "team-11111111111111j",
+      "timeslot-id": "timeslot-vWizhxdFvirD"
+    },
+    "game-4musAbW196KU": {
+      "description": null,
+      "division-id": "division-u4xbG4F9N8QR",
+      "field-id": "field-2ttUg4ZXULyV",
+      "game-id": "game-4musAbW196KU",
+      "group-id": "group-w7ZrjAJkkmsE",
+      "id": "game-4musAbW196KU",
+      "name": "Pool A: 2v3",
+      "scoreA": 4,
+      "scoreB": 10,
+      "status": "STATUS_FINAL",
+      "teamA-id": "team-2VuyvEWjE6BM",
+      "teamB-id": "team-sKnDgd3JoaWw",
+      "timeslot-id": "timeslot-vWizhxdFvirD"
+    },
+    "game-BuUB7ck2iwTv": {
+      "description": null,
+      "division-id": "division-u4xbG4F9N8QR",
+      "field-id": "field-yCUzErLMQdNa",
+      "group-id": "group-pcpcpcpcpc2",
+      "id": "game-BuUB7ck2iwTv",
+      "name": null,
+      "scoreA": 6,
+      "scoreB": 8,
+      "status": "STATUS_FINAL",
+      "teamA-id": "team-10101010101d",
+      "teamB-id": "team-121212121212c",
+      "timeslot-id": "timeslot-VtSX6oEDpShk"
+    },
+    "game-C32tweuPi5N6": {
+      "description": null,
+      "division-id": "division-u4xbG4F9N8QR",
+      "field-id": "field-2ttUg4ZXULyV",
+      "game-id": "game-C32tweuPi5N6",
+      "group-id": "group-w7ZrjAJkkmsE",
+      "id": "game-C32tweuPi5N6",
+      "name": "Pool A: 1v3",
+      "scoreA": 7,
+      "scoreB": 8,
+      "status": "STATUS_FINAL",
+      "teamA-id": "team-n6q6rU19Ny9P",
+      "teamB-id": "team-sKnDgd3JoaWw",
+      "timeslot-id": "timeslot-VtSX6oEDpShk"
+    },
+    "game-V6c3ZL9BgPk3": {
+      "description": null,
+      "division-id": "division-u4xbG4F9N8QR",
+      "field-id": "field-4uJfTzVVeLFj",
+      "game-id": "game-V6c3ZL9BgPk3",
+      "group-id": "group-w7ZrjAJkkmsE",
+      "id": "game-V6c3ZL9BgPk3",
+      "name": "Pool A: 4v1",
+      "scoreA": 7,
+      "scoreB": 8,
+      "status": "STATUS_FINAL",
+      "teamA-id": "team-EZpHxpNGFVsF",
+      "teamB-id": "team-n6q6rU19Ny9P",
+      "timeslot-id": "timeslot-vWizhxdFvirD"
+    },
+    "game-WR6v2RzP9d9c": {
+      "description": null,
+      "division-id": "division-u4xbG4F9N8QR",
+      "field-id": "field-Nc7tWxVEMyAT",
+      "game-id": "game-WR6v2RzP9d9c",
+      "group-id": "group-DwUaocPKhgVY",
+      "id": "game-WR6v2RzP9d9c",
+      "name": "Pool B: 4v1",
+      "scoreA": 7,
+      "scoreB": 9,
+      "status": "STATUS_FINAL",
+      "teamA-id": "team-mEkcKYYZrfZk",
+      "teamB-id": "team-5Y1NyLL5shoS",
+      "timeslot-id": "timeslot-vWizhxdFvirD"
+    },
+    "game-Y8gtKmLSPrAW": {
+      "description": null,
+      "division-id": "division-u4xbG4F9N8QR",
+      "field-id": "field-yCUzErLMQdNa",
+      "group-id": "group-pcpcpcpcpc2",
+      "id": "game-Y8gtKmLSPrAW",
+      "name": null,
+      "scoreA": 9,
+      "scoreB": 10,
+      "status": "STATUS_FINAL",
+      "teamA-id": "team-11111111111111j",
+      "teamB-id": "team-121212121212c",
+      "timeslot-id": "timeslot-scqSLuMY4k19"
+    },
+    "game-Z7FpVuahqHtW": {
+      "description": null,
+      "division-id": "division-u4xbG4F9N8QR",
+      "field-id": "field-4uJfTzVVeLFj",
+      "game-id": "game-Z7FpVuahqHtW",
+      "group-id": "group-w7ZrjAJkkmsE",
+      "id": "game-Z7FpVuahqHtW",
+      "name": "Pool A: 2v1",
+      "scoreA": 6,
+      "scoreB": 7,
+      "status": "STATUS_FINAL",
+      "teamA-id": "team-2VuyvEWjE6BM",
+      "teamB-id": "team-n6q6rU19Ny9P",
+      "timeslot-id": "timeslot-scqSLuMY4k19"
+    },
+    "game-bxRCMwkY9NJ8": {
+      "description": null,
+      "division-id": "division-u4xbG4F9N8QR",
+      "field-id": "field-Nc7tWxVEMyAT",
+      "game-id": "game-bxRCMwkY9NJ8",
+      "group-id": "group-DwUaocPKhgVY",
+      "id": "game-bxRCMwkY9NJ8",
+      "name": "Pool B: 1v3",
+      "scoreA": 6,
+      "scoreB": 10,
+      "status": "STATUS_FINAL",
+      "teamA-id": "team-5Y1NyLL5shoS",
+      "teamB-id": "team-PKvQDK4viSKw",
+      "timeslot-id": "timeslot-VtSX6oEDpShk"
+    },
+    "game-c9P4ozL5vnho": {
+      "description": null,
+      "division-id": "division-u4xbG4F9N8QR",
+      "field-id": "field-4uJfTzVVeLFj",
+      "game-id": "game-c9P4ozL5vnho",
+      "group-id": "group-w7ZrjAJkkmsE",
+      "id": "game-c9P4ozL5vnho",
+      "name": "Pool A: 4v2",
+      "scoreA": 7,
+      "scoreB": 5,
+      "status": "STATUS_FINAL",
+      "teamA-id": "team-EZpHxpNGFVsF",
+      "teamB-id": "team-2VuyvEWjE6BM",
+      "timeslot-id": "timeslot-VtSX6oEDpShk"
+    },
+    "game-claude-champ-3rd": {
+      "description": "3rd and 4th Place Overall",
+      "division-id": "division-u4xbG4F9N8QR",
+      "field-id": "field-2ttUg4ZXULyV",
+      "group-id": "group-7Rxv6hVzEiXs",
+      "id": "game-claude-champ-3rd",
+      "name": "Championship Bracket: 3rd Place",
+      "pending-teamA": {
+        "game-id": "game-claude-champ-semi1",
+        "result": "loser-of",
+        "type": "PENDING_GAME_RESULT"
+      },
+      "pending-teamB": {
+        "game-id": "game-claude-champ-semi2",
+        "result": "loser-of",
+        "type": "PENDING_GAME_RESULT"
+      },
+      "result-place-for-loser": 4,
+      "result-place-for-winner": 3,
+      "scoreA": 0,
+      "scoreB": 0,
+      "status": "STATUS_SCHEDULED",
+      "teamA-id": "team-5Y1NyLL5shoS",
+      "teamB-id": "team-PKvQDK4viSKw",
+      "timeslot-id": "timeslot-AUbG35FduwAs"
+    },
+    "game-claude-champ-finals": {
+      "description": "1st and 2nd Place Overall",
+      "division-id": "division-u4xbG4F9N8QR",
+      "field-id": "field-4uJfTzVVeLFj",
+      "group-id": "group-7Rxv6hVzEiXs",
+      "id": "game-claude-champ-finals",
+      "name": "Championship Bracket: Finals",
+      "pending-teamA": {
+        "game-id": "game-claude-champ-semi1",
+        "result": "winner-of",
+        "type": "PENDING_GAME_RESULT"
+      },
+      "pending-teamB": {
+        "game-id": "game-claude-champ-semi2",
+        "result": "winner-of",
+        "type": "PENDING_GAME_RESULT"
+      },
+      "result-place-for-loser": 2,
+      "result-place-for-winner": 1,
+      "scoreA": 7,
+      "scoreB": 9,
+      "status": "STATUS_FINAL",
+      "teamA-id": "team-sKnDgd3JoaWw",
+      "teamB-id": "team-99999999a",
+      "timeslot-id": "timeslot-AUbG35FduwAs"
+    },
+    "game-claude-champ-semi1": {
+      "description": "1st Pool A vs Best 2nd Place Team",
+      "division-id": "division-u4xbG4F9N8QR",
+      "field-id": "field-4uJfTzVVeLFj",
+      "game-id": "game-claude-champ-semi1",
+      "group-id": "group-7Rxv6hVzEiXs",
+      "id": "game-claude-champ-semi1",
+      "name": "Championship Bracket: Semi 1",
+      "pending-teamA": {
+        "group-id": "group-w7ZrjAJkkmsE",
+        "place": 1,
+        "type": "PENDING_GROUP_RESULT"
+      },
+      "scoreA": 12,
+      "scoreB": 7,
+      "status": "STATUS_FINAL",
+      "teamA-id": "team-sKnDgd3JoaWw",
+      "teamB-id": "team-5Y1NyLL5shoS",
+      "timeslot-id": "timeslot-bpFyuSWApoLJ"
+    },
+    "game-claude-champ-semi2": {
+      "description": "1st Pool B vs 1st Pool C",
+      "division-id": "division-u4xbG4F9N8QR",
+      "field-id": "field-2ttUg4ZXULyV",
+      "group-id": "group-7Rxv6hVzEiXs",
+      "id": "game-claude-champ-semi2",
+      "name": "Championship Bracket: Semi 2",
+      "pending-teamA": {
+        "group-id": "group-DwUaocPKhgVY",
+        "place": 1,
+        "type": "PENDING_GROUP_RESULT"
+      },
+      "pending-teamB": {
+        "group-id": "group-pcpcpcpcpc2",
+        "place": 1,
+        "type": "PENDING_GROUP_RESULT"
+      },
+      "scoreA": 7,
+      "scoreB": 9,
+      "status": "STATUS_FINAL",
+      "teamA-id": "team-PKvQDK4viSKw",
+      "teamB-id": "team-99999999a",
+      "timeslot-id": "timeslot-bpFyuSWApoLJ"
+    },
+    "game-claude-middle-3rd": {
+      "description": "7th and 8th Place Overall",
+      "division-id": "division-u4xbG4F9N8QR",
+      "field-id": "field-VJSjrKLntDZ6",
+      "group-id": "group-mddlemddlemddle",
+      "id": "game-claude-middle-3rd",
+      "name": "Middle Bracket: 3rd Place",
+      "pending-teamA": {
+        "game-id": "game-claude-middle-semi1",
+        "result": "loser-of",
+        "type": "PENDING_GAME_RESULT"
+      },
+      "pending-teamB": {
+        "game-id": "game-claude-middle-semi2",
+        "result": "loser-of",
+        "type": "PENDING_GAME_RESULT"
+      },
+      "result-place-for-loser": 8,
+      "result-place-for-winner": 7,
+      "scoreA": 11,
+      "scoreB": 4,
+      "status": "STATUS_FINAL",
+      "teamA-id": "team-11111111111111j",
+      "teamB-id": "team-mEkcKYYZrfZk",
+      "timeslot-id": "timeslot-AUbG35FduwAs"
+    },
+    "game-claude-middle-finals": {
+      "description": "5th and 6th Place Overall",
+      "division-id": "division-u4xbG4F9N8QR",
+      "field-id": "field-Nc7tWxVEMyAT",
+      "group-id": "group-mddlemddlemddle",
+      "id": "game-claude-middle-finals",
+      "name": "Middle Bracket: Finals",
+      "pending-teamA": {
+        "game-id": "game-claude-middle-semi1",
+        "result": "winner-of",
+        "type": "PENDING_GAME_RESULT"
+      },
+      "pending-teamB": {
+        "game-id": "game-claude-middle-semi2",
+        "result": "winner-of",
+        "type": "PENDING_GAME_RESULT"
+      },
+      "result-place-for-loser": 6,
+      "result-place-for-winner": 5,
+      "scoreA": 8,
+      "scoreB": 9,
+      "status": "STATUS_FINAL",
+      "teamA-id": "team-n6q6rU19Ny9P",
+      "teamB-id": "team-121212121212c",
+      "timeslot-id": "timeslot-AUbG35FduwAs"
+    },
+    "game-claude-middle-semi1": {
+      "description": "2nd best 2nd place vs 2nd best 3rd place",
+      "division-id": "division-u4xbG4F9N8QR",
+      "field-id": "field-Nc7tWxVEMyAT",
+      "game-id": "game-claude-middle-semi1",
+      "group-id": "group-mddlemddlemddle",
+      "id": "game-claude-middle-semi1",
+      "name": "Middle Bracket: Semi 1",
+      "scoreA": 10,
+      "scoreB": 7,
+      "status": "STATUS_FINAL",
+      "teamA-id": "team-n6q6rU19Ny9P",
+      "teamB-id": "team-11111111111111j",
+      "timeslot-id": "timeslot-bpFyuSWApoLJ"
+    },
+    "game-claude-middle-semi2": {
+      "description": "Worst 2nd place vs Best 3rd place",
+      "division-id": "division-u4xbG4F9N8QR",
+      "field-id": "field-VJSjrKLntDZ6",
+      "group-id": "group-mddlemddlemddle",
+      "id": "game-claude-middle-semi2",
+      "name": "Middle Bracket: Semi 2",
+      "scoreA": 9,
+      "scoreB": 7,
+      "status": "STATUS_FINAL",
+      "teamA-id": "team-121212121212c",
+      "teamB-id": "team-mEkcKYYZrfZk",
+      "timeslot-id": "timeslot-bpFyuSWApoLJ"
+    },
+    "game-claude-spirit-3rd": {
+      "description": "11th and 12th Place Overall",
+      "division-id": "division-u4xbG4F9N8QR",
+      "field-id": "field-yCUzErLMQdNa",
+      "group-id": "group-spiritspriritspirit",
+      "id": "game-claude-spirit-3rd",
+      "name": "Spirit Bracket: 3rd Place",
+      "pending-teamA": {
+        "game-id": "game-claude-spirit-semi1",
+        "result": "loser-of",
+        "type": "PENDING_GAME_RESULT"
+      },
+      "pending-teamB": {
+        "game-id": "game-claude-spirit-semi2",
+        "result": "loser-of",
+        "type": "PENDING_GAME_RESULT"
+      },
+      "result-place-for-loser": 12,
+      "result-place-for-winner": 11,
+      "scoreA": 0,
+      "scoreB": 0,
+      "status": "STATUS_SCHEDULED",
+      "teamA-id": "team-10101010101d",
+      "teamB-id": "team-2VuyvEWjE6BM",
+      "timeslot-id": "timeslot-AUbG35FduwAs"
+    },
+    "game-claude-spirit-finals": {
+      "description": "9th and 10th Place Overall",
+      "division-id": "division-u4xbG4F9N8QR",
+      "field-id": "field-s9qzFNkwEWLY",
+      "group-id": "group-spiritspriritspirit",
+      "id": "game-claude-spirit-finals",
+      "name": "Spirit Bracket: Finals",
+      "pending-teamA": {
+        "game-id": "game-claude-spirit-semi1",
+        "result": "winner-of",
+        "type": "PENDING_GAME_RESULT"
+      },
+      "pending-teamB": {
+        "game-id": "game-claude-spirit-semi2",
+        "result": "winner-of",
+        "type": "PENDING_GAME_RESULT"
+      },
+      "result-place-for-loser": 10,
+      "result-place-for-winner": 9,
+      "scoreA": 0,
+      "scoreB": 0,
+      "status": "STATUS_SCHEDULED",
+      "teamA-id": "team-EZpHxpNGFVsF",
+      "teamB-id": "team-y8KPsqWWX2dF",
+      "timeslot-id": "timeslot-AUbG35FduwAs"
+    },
+    "game-claude-spirit-semi1": {
+      "description": "Worst 3rd place vs 4th Pool C",
+      "division-id": "division-u4xbG4F9N8QR",
+      "field-id": "field-s9qzFNkwEWLY",
+      "group-id": "group-spiritspriritspirit",
+      "id": "game-claude-spirit-semi1",
+      "name": "Spirit Bracket: Semi 1",
+      "pending-teamB": {
+        "group-id": "group-pcpcpcpcpc2",
+        "place": 4,
+        "type": "PENDING_GROUP_RESULT"
+      },
+      "scoreA": 11,
+      "scoreB": 8,
+      "status": "STATUS_FINAL",
+      "teamA-id": "team-EZpHxpNGFVsF",
+      "teamB-id": "team-10101010101d",
+      "timeslot-id": "timeslot-bpFyuSWApoLJ"
+    },
+    "game-claude-spirit-semi2": {
+      "description": "4th Pool A vs 4th Pool B",
+      "division-id": "division-u4xbG4F9N8QR",
+      "field-id": "field-yCUzErLMQdNa",
+      "group-id": "group-spiritspriritspirit",
+      "id": "game-claude-spirit-semi2",
+      "name": "Spirit Bracket: Semi 2",
+      "pending-teamA": {
+        "group-id": "group-w7ZrjAJkkmsE",
+        "place": 4,
+        "type": "PENDING_GROUP_RESULT"
+      },
+      "pending-teamB": {
+        "group-id": "group-DwUaocPKhgVY",
+        "place": 4,
+        "type": "PENDING_GROUP_RESULT"
+      },
+      "scoreA": 3,
+      "scoreB": 7,
+      "status": "STATUS_FINAL",
+      "teamA-id": "team-2VuyvEWjE6BM",
+      "teamB-id": "team-y8KPsqWWX2dF",
+      "timeslot-id": "timeslot-bpFyuSWApoLJ"
+    },
+    "game-dGBqifAtEben": {
+      "description": null,
+      "division-id": "division-u4xbG4F9N8QR",
+      "field-id": "field-Nc7tWxVEMyAT",
+      "game-id": "game-dGBqifAtEben",
+      "group-id": "group-DwUaocPKhgVY",
+      "id": "game-dGBqifAtEben",
+      "name": "Pool B: 2v1",
+      "scoreA": 7,
+      "scoreB": 10,
+      "status": "STATUS_FINAL",
+      "teamA-id": "team-y8KPsqWWX2dF",
+      "teamB-id": "team-5Y1NyLL5shoS",
+      "timeslot-id": "timeslot-scqSLuMY4k19"
+    },
+    "game-jFmE3oJfkyvN": {
+      "description": null,
+      "division-id": "division-u4xbG4F9N8QR",
+      "field-id": "field-VJSjrKLntDZ6",
+      "game-id": "game-jFmE3oJfkyvN",
+      "group-id": "group-DwUaocPKhgVY",
+      "id": "game-jFmE3oJfkyvN",
+      "name": "Pool B: 3v4",
+      "scoreA": 10,
+      "scoreB": 8,
+      "status": "STATUS_FINAL",
+      "teamA-id": "team-PKvQDK4viSKw",
+      "teamB-id": "team-mEkcKYYZrfZk",
+      "timeslot-id": "timeslot-scqSLuMY4k19"
+    },
+    "game-n6tgxR2f8vQR": {
+      "description": null,
+      "division-id": "division-u4xbG4F9N8QR",
+      "field-id": "field-VJSjrKLntDZ6",
+      "game-id": "game-n6tgxR2f8vQR",
+      "group-id": "group-DwUaocPKhgVY",
+      "id": "game-n6tgxR2f8vQR",
+      "name": "Pool B: 4v2",
+      "scoreA": 10,
+      "scoreB": 8,
+      "status": "STATUS_FINAL",
+      "teamA-id": "team-mEkcKYYZrfZk",
+      "teamB-id": "team-y8KPsqWWX2dF",
+      "timeslot-id": "timeslot-VtSX6oEDpShk"
+    },
+    "game-sfU5TxUfZtPU": {
+      "description": null,
+      "division-id": "division-u4xbG4F9N8QR",
+      "field-id": "field-s9qzFNkwEWLY",
+      "group-id": "group-pcpcpcpcpc2",
+      "id": "game-sfU5TxUfZtPU",
+      "name": null,
+      "scoreA": 10,
+      "scoreB": 7,
+      "status": "STATUS_FINAL",
+      "teamA-id": "team-99999999a",
+      "teamB-id": "team-11111111111111j",
+      "timeslot-id": "timeslot-VtSX6oEDpShk"
+    },
+    "game-sjXxDsaUk61z": {
+      "description": null,
+      "division-id": "division-u4xbG4F9N8QR",
+      "field-id": "field-VJSjrKLntDZ6",
+      "game-id": "game-sjXxDsaUk61z",
+      "group-id": "group-DwUaocPKhgVY",
+      "id": "game-sjXxDsaUk61z",
+      "name": "Pool B: 2v3",
+      "scoreA": 8,
+      "scoreB": 7,
+      "status": "STATUS_FINAL",
+      "teamA-id": "team-y8KPsqWWX2dF",
+      "teamB-id": "team-PKvQDK4viSKw",
+      "timeslot-id": "timeslot-vWizhxdFvirD"
+    },
+    "game-uhcDYDk1ztRG": {
+      "description": null,
+      "division-id": "division-u4xbG4F9N8QR",
+      "field-id": "field-s9qzFNkwEWLY",
+      "group-id": "group-pcpcpcpcpc2",
+      "id": "game-uhcDYDk1ztRG",
+      "name": null,
+      "scoreA": 9,
+      "scoreB": 7,
+      "status": "STATUS_FINAL",
+      "teamA-id": "team-99999999a",
+      "teamB-id": "team-10101010101d",
+      "timeslot-id": "timeslot-scqSLuMY4k19"
+    },
+    "game-wtv6CKgTkVin": {
+      "description": null,
+      "division-id": "division-u4xbG4F9N8QR",
+      "field-id": "field-2ttUg4ZXULyV",
+      "game-id": "game-wtv6CKgTkVin",
+      "group-id": "group-w7ZrjAJkkmsE",
+      "id": "game-wtv6CKgTkVin",
+      "name": "Pool A: 3v4",
+      "scoreA": 11,
+      "scoreB": 6,
+      "status": "STATUS_FINAL",
+      "teamA-id": "team-sKnDgd3JoaWw",
+      "teamB-id": "team-EZpHxpNGFVsF",
+      "timeslot-id": "timeslot-scqSLuMY4k19"
+    },
+    "game-yMASD6QCgUhr": {
+      "description": null,
+      "division-id": "division-u4xbG4F9N8QR",
+      "field-id": "field-s9qzFNkwEWLY",
+      "group-id": "group-pcpcpcpcpc2",
+      "id": "game-yMASD6QCgUhr",
+      "name": null,
+      "scoreA": 8,
+      "scoreB": 6,
+      "status": "STATUS_FINAL",
+      "teamA-id": "team-99999999a",
+      "teamB-id": "team-121212121212c",
+      "timeslot-id": "timeslot-vWizhxdFvirD"
+    }
+  },
+  "groups": {
+    "group-7Rxv6hVzEiXs": {
+      "division-id": "division-u4xbG4F9N8QR",
+      "id": "group-7Rxv6hVzEiXs",
+      "name": "Championship Bracket",
+      "order": 4,
+      "type": "GROUP_TYPE_BRACKET"
+    },
+    "group-DwUaocPKhgVY": {
+      "division-id": "division-u4xbG4F9N8QR",
+      "id": "group-DwUaocPKhgVY",
+      "name": "Pool B",
+      "order": 2,
+      "type": "GROUP_TYPE_RR_POOL"
+    },
+    "group-mddlemddlemddle": {
+      "division-id": "division-u4xbG4F9N8QR",
+      "id": "group-mddlemddlemddle",
+      "name": "Middle Bracket",
+      "order": 5,
+      "type": "GROUP_TYPE_BRACKET"
+    },
+    "group-pcpcpcpcpc2": {
+      "division-id": "division-u4xbG4F9N8QR",
+      "id": "group-pcpcpcpcpc2",
+      "name": "Pool C",
+      "order": 3,
+      "type": "GROUP_TYPE_RR_POOL"
+    },
+    "group-spiritspriritspirit": {
+      "division-id": "division-u4xbG4F9N8QR",
+      "id": "group-spiritspriritspirit",
+      "name": "Spirit Bracket",
+      "order": 6,
+      "type": "GROUP_TYPE_BRACKET"
+    },
+    "group-w7ZrjAJkkmsE": {
+      "division-id": "division-u4xbG4F9N8QR",
+      "id": "group-w7ZrjAJkkmsE",
+      "name": "Pool A",
+      "order": 1,
+      "type": "GROUP_TYPE_RR_POOL"
+    }
+  },
+  "schedule": {
+    "timeslot-AUbG35FduwAs": {
+      "id": "timeslot-AUbG35FduwAs",
+      "name": "Finals",
+      "time": "2025-12-20 13:55"
+    },
+    "timeslot-VtSX6oEDpShk": {
+      "id": "timeslot-VtSX6oEDpShk",
+      "name": "Pool Play Round 2",
+      "time": "2025-12-20 10:10"
+    },
+    "timeslot-bpFyuSWApoLJ": {
+      "id": "timeslot-bpFyuSWApoLJ",
+      "name": "Semi-finals",
+      "time": "2025-12-20 12:45"
+    },
+    "timeslot-scqSLuMY4k19": {
+      "id": "timeslot-scqSLuMY4k19",
+      "name": "Pool Play Round 1",
+      "time": "2025-12-20 09:10"
+    },
+    "timeslot-vWizhxdFvirD": {
+      "id": "timeslot-vWizhxdFvirD",
+      "name": "Pool Play Round 3",
+      "time": "2025-12-20 11:10"
+    }
+  },
+  "slug": "2025-woodlands-charity-hat",
+  "teams": {
+    "team-10101010101d": {
+      "division-id": "division-u4xbG4F9N8QR",
+      "id": "team-10101010101d",
+      "name": "The Grinch was Framed!",
+      "seed": 10
+    },
+    "team-11111111111111j": {
+      "division-id": "division-u4xbG4F9N8QR",
+      "id": "team-11111111111111j",
+      "name": "Hate, Hate, Hate\u2026Loathe!",
+      "seed": 11
+    },
+    "team-121212121212c": {
+      "division-id": "division-u4xbG4F9N8QR",
+      "id": "team-121212121212c",
+      "name": "Thirty Nine and a Half Foot Pole",
+      "seed": 12
+    },
+    "team-2VuyvEWjE6BM": {
+      "division-id": "division-u4xbG4F9N8QR",
+      "id": "team-2VuyvEWjE6BM",
+      "name": "Cuddly as a Cactus",
+      "seed": 2
+    },
+    "team-5Y1NyLL5shoS": {
+      "division-id": "division-u4xbG4F9N8QR",
+      "id": "team-5Y1NyLL5shoS",
+      "name": "Seasick Crocodile Energy",
+      "seed": 5
+    },
+    "team-99999999a": {
+      "division-id": "division-u4xbG4F9N8QR",
+      "id": "team-99999999a",
+      "name": "Wonderful, Awful Idea",
+      "seed": 9
+    },
+    "team-EZpHxpNGFVsF": {
+      "division-id": "division-u4xbG4F9N8QR",
+      "id": "team-EZpHxpNGFVsF",
+      "name": "The Greasy Black Peels",
+      "seed": 4
+    },
+    "team-PKvQDK4viSKw": {
+      "division-id": "division-u4xbG4F9N8QR",
+      "id": "team-PKvQDK4viSKw",
+      "name": "Dump it to Crumpit",
+      "seed": 7
+    },
+    "team-mEkcKYYZrfZk": {
+      "division-id": "division-u4xbG4F9N8QR",
+      "id": "team-mEkcKYYZrfZk",
+      "name": "Stink, Stank, Stunk",
+      "seed": 8
+    },
+    "team-n6q6rU19Ny9P": {
+      "division-id": "division-u4xbG4F9N8QR",
+      "id": "team-n6q6rU19Ny9P",
+      "name": "Welcome Christmas! Welcome Joy!",
+      "seed": 1
+    },
+    "team-sKnDgd3JoaWw": {
+      "division-id": "division-u4xbG4F9N8QR",
+      "id": "team-sKnDgd3JoaWw",
+      "name": "Two Sizes Too Small",
+      "seed": 3
+    },
+    "team-y8KPsqWWX2dF": {
+      "division-id": "division-u4xbG4F9N8QR",
+      "id": "team-y8KPsqWWX2dF",
+      "name": "The Roast Beast Feast",
+      "seed": 6
+    }
+  },
+  "title": "2025 Woodlands Charity Hat"
+}
