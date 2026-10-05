@@ -13,8 +13,12 @@ It is still a work-in-progress. Expect frequent releases and an unstable API for
 Make sure that [Clojure] and [Leiningen] are installed.
 
 ```sh
-# run tests
+# run tests on the JVM
 lein test
+
+# run tests in ClojureScript on Node.js
+bun install
+bun run test-cljs
 
 # format codebase
 bun run format

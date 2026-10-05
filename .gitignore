@@ -2,6 +2,8 @@
 .lsp/
 node_modules/
 target/
+out/
+.shadow-cljs/
 .lein-failures
 .lein-repl-history
 .nrepl-port
