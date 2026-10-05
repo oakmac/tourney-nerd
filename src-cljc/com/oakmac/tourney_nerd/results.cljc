@@ -2,6 +2,7 @@
   (:require
    [com.oakmac.tourney-nerd.games :as games :refer [game-finished?]]
    [com.oakmac.tourney-nerd.groups :as groups]
+   [com.oakmac.tourney-nerd.schedule :as schedule]
    [com.oakmac.tourney-nerd.teams :as teams]
    [com.oakmac.tourney-nerd.util :as util]))
 
@@ -250,6 +251,35 @@
                        result))
                    results-with-records)]
     results3))
+
+;; -----------------------------------------------------------------------------
+;; Streaks
+
+(defn- game->outcome-for-team
+  "Returns :win, :loss, or :tie for team-id in a STATUS_FINAL Game."
+  [team-id game]
+  (cond
+    (= team-id (games/game->winning-team-id game)) :win
+    (= team-id (games/game->losing-team-id game)) :loss
+    :else :tie))
+
+(defn team->streak
+  "Returns the current streak for a team across its STATUS_FINAL games in an Event,
+  in timeslot order. {:outcome :win, :count 3} means the team has won its last three
+  games. :outcome is :win, :loss, or :tie.
+  Returns nil when the team has not finished any games."
+  [event team-id]
+  (let [team-id (name team-id)
+        outcomes (->> (vals (:games event))
+                      (filter games/final?)
+                      (filter #(or (= team-id (:teamA-id %))
+                                   (= team-id (:teamB-id %))))
+                      (sort-by #(:time (schedule/get-timeslot-by-id event (:timeslot-id %))))
+                      (map (partial game->outcome-for-team team-id)))]
+    (when (seq outcomes)
+      (let [last-outcome (last outcomes)]
+        {:outcome last-outcome
+         :count (count (take-while #(= last-outcome %) (reverse outcomes)))}))))
 
 (def tiebreaking-methods
   #{"TIEBREAK_VICTORY_POINTS"

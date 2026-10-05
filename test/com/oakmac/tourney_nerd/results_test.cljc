@@ -4,6 +4,7 @@
    [com.oakmac.tourney-nerd.games :as games]
    [com.oakmac.tourney-nerd.groups :as groups]
    [com.oakmac.tourney-nerd.results :as results :refer [games->results games->sorted-results group->tiebreaking-method]]
+   [com.oakmac.tourney-nerd.schedule :as schedule]
    [com.oakmac.tourney-nerd.test-util :refer [load-test-resource-json-file]]))
 
 ;; TODO: move all this data to .json or .edn files?
@@ -799,6 +800,44 @@ B finishes second, and C finishes third."
     (is (= [] (results/group->placements woodlands-fall-league-2025 "group-FBT18rCWLFej")))))
 
 (def woodlands-charity-hat-2025 (load-test-resource-json-file "2025-woodlands-charity-hat.json"))
+
+(defn- games-through-date
+  "Keeps only the games in timeslots on or before date (yyyy-mm-dd)."
+  [event date]
+  (update event :games
+          (fn [games]
+            (into {}
+                  (filter (fn [[_game-id game]]
+                            (let [time (:time (schedule/get-timeslot-by-id event (:timeslot-id game)))]
+                              (<= (compare (subs time 0 10) date) 0))))
+                  games))))
+
+(deftest team->streak-test
+  (testing "end of the 2025 fall league, play-offs included"
+    (is (= {:outcome :win, :count 5} (results/team->streak woodlands-fall-league-2025 "team-yasy1hnnku8t"))
+        "Sweater Weather won their last five games, including the championship")
+    (is (= {:outcome :loss, :count 2} (results/team->streak woodlands-fall-league-2025 "team-5Qaw8MxNJMAz"))
+        "Huck-O-Lanterns lost their last two games (semifinal and 3rd place game)")
+    (is (= {:outcome :win, :count 1} (results/team->streak woodlands-fall-league-2025 "team-S5hApBgb9pA5"))
+        "Headless Horsemen won the 5th place game after losing the one before it")
+    (is (= (results/team->streak woodlands-fall-league-2025 "team-yasy1hnnku8t")
+           (results/team->streak woodlands-fall-league-2025 :team-yasy1hnnku8t))
+        "team-id may be a string or a keyword"))
+
+  (testing "mid-season: three weeks in"
+    (let [league (games-through-date woodlands-fall-league-2025 "2025-10-19")]
+      (is (= {:outcome :loss, :count 6} (results/team->streak league "team-S5hApBgb9pA5"))
+          "Headless Horsemen lost all six of their games in the first three weeks")
+      (is (= {:outcome :win, :count 1} (results/team->streak league "team-yasy1hnnku8t"))
+          "Sweater Weather won in week 3 after losing in week 2")))
+
+  (testing "a tie ends a streak"
+    (let [league (assoc-in woodlands-fall-league-2025 [:games :game-JMmoZDwtzj91 :scoreB] 10)]
+      (is (= {:outcome :tie, :count 1} (results/team->streak league "team-yasy1hnnku8t")))))
+
+  (testing "no finished games"
+    (is (nil? (results/team->streak woodlands-fall-league-2025 "team-does-not-exist")))
+    (is (nil? (results/team->streak (games-through-date woodlands-fall-league-2025 "2025-10-01") "team-yasy1hnnku8t")))))
 
 (deftest group->placements-charity-hat-test
   (testing "Championship Bracket: the finals were played, the 3rd place game never was"

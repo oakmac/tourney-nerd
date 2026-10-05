@@ -9,6 +9,7 @@ All notable changes to this project will be documented in this file.
 - `valid-division?`, `valid-field?`, `valid-game?`, `valid-team?`, `valid-timeslot?` predicates
 - `division-id?`, `field-id?`, `game-id?`, `group-id?`, `team-id?`, `timeslot-id?` predicates in
   the `util.ids` namespace
+- `results/team->streak` - a team's current win / loss / tie streak across its finished games
 - `results/group->placements` - the places decided by a bracket's placement games, including
   the places that are still undecided and the game that will decide them. Works for a bracket
   that is partially played (or not played at all), unlike `group->sorted-results`.
